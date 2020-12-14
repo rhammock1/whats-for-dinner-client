@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header/Header';
 import config from './config';
 import './App.css';
+import Filter from './Filter/Filter';
 
 class App extends Component {
   state = {
@@ -39,7 +40,7 @@ class App extends Component {
       <>
         <Header />
         <main>
-
+          <Filter />
         </main>
       </>
     )
