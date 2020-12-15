@@ -6,7 +6,8 @@ import Filter from './Filter/Filter';
 import Wheel from './Wheel/Wheel';
 import Context from './Context';
 import Footer from './Footer/Footer';
-import { Route, Switch } from 'react-router-dom';
+import RestaurantDetailView from './RestaurantDetailView/RestaurantDetailView';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -92,24 +93,16 @@ class App extends Component {
   renderMainView = () => {
     return (
       <>
-      
-      <main>
         <Filter handleChange={this.handleChange}/>
         {(this.state.touched === false)
           ? <></>
           : <Wheel />
         }
-          
-      </main>
     </>
     )
   }
-  renderRestaurantDetails = () => {
-    return (
-      <>
-      </>
-    )
-  }
+  
+
 
   render() {
     const value = {
@@ -123,11 +116,11 @@ class App extends Component {
     return (
       <Context.Provider value={value}>
         <Header />
-        <Switch>
+        <main>
           <Route exact path='/' component={this.renderMainView} />
-          <Route path='/recipes/:recipeId' component={this.renderRecipeDetails} />
-          <Route path='/restaurants/:restaurantId' component={this.renderRestaurantDetails} />  
-        </Switch>
+          <Route path='/recipes/:recipeId' component={this.renderRecipeDetails} />,
+          <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} restaurants={this.state.restaurants} />)} />
+        </main>
         <Footer />
       </Context.Provider>
     )

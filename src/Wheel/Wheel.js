@@ -40,7 +40,7 @@ class Wheel extends React.Component {
     // determine number and size of sectors that need to be created
     let numOptions = this.state.wheelOptions.length;
     let arcSize = (2 * Math.PI) / numOptions;
-    console.log(numOptions);
+    
     this.setState({
       angle: arcSize,
     });
@@ -161,7 +161,7 @@ class Wheel extends React.Component {
     } else {
       result = wheelOptions.length + count;
     }
-    console.log(result)
+    
     // set state variable to display result
     this.setState({
       net: netRotation,
