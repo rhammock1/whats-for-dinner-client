@@ -118,7 +118,7 @@ class App extends Component {
         <Header />
         <main>
           <Route exact path='/' component={this.renderMainView} />
-          <Route path='/recipes/:recipeId' component={this.renderRecipeDetails} />,
+          <Route path='/recipes/:recipeId' component={this.renderRecipeDetails} />
           <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} restaurants={this.state.restaurants} />)} />
         </main>
         <Footer />
