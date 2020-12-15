@@ -1,5 +1,6 @@
 import React from 'react';
 import Context from '../Context';
+import ResultPopUp from '../ResultPopUp/ResultPopUp';
 import './Wheel.css';
 
 class Wheel extends React.Component {
@@ -17,10 +18,15 @@ class Wheel extends React.Component {
     offset: null, // RADIANS
     net: null, // RADIANS
     result: null, // INDEX
-    spinning: false
+    spinning: false,
+    seen: false
   };
 
-
+  togglePop = () => {
+    this.setState({
+      seen: !this.state.seen
+    });
+  };
   
   componentDidMount() {
     //genereate canvas wheel on load
@@ -158,7 +164,8 @@ class Wheel extends React.Component {
     // set state variable to display result
     this.setState({
       net: netRotation,
-      result: result
+      result: result,
+      seen: true
     });
   }
   reset = () => {
@@ -202,22 +209,12 @@ class Wheel extends React.Component {
             <span id="result">{this.props.wheelOptions[this.state.result]}</span>
           </span>
         </div> */}
-        <ResultPopUp wheelOptions={this.state.wheelOptions} result={this.state.result} />
+        {this.state.seen ? <ResultPopUp toggle={this.togglePop} wheelOptions={this.state.wheelOptions} result={this.state.result} /> : null }
       </div>
     );
   }
 }
 
-function ResultPopUp(props) {
-  console.log(props);
-  return (
-     <div className="display">
-          <span id="readout">
-            YOU WON:{"  "}
-            <span id="result">{props.wheelOptions[props.result]}</span>
-          </span>
-        </div>
-  )
-}
+
 
 export default Wheel;
