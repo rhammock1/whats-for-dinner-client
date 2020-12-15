@@ -13,7 +13,8 @@ class App extends Component {
     inOrOut: '',
     style: '',
     wheelOptions: [],
-    touched: false
+    touched: false,
+    touching: false
   }
 
   componentDidMount() {
@@ -41,6 +42,10 @@ class App extends Component {
     })
   }
   handleChange = (ev) => {
+    if(this.state.touched === true) {
+      this.setState({ touched: false, touching: true })
+    }
+    
     let filterOption = ev.target.id;
     (filterOption === 'inOrOut')
       ? this.setState({ inOrOut: ev.target.value })
@@ -49,6 +54,7 @@ class App extends Component {
 
   handleWheelOptions = e => {
     e.preventDefault();
+    this.setState({ touching: false, touched: true })
     let wheelOptions = [];
     if (this.state.inOrOut === 'recipes') {
       for(let i = 0; i < 9; i++) {
@@ -59,24 +65,27 @@ class App extends Component {
     }
     if(this.state.inOrOut === 'restaurants') {
       if(this.state.style === 'local') {
+        
         let local = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'local'
         )
         for(let i = 0; i < 9; i++) {
         
-        let chosen = this.state.restaurants[Math.floor(Math.random() * 9)];
+        let chosen = local[Math.floor(Math.random() * 9)];
         wheelOptions.push(chosen.title);
       }
          
       } else {
-        this.state.restaurants.filter(restaurant => {
-          if(restaurant.style === 'chain') {
-            wheelOptions.push(restaurant.title)
+        let chain = this.state.restaurants.filter(restaurant => 
+          restaurant.style === 'chain')
+            for(let i = 0; i < 9; i++) {
+        
+              let chosen = chain[Math.floor(Math.random() * 9)];
+              wheelOptions.push(chosen.title);
+            }
           }
-        })
-      }
-    }
-    this.setState({ wheelOptions })
+        }
+    this.setState({ wheelOptions: wheelOptions  })
   }
 
   render() {
@@ -85,16 +94,17 @@ class App extends Component {
       restaurants: this.state.restaurants,
       inOrOut: this.state.inOrOut,
       style: this.state.style,
-      wheelOptions: this.state.wheelOptions
+      wheelOptions: this.state.wheelOptions,
+      handleWheelOptions: this.handleWheelOptions
     }
     return (
       <Context.Provider value={value}>
         <Header />
         <main>
-          <Filter handleWheelOptions={this.handleWheelOptions} handleChange={this.handleChange}/>
-          {(this.state.wheelOptions.length === 0)
+          <Filter handleChange={this.handleChange}/>
+          {(this.state.touched === false)
             ? <></>
-            : <Wheel wheelOptions={this.state.wheelOptions} />
+            : <Wheel />
           }
           
         </main>
@@ -102,5 +112,5 @@ class App extends Component {
     )
   }
 }
-
+// handleWheelOptions={this.handleWheelOptions}wheelOptions={this.state.wheelOptions}
 export default App;

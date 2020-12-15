@@ -7,7 +7,7 @@ class Filter extends React.Component {
 
   render() {
     return (
-      <form onSubmit={e => this.props.handleWheelOptions(e)}onChange={this.props.handleChange}className='filters'>
+      <form onSubmit={e => this.context.handleWheelOptions(e)}onChange={this.props.handleChange}className='filters'>
       <fieldset>
         <legend>What are you looking for?</legend>
         <div className='form-group'>

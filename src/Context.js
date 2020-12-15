@@ -6,4 +6,5 @@ export default React.createContext({
   inOrOut: '',
   style: '',
   wheelOptions: [],
+  handleWheelOptions: () => {}
 })

@@ -8,7 +8,7 @@ class Wheel extends React.Component {
   state = {
     // wheel options will be determined dynamically with GET request 
     // wheelOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    wheelOptions: [this.props.wheelOptions],
+    wheelOptions: this.context.wheelOptions,
     radius: 75, //pixels
     rotate: 0, // DEGREES
     easeOut: 0, // SECONDS
@@ -24,13 +24,14 @@ class Wheel extends React.Component {
   
   componentDidMount() {
     //genereate canvas wheel on load
+    // this.setState({ wheelOptions: this.context.wheelOptions })
     this.renderWheel();
   }
   
 
   renderWheel() {
     // determine number and size of sectors that need to be created
-    let numOptions = this.props.wheelOptions.length;
+    let numOptions = this.state.wheelOptions.length;
     let arcSize = (2 * Math.PI) / numOptions;
     console.log(numOptions);
     this.setState({
@@ -43,7 +44,7 @@ class Wheel extends React.Component {
     //dynamically genereate sectors from state wheelOptions
     let angle = 0;
     for(let i = 0; i < numOptions; i++) {
-      let text = this.props.wheelOptions[i];
+      let text = this.state.wheelOptions[i];
       this.renderSector(i + 1, text, angle, arcSize, this.getColor());
       angle += arcSize;
     }
@@ -139,7 +140,7 @@ class Wheel extends React.Component {
     // repeat substraction of inner angle amount from total distance traversed
     // use count as an index to find value of result from state wheelOptions
     const { angle, top, offset } = this.state;
-    const { wheelOptions } = this.props;
+    const { wheelOptions } = this.state;
     let netRotation = ((spin % 360) * Math.PI) / 180; // RADIANS
     let travel = netRotation + offset;
     let count = top + 1;
@@ -195,15 +196,28 @@ class Wheel extends React.Component {
             spin
           </button>
         )}
-        <div className="display">
+        {/* <div className="display">
           <span id="readout">
             YOU WON:{"  "}
             <span id="result">{this.props.wheelOptions[this.state.result]}</span>
           </span>
-        </div>
+        </div> */}
+        <ResultPopUp wheelOptions={this.state.wheelOptions} result={this.state.result} />
       </div>
     );
   }
+}
+
+function ResultPopUp(props) {
+  console.log(props);
+  return (
+     <div className="display">
+          <span id="readout">
+            YOU WON:{"  "}
+            <span id="result">{props.wheelOptions[props.result]}</span>
+          </span>
+        </div>
+  )
 }
 
 export default Wheel;
