@@ -9,7 +9,11 @@ class ResultPopUp extends React.Component {
   handleClick = () => {
     this.props.toggle();
   }
+  componentDidMount() {
+    this.context.handleGetIngredients(this.props.resultId)
+  }
   render() {
+    
     return (
      <div className="display">
        <span className="close" onClick={this.handleClick}>

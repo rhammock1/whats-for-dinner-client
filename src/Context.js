@@ -5,6 +5,8 @@ export default React.createContext({
   restaurants: [],
   inOrOut: '',
   style: '',
+  recipe: {},
   wheelOptions: [],
-  handleWheelOptions: () => {}
+  handleWheelOptions: () => {},
+  handleGetIngredients: () => {}
 })

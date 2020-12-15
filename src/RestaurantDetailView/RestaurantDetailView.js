@@ -5,17 +5,10 @@ import { findRestaurant } from '../helper-functions';
 
 class RestaurantDetailView extends React.Component {
   static contextType = Context;
-  state = {
-    restaurant: {},
-  }
-  componentDidMount() {
-    
-    
-  }
-
+ 
   render() {
     
-    const restaurants = this.props.restaurants;
+    const restaurants = this.context.restaurants;
     
     const { restaurantId } = this.props.match.params;
     const restaurant = findRestaurant(restaurants, restaurantId) || {}
