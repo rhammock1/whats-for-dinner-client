@@ -1,0 +1,60 @@
+.wheel-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content: space-evenly;
+}
+#wheel {
+  width: auto;
+  height:auto;
+  border-radius: 50%;
+}
+#spin, #reset {
+  z-index: 5;
+}
+
+#spin:hover {
+  color: rgb(0, 180, 120);
+  border-color: rgb(0, 180, 120);
+}
+
+#spin:focus, #reset:focus {
+  outline:none;
+}
+/* 
+#reset {
+  position: absolute;
+  bottom: 20vh;
+  right: 35vw;
+} */
+
+#reset:hover {
+  color: red;
+  border-color: red;
+}
+
+/* #readout {
+  position: absolute;
+  bottom: 7vh;
+  left: 35vw;
+} */
+
+
+/* #selector {
+  position: absolute;
+  top: 21vh;
+  right: 25vw;
+  font-size: 40px;
+  z-index: 3;
+} */
+
+#result{
+  font-size:50px;
+  color: rgb(0, 180, 120);
+}
+
+input {
+  font-size: 16px;
+  border:none;
+  border-bottom: 1px solid black
+}

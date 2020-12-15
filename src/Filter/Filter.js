@@ -1,20 +1,13 @@
 import React from 'react';
+import Context from '../Context';
 
 class Filter extends React.Component {
-  state = {
-    inOrOut: '',
-    style: '',
-  }
-  handleChange = (ev) => {
-    console.log(ev.target.id);
-    let filterOption = ev.target.id;
-    (filterOption === 'inOrOut')
-      ? this.setState({ inOrOut: ev.target.value })
-      : this.setState({ style: ev.target.value })
-  }
+ 
+  static contextType = Context;
+
   render() {
     return (
-      <form onChange={this.handleChange}className='filters'>
+      <form onSubmit={e => this.props.handleWheelOptions(e)}onChange={this.props.handleChange}className='filters'>
       <fieldset>
         <legend>What are you looking for?</legend>
         <div className='form-group'>
@@ -26,8 +19,8 @@ class Filter extends React.Component {
           <option value='both'>Either</option>
         </select>
         </div>
-        {(this.state.inOrOut === 'restaurants' || this.state.inOrOut === 'both')
-          ? <div className='form-group'><label htmlFor='style'>Style: </label> <select id='style' name='style'>
+        {(this.context.inOrOut === 'restaurants' || this.context.inOrOut === 'both')
+          ? <div className='form-group'><label htmlFor='style'>Style: </label> <select id='style' name='style' required>
             <option value='null'></option>
             <option value='chain'>Chain</option>
             <option value='local'>Local</option>
