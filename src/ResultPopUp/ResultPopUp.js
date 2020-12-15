@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Context from '../Context';
 
 class ResultPopUp extends React.Component {
+
+  static contextType = Context;
 
   handleClick = () => {
     this.props.toggle();
@@ -12,10 +16,15 @@ class ResultPopUp extends React.Component {
             &times;
           </span>
           <span id="readout">
-            YOU WON:{"  "}
-            <span id="result">{this.props.wheelOptions[this.props.result]}</span>
+            Try This:{"  "}
+            <span id="result">{this.props.resultTitle}</span>
           </span>
-        </div>
+          <div className='details'>
+            {this.context.inOrOut === 'recipes'
+              ? <Link to={`/recipes/${this.props.resultId}`}><button>See more details</button></Link>
+              : <Link to={`/restaurants/${this.props.resultId}`}><button>See more details</button></Link>}
+          </div>
+      </div>
   )
   }
   

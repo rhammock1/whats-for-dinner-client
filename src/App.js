@@ -59,7 +59,7 @@ class App extends Component {
     if (this.state.inOrOut === 'recipes') {
       for(let i = 0; i < 9; i++) {
         let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
-        wheelOptions.push(chosen.title);
+        wheelOptions.push(chosen);
       }
       
     }
@@ -72,7 +72,7 @@ class App extends Component {
         for(let i = 0; i < 9; i++) {
         
         let chosen = local[Math.floor(Math.random() * 9)];
-        wheelOptions.push(chosen.title);
+        wheelOptions.push(chosen);
       }
          
       } else {
@@ -81,7 +81,7 @@ class App extends Component {
             for(let i = 0; i < 9; i++) {
         
               let chosen = chain[Math.floor(Math.random() * 9)];
-              wheelOptions.push(chosen.title);
+              wheelOptions.push(chosen);
             }
           }
         }

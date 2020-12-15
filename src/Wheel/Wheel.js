@@ -19,7 +19,8 @@ class Wheel extends React.Component {
     net: null, // RADIANS
     result: null, // INDEX
     spinning: false,
-    seen: false
+    seen: false,
+    winner: '',
   };
 
   togglePop = () => {
@@ -50,7 +51,7 @@ class Wheel extends React.Component {
     //dynamically genereate sectors from state wheelOptions
     let angle = 0;
     for(let i = 0; i < numOptions; i++) {
-      let text = this.state.wheelOptions[i];
+      let text = this.state.wheelOptions[i].title;
       this.renderSector(i + 1, text, angle, arcSize, this.getColor());
       angle += arcSize;
     }
@@ -160,12 +161,13 @@ class Wheel extends React.Component {
     } else {
       result = wheelOptions.length + count;
     }
-
+    console.log(result)
     // set state variable to display result
     this.setState({
       net: netRotation,
       result: result,
-      seen: true
+      seen: true,
+      winner: this.state.wheelOptions[result]
     });
   }
   reset = () => {
@@ -174,11 +176,12 @@ class Wheel extends React.Component {
       // rotate: 0,
       // easeOut: 0,
       result: null,
-      spinning: false
+      spinning: false,
+      seen: false
     });
   }
   render() {
-    
+  
     return (
       <div className="wheel-container">
         <span id="selector">&#9660;</span>
@@ -209,7 +212,7 @@ class Wheel extends React.Component {
             <span id="result">{this.props.wheelOptions[this.state.result]}</span>
           </span>
         </div> */}
-        {this.state.seen ? <ResultPopUp toggle={this.togglePop} wheelOptions={this.state.wheelOptions} result={this.state.result} /> : null }
+        {this.state.seen ? <ResultPopUp toggle={this.togglePop} resultId={this.state.winner.id} resultTitle={this.state.winner.title} /> : null }
       </div>
     );
   }
