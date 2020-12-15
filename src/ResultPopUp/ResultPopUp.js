@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../Context';
 
+
 class ResultPopUp extends React.Component {
 
   static contextType = Context;
@@ -10,7 +11,9 @@ class ResultPopUp extends React.Component {
     this.props.toggle();
   }
   componentDidMount() {
-    this.context.handleGetIngredients(this.props.resultId)
+    
+    this.context.findRecipe(this.props.resultId)
+
   }
   render() {
     

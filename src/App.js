@@ -10,6 +10,7 @@ import RestaurantDetailView from './RestaurantDetailView/RestaurantDetailView';
 import { Route } from 'react-router-dom';
 import RecipeDetailView from './RecipeDetailView/RecipeDetailView';
 
+
 class App extends Component {
   state = {
     recipes: [],
@@ -19,7 +20,7 @@ class App extends Component {
     wheelOptions: [],
     touched: false,
     touching: false,
-    recipe: {}
+    recipe: {},
   }
 
   componentDidMount() {
@@ -45,8 +46,9 @@ class App extends Component {
     .catch(error => {
       console.error({ error })
     })
-  }
-  handleGetIngredients = (recipeId) => {
+  
+    }
+  findRecipe = (recipeId) => {
     
     return fetch(`${config.API_ENDPOINT}/recipes/${recipeId}`)
       .then(res => {
@@ -57,12 +59,17 @@ class App extends Component {
       })
       .then(recipe => {
         console.log(recipe)
-        this.setState({ recipe })
+         this.setState({
+           recipe: recipe
+         })
       })
       .catch(error => {
       console.error({ error })
     })
   }
+
+
+  
   handleChange = (ev) => {
     if(this.state.touched === true) {
       this.setState({ touched: false, touching: true })
@@ -163,14 +170,14 @@ class App extends Component {
       recipe: this.state.recipe,
       wheelOptions: this.state.wheelOptions,
       handleWheelOptions: this.handleWheelOptions,
-      handleGetIngredients: this.handleGetIngredients
+      findRecipe: this.findRecipe
     }
     return (
       <Context.Provider value={value}>
         <Header />
         <main>
           <Route exact path='/' component={this.renderMainView} />
-          <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} />)} />
+          <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
           <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
         </main>
         <Footer />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../Context';
-
+import { findRecipe } from '../helper-functions';
 
 const Ingredient = function(props) {
   const rounded = Math.round(props.ing.amount * 100)/100;
@@ -19,10 +19,28 @@ const Ingredient = function(props) {
 
 class RecipeDetailView extends React.Component {
   static contextType = Context;
-  
+  state = {
+    recipe: {}
+  }
+  // handleRecipe = async () => {
+  //   const {recipeId} = this.props.match.params
+  //   let recipe;
+  //   recipe = await findRecipe(recipeId)
+  //     .then(recipe => {
+        
+  //       // this.setState({
+  //       //   recipe
+  //       // })
+  //       recipe = recipe
+  //       return recipe
+  //     })
+      
+  //    return recipe
+  // }
+ 
   render() {
-    const recipe = this.context.recipe;
-    
+    const recipe = this.context.recipe
+    console.log(recipe);
     return (
       <div className='recipe-container'>
         <h3>{recipe.title}</h3>
