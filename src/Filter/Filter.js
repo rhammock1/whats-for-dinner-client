@@ -13,7 +13,7 @@ class Filter extends React.Component {
         <legend>What are you looking for?</legend>
         <div className='form-group'>
         <label htmlFor='inOrOut'>Restaurants or Recipes?</label>
-        <select id='inOrOut' name='inOrOut'>
+        <select id='inOrOut' name='inOrOut' required>
           <option value='null'>Choose One:</option>
           <option value='restaurants'>Restaurants</option>
           <option value='recipes'>Recipes</option>

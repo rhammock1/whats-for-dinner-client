@@ -12,8 +12,10 @@ class ResultPopUp extends React.Component {
     this.props.toggle();
   }
   componentDidMount() {
+    if(this.context.inOrOut === 'recipes') {
+      this.context.findRecipe(this.props.resultId)
+    }
     
-    this.context.findRecipe(this.props.resultId)
 
   }
   render() {
