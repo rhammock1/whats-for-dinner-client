@@ -95,8 +95,8 @@ class Wheel extends React.Component {
     let startAngle = start;
     let endAngle = start + arc;
     let angle = index * arc;
-    let baseSize = radius * 3.33;
-    let textRadius = baseSize - 150;
+    let baseSize = 150;
+    let textRadius = baseSize - 25;
 
     ctx.beginPath();
     ctx.arc(x, y, radius, startAngle, endAngle, false);
@@ -111,7 +111,7 @@ class Wheel extends React.Component {
     ctx.translate(
       baseSize + Math.cos(angle - arc / 2) * textRadius, baseSize + Math.sin(angle - arc / 2) * textRadius
     );
-    ctx.rotate(angle - arc / 2 + Math.PI / 2);
+    ctx.rotate(angle - arc / 2 + Math.PI / 1);
 
     // Handles text fill of each sector will need to figure out a good solution. Right now it just uses the first letter
     ctx.fillText(text[0], -ctx.measureText(text[0]).width /9, 1);
@@ -187,8 +187,8 @@ class Wheel extends React.Component {
         <span id="selector">&#9660;</span>
         <canvas
           id="wheel"
-          width="500"
-          height="500"
+          width='300'
+          height="300"
           style={{
             WebkitTransform: `rotate(${this.state.rotate}deg)`,
             WebkitTransition: `-webkit-transform ${

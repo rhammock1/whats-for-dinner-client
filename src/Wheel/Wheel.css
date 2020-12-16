@@ -1,16 +1,24 @@
 .wheel-container {
+  width:100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content: space-evenly;
 }
 #wheel {
+  
   width: auto;
   height:auto;
-  border-radius: 50%;
+  
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
+
 #spin, #reset {
   z-index: 5;
+  margin: 10px 0;
 }
 
 #spin:hover {

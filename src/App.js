@@ -58,7 +58,7 @@ class App extends Component {
         return res.json()
       })
       .then(recipe => {
-        console.log(recipe)
+        
          this.setState({
            recipe: recipe
          })
