@@ -1,0 +1,13 @@
+.display {
+  background-color: #ccb7ae;
+  display: flex;
+  color: black;
+  flex-direction: column;
+  z-index:10;
+  position:relative;
+  top: -200px;
+}
+#result {
+  color: black;
+  font-size: 25px;
+}
