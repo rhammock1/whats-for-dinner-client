@@ -6,8 +6,8 @@
   justify-content: space-between;
 }
 html, body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #565264;
   color:#d6cfcb;
 }

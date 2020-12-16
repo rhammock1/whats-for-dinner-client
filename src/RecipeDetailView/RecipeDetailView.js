@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../Context';
+import './RecipeDetailView.css';
 
 
 const Ingredient = function(props) {
@@ -37,7 +38,7 @@ class RecipeDetailView extends React.Component {
         <div className='content-container'>
           <p>{recipe.content}</p>
         </div>
-        <Link to={'/'}><button>Back</button></Link>
+        <Link id='back' to={'/'}><button >Back</button></Link>
       </div>
     
       )

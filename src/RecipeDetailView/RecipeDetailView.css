@@ -1,0 +1,23 @@
+.recipe-container {
+  display:flex;
+  flex-direction:column;
+  width: 95%;
+  height:100%;
+
+}
+h3 {
+  text-align: center;
+  font-size:30px;
+}
+.content-container {
+  width: 80%;
+  margin: auto;
+}
+.ingredients-container {
+  width:60%;
+  margin: auto;
+}
+#back {
+  width: 20%;
+  align-self: flex-end;
+}

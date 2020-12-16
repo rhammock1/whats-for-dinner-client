@@ -1,16 +1,22 @@
 header {
-  padding-left:10px;
+  width:100%;
   display:flex;
   align-items:baseline;
-  justify-content:space-around;
+  justify-content:space-evenly;
   background: linear-gradient(#706677, 75%, #565264); 
 }
 h1 {
-  font-size: 40px;
+  font-size: 45px;
   color: #d6cfcb;
   width: 75%;
+  
 }
 .link {
   color: #d6cfcb;
   text-decoration: none;
+}
+.login-container {
+  display:flex;
+  flex-direction: column;
+  align-items:right;
 }
