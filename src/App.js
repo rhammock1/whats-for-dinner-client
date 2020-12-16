@@ -19,7 +19,6 @@ class App extends Component {
     style: '',
     wheelOptions: [],
     touched: false,
-    touching: false,
     recipe: {},
   }
 
@@ -62,6 +61,7 @@ class App extends Component {
          this.setState({
            recipe: recipe
          })
+         return recipe
       })
       .catch(error => {
       console.error({ error })
@@ -72,7 +72,7 @@ class App extends Component {
   
   handleChange = (ev) => {
     if(this.state.touched === true) {
-      this.setState({ touched: false, touching: true })
+      this.setState({ touched: false })
     }
     
     let filterOption = ev.target.id;
@@ -115,35 +115,40 @@ class App extends Component {
           }
         }
     if(this.state.inOrOut === 'both') {
+      let recipes = this.state.recipes;
+      let both;
       if(this.state.style === 'local') {
         
         let local = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'local'
         )
+        both = [...local, ...recipes];
+        
         for(let i = 0; i < 9; i++) {
         
-        let chosen = local[Math.floor(Math.random() * 9)];
+        let chosen = both[Math.floor(Math.random() * both.length)];
         wheelOptions.push(chosen);
       }
          
       } else if(this.state.style === 'chain') {
         let chain = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'chain')
-            for(let i = 0; i < 9; i++) {
+        both = [...chain, ...recipes]
         
-              let chosen = chain[Math.floor(Math.random() * 9)];
+        for(let i = 0; i < 9; i++) {
+        
+              let chosen = both[Math.floor(Math.random() * both.length)];
               wheelOptions.push(chosen);
           }
         } else {
           let both = [...this.state.restaurants, ...this.state.recipes]
-          console.log(both);
+          
           for(let i = 0; i < 9; i++) {
         
               let chosen = both[Math.floor(Math.random() * both.length)];
               wheelOptions.push(chosen);
           }
         }
-      console.log(wheelOptions)
     }
     this.setState({ wheelOptions: wheelOptions  })
   }

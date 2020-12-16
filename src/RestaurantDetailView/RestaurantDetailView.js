@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../Context';
 import { findRestaurant } from '../helper-functions';
+import './RestaurantDetailView.css';
 
 class RestaurantDetailView extends React.Component {
   static contextType = Context;
@@ -20,7 +21,7 @@ class RestaurantDetailView extends React.Component {
       <p>{restaurant.phone_number}</p>
       <p>{restaurant.restaurant_address}</p>
     </div>
-    <Link to={'/'}><button>Back</button></Link>
+    <Link to={'/'}><button className='back'>Back</button></Link>
     </div>
     
       )

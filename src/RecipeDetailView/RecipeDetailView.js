@@ -21,24 +21,35 @@ const Ingredient = function(props) {
 class RecipeDetailView extends React.Component {
   static contextType = Context;
   state = {
-    recipe: {}
+    recipe: {
+      ingredients: [],
+      title: '',
+      content: '',
+    },
+    recipeId: this.props.match.params.recipeId
+  }
+  componentDidMount() {
+    
+    this.context.findRecipe(this.state.recipeId);
+    
   }
  
   render() {
     const recipe = this.context.recipe
-  
+    const ingredients = this.context.recipe.ingredients || []
+    
     return (
       <div className='recipe-container'>
         <h3>{recipe.title}</h3>
         <div className='ingredients-container'>
           <ul className='ingredients-list'>
-            {recipe.ingredients.map(ingredient => { return <Ingredient key={ingredient.id} ing={ingredient} />})}
+            {ingredients.map(ingredient => { return <Ingredient key={ingredient.id} ing={ingredient} />})}
           </ul>
         </div>
         <div className='content-container'>
           <p>{recipe.content}</p>
         </div>
-        <Link id='back' to={'/'}><button >Back</button></Link>
+        <Link className='back' to={'/'}><button >Back</button></Link>
       </div>
     
       )
