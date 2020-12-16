@@ -12,7 +12,7 @@ class RestaurantDetailView extends React.Component {
     
     const { restaurantId } = this.props.match.params;
     const restaurant = findRestaurant(restaurants, restaurantId) || {}
-    console.log(restaurant);
+    
     return (
       <div className='details-container'>
     <a rel="noreferrer"target='_blank' href={restaurant.web_url}><h3>{restaurant.title}</h3></a>
