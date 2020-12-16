@@ -5,7 +5,7 @@ import './Header.css';
 function Header() {
   return (
     <header>
-      <Link to={'/'}><h1>It's What's For Dinner</h1></Link>
+      <h1><Link className='link' to={'/'}>It's What's For Dinner</Link></h1>
       {/* Need to conditionally render based on presence of a web browswer token */}
       <div className='login-container'>
         <button>Login</button>

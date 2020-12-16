@@ -1,0 +1,13 @@
+.filters {
+  width: 75%;
+  height: auto;
+  margin: auto;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px;
+}
+fieldset {
+  border: 5px solid;
+}

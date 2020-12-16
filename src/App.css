@@ -8,6 +8,10 @@
 html, body {
   width: 100vw;
   height: 100vh;
-  background-color: #e07a5f;
-  color:#f4f1de;
+  background-color: #565264;
+  color:#d6cfcb;
+}
+main {
+  display:flex;
+  flex-direction: column;
 }

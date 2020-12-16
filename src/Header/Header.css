@@ -1,14 +1,16 @@
 header {
+  padding-left:10px;
   display:flex;
   align-items:baseline;
   justify-content:space-around;
-  background: linear-gradient(#3d405b, 75%, #e07a5f); 
+  background: linear-gradient(#706677, 75%, #565264); 
 }
 h1 {
   font-size: 40px;
-  text-decoration: none;
-  color: #f4f1de;
+  color: #d6cfcb;
+  width: 75%;
 }
-a {
+.link {
+  color: #d6cfcb;
   text-decoration: none;
 }
