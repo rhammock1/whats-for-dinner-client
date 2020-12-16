@@ -2,4 +2,13 @@ header {
   display:flex;
   align-items:baseline;
   justify-content:space-around;
+  background: linear-gradient(#3d405b, 75%, #e07a5f); 
+}
+h1 {
+  font-size: 40px;
+  text-decoration: none;
+  color: #f4f1de;
+}
+a {
+  text-decoration: none;
 }

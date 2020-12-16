@@ -1,3 +1,5 @@
 footer {
   text-align: center;
+  padding:20px 0;
+  background: linear-gradient(#e07a5f, #3d405b); 
 }
