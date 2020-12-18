@@ -187,8 +187,9 @@ class Wheel extends React.Component {
         <span id="selector">&#9660;</span>
         <canvas
           id="wheel"
-          width='300'
-          height="300"
+          // set width and height with % or move to style
+          width='300px'
+          height="300px"
           style={{
             WebkitTransform: `rotate(${this.state.rotate}deg)`,
             WebkitTransition: `-webkit-transform ${
