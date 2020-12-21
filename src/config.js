@@ -7,4 +7,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //eslint-disable-next-line
-export default { API_ENDPOINT };
+export default { API_ENDPOINT, TOKEN_KEY: 'dinner-client-auth-token' };
