@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthApiService from '../services/auth-api-service';
+import TokenService from '../services/token-service';
 
 class RegistrationForm extends React.Component {
   state = { error: null }
@@ -15,9 +16,17 @@ class RegistrationForm extends React.Component {
       password: password.value,
     })
       .then(user => {
-        user_name.value = ''
-        first_name.value = ''
-        password.value = ''
+        
+        AuthApiService.postLogin({
+          user_name: user_name.value,
+          password: password.value,
+        })
+          .then(res => {
+            TokenService.saveAuthToken(res.authToken)
+          })
+          .catch(res => {
+            this.setState({ error: res.error })
+          })
         this.props.onRegistrationSuccess(user)
       })
       .catch(res => {
