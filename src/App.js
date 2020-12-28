@@ -11,6 +11,8 @@ import { Route, Switch } from 'react-router-dom';
 import RecipeDetailView from './RecipeDetailView/RecipeDetailView';
 import PublicOnlyRoute from './Utils/PublicOnlyRoute';
 import RegistrationPage from './routes/RegistrationPage';
+import PrivateRoute from './Utils/PrivateRoute';
+import UserPage from './routes/UserPage';
 
 
 class App extends Component {
@@ -194,6 +196,7 @@ class App extends Component {
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
+            <PrivateRoute path='/user/:userId' component={UserPage} />
 
           </Switch>
           
