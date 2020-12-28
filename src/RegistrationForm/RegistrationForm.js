@@ -38,7 +38,9 @@ class RegistrationForm extends React.Component {
     const { error } = this.state;
     return (
       <form className='registration-form' onSubmit={this.handleSubmit} >
-        <div role='alert'>{error && <p className='red'>{error}</p>}</div>
+        <fieldset>
+          <legend>Register</legend>
+          <div role='alert'>{error && <p className='red'>{error}</p>}</div>
         <div className='form-group'>
           <label htmlFor='user_name'>Username: </label>
           <input required type='text' id='user_name' name='user_name' />
@@ -52,6 +54,8 @@ class RegistrationForm extends React.Component {
           <input required type='password' id='password' name='password' />
         </div>
         <button type='submit'>Register</button>
+        </fieldset>
+        
       </form>
     )
   }

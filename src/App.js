@@ -13,6 +13,8 @@ import PublicOnlyRoute from './Utils/PublicOnlyRoute';
 import RegistrationPage from './routes/RegistrationPage';
 import PrivateRoute from './Utils/PrivateRoute';
 import UserPage from './routes/UserPage';
+import LoginPage from './routes/LoginPage';
+import TokenService from './services/token-service';
 
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
     touched: false,
     recipe: {},
     hasError: false,
+    loggedIn: false,
   }
 
   static getDerivedStateFromError(error) {
@@ -55,7 +58,9 @@ class App extends Component {
     .catch(error => {
       console.error({ error })
     })
-  
+    TokenService.hasAuthToken()
+      ? this.setState({ loggedIn: true })
+      : this.setState({ loggedIn: false })
     }
   findRecipe = (recipeId) => {
     
@@ -189,15 +194,15 @@ class App extends Component {
     }
     return (
       <Context.Provider value={value}>
-        <Header />
+        <Header loggedIn={this.state.loggedIn} />
         <main>
           <Switch>
             <Route exact path='/' component={this.renderMainView} />
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
-            <PrivateRoute path='/user/:userId' component={UserPage} />
-
+            {/* <PrivateRoute path='/user/:userId' component={UserPage} /> */}
+            <PublicOnlyRoute path='/login' component={LoginPage} />
           </Switch>
           
         </main>

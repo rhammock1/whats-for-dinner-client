@@ -10,7 +10,7 @@ class RegistrationPage extends React.Component {
 
   handleRegistrationSuccess = user => {
     const { history } = this.props;
-    history.push(`/user/${user.id}`)
+    history.push(`/`)
   }
   render() {
     return (
