@@ -39,6 +39,7 @@ class RecipeDetailView extends React.Component {
     const ingredients = this.context.recipe.ingredients || []
     
     return (
+      <section>
       <div className='recipe-container'>
         <h3>{recipe.title}</h3>
         <div className='ingredients-container'>
@@ -51,7 +52,7 @@ class RecipeDetailView extends React.Component {
         </div>
         <Link className='back' to={'/'}><button >Back</button></Link>
       </div>
-    
+      </section>
       )
     
   }

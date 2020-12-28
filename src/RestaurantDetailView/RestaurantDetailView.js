@@ -15,6 +15,7 @@ class RestaurantDetailView extends React.Component {
     const restaurant = findRestaurant(restaurants, restaurantId) || {}
     
     return (
+      <section>
       <div className='details-container'>
     <a rel="noreferrer"target='_blank' href={restaurant.web_url}><h3>{restaurant.title}</h3></a>
     <div className='details-container'>
@@ -23,7 +24,7 @@ class RestaurantDetailView extends React.Component {
     </div>
     <Link to={'/'}><button className='back'>Back</button></Link>
     </div>
-    
+    </section>
       )
     
   }
