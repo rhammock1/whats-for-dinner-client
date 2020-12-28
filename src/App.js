@@ -10,7 +10,7 @@ import RestaurantDetailView from './RestaurantDetailView/RestaurantDetailView';
 import { Route, Switch } from 'react-router-dom';
 import RecipeDetailView from './RecipeDetailView/RecipeDetailView';
 import PublicOnlyRoute from './Utils/PublicOnlyRoute';
-import RegistrationForm from './RegistrationForm/RegistrationForm';
+import RegistrationPage from './routes/RegistrationPage';
 
 
 class App extends Component {
@@ -193,8 +193,8 @@ class App extends Component {
             <Route exact path='/' component={this.renderMainView} />
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
-            <PublicOnlyRoute path='/register' component={RegistrationForm} />
-            
+            <PublicOnlyRoute path='/register' component={RegistrationPage} />
+
           </Switch>
           
         </main>
