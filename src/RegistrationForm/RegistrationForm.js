@@ -15,9 +15,9 @@ class RegistrationForm extends React.Component {
       first_name: first_name.value,
       password: password.value,
     })
-      .then(user => {
+      .then(async user => {
         
-        AuthApiService.postLogin({
+        await AuthApiService.postLogin({
           user_name: user_name.value,
           password: password.value,
         })
