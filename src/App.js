@@ -7,8 +7,10 @@ import Wheel from './Wheel/Wheel';
 import Context from './Context';
 import Footer from './Footer/Footer';
 import RestaurantDetailView from './RestaurantDetailView/RestaurantDetailView';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import RecipeDetailView from './RecipeDetailView/RecipeDetailView';
+import PublicOnlyRoute from './Utils/PublicOnlyRoute';
+import RegistrationForm from './RegistrationForm/RegistrationForm';
 
 
 class App extends Component {
@@ -20,6 +22,12 @@ class App extends Component {
     wheelOptions: [],
     touched: false,
     recipe: {},
+    hasError: false,
+  }
+
+  static getDerivedStateFromError(error) {
+    console.error(error)
+    return { hasError: true }
   }
 
   componentDidMount() {
@@ -181,9 +189,14 @@ class App extends Component {
       <Context.Provider value={value}>
         <Header />
         <main>
-          <Route exact path='/' component={this.renderMainView} />
-          <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
-          <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
+          <Switch>
+            <Route exact path='/' component={this.renderMainView} />
+            <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
+            <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
+            <PublicOnlyRoute path='/register' component={RegistrationForm} />
+            
+          </Switch>
+          
         </main>
         <Footer />
       </Context.Provider>

@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthApiService from '../services/AuthApiService';
+import AuthApiService from '../services/auth-api-service';
 
 class RegistrationForm extends React.Component {
   state = { error: null }
