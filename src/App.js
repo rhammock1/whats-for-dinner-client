@@ -17,6 +17,7 @@ import LoginPage from './routes/LoginPage';
 import TokenService from './services/token-service';
 import Favorites from './Favorites/Favorites';
 import UserRestaurants from './UserRestaurants/UserRestaurants';
+import UserRecipes from './UserRecipes/UserRecipes';
 
 
 class App extends Component {
@@ -234,6 +235,7 @@ class App extends Component {
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
             <PrivateRoute path='/:userId/restaurants' component={UserRestaurants} />
+            <PrivateRoute path='/:userId/recipes' component={UserRecipes} />
 
             <PrivateRoute path='/:userId/favorites' component={Favorites} />
             <PublicOnlyRoute path='/login' component={LoginPage} />
