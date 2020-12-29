@@ -1,4 +1,5 @@
 import React from 'react';
+import NewRestaurant from './NewRestaurant';
 
 class NewThing extends React.Component {
 
@@ -36,9 +37,11 @@ class NewThing extends React.Component {
                 <option value='recipe'>Recipe</option>
               </select>
             </div>
-          {/* {this.state.thing === restaurant
+          {this.state.thing === 'restaurant'
                 ? <div className='form-group'><NewRestaurant /></div>
-                : this.state.thing === recipe ? <div className='form-group'><NewRecipe /></div>} */}
+                : null}
+                {/*  : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe /></div>
+                 : null} */}
             <button type='submit'>Add {this.state.thing}</button>
           </fieldset>
         </form>
