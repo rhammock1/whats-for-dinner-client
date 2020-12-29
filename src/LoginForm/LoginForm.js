@@ -1,6 +1,7 @@
 import React from 'react';
 import TokenService from '../services/token-service';
 import AuthApiService from '../services/auth-api-service';
+import {Link} from 'react-router-dom';
 
 class LoginForm extends React.Component {
   static defaultProps = {
@@ -46,6 +47,7 @@ class LoginForm extends React.Component {
             <input type='password' required id='password' name='password' />
           </div>
           <button type='submit'>Login</button>
+          <p>Need an account? <br/><Link to='/register'>Sign up</Link></p>
         </fieldset>
       </form>
     )
