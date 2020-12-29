@@ -23,7 +23,7 @@ class LoginForm extends React.Component {
         user_name.value = '';
         password.value = '';
         TokenService.saveAuthToken(res.authToken)
-        TokenService.saveFirstName(res.first_name)
+        TokenService.saveUserName(res.user_name)
         this.props.onLoginSuccess();
         
       })

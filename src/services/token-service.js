@@ -4,14 +4,14 @@ const TokenService = {
   saveAuthToken(token) {
     window.localStorage.setItem(config.TOKEN_KEY, token)
   },
-  saveFirstName(first_name) {
-    window.localStorage.setItem('first_name', first_name)
+  saveUserName(user_name) {
+    window.localStorage.setItem('user_name', user_name)
   },
-  getFirstName() {
-    return window.localStorage.getItem('first_name')
+  getUserName() {
+    return window.localStorage.getItem('user_name')
   },
-  clearFirstName() {
-    window.localStorage.removeItem('first_name')
+  clearUserName() {
+    window.localStorage.removeItem('user_name')
   },
   getAuthToken() {
     return window.localStorage.getItem(config.TOKEN_KEY)

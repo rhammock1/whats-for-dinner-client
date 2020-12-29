@@ -10,12 +10,12 @@ class Header extends React.Component {
 
   handleClick = () => {
     TokenService.clearAuthToken();
-    TokenService.clearFirstName();
+    TokenService.clearUserName();
     this.context.handleToken();
   }
 
   render() {
-    const firstName = TokenService.getFirstName();
+    const userName = TokenService.getUserName();
     return (
     <header>
       <h1><Link className='link' to={'/'} >It's What's For Dinner</Link></h1>
@@ -26,7 +26,7 @@ class Header extends React.Component {
             <Link to='/register'><button>Sign Up</button></Link>
           </div>
         : <div className='logged-in'>
-            <p>Hello, {firstName} </p>
+            <p>Hello, {userName} </p>
             <Link to='/'><button onClick={() => this.handleClick()}>Logout</button></Link>
           </div>}
       
