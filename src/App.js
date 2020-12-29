@@ -15,6 +15,7 @@ import PrivateRoute from './Utils/PrivateRoute';
 import UserPage from './routes/UserPage';
 import LoginPage from './routes/LoginPage';
 import TokenService from './services/token-service';
+import Favorites from './Favorites/Favorites';
 
 
 class App extends Component {
@@ -208,10 +209,10 @@ class App extends Component {
         {this.state.loggedIn 
           ? <nav>
               <ul>
-                <Link to='/:user_name/favorites'><li>Favorites</li></Link>
-                <Link to='/:user_name/my-restaurants'><li>My Restaurants</li></Link>
-                <Link to='/:user_name/my-recipes'><li>My Recipes</li></Link>
-                <Link to='/:user_name/add-new'><li>Add New</li></Link>
+                <Link to='/:userId/favorites'><li>Favorites</li></Link>
+                <Link to='/:userId/my-restaurants'><li>My Restaurants</li></Link>
+                <Link to='/:userId/my-recipes'><li>My Recipes</li></Link>
+                <Link to='/:userId/add-new'><li>Add New</li></Link>
               </ul>
             </nav>
           : <></> 
@@ -222,7 +223,7 @@ class App extends Component {
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
-            {/* <PrivateRoute path='/user/:userId' component={UserPage} /> */}
+            <PrivateRoute path='/:userId/favorites' component={Favorites} />
             <PublicOnlyRoute path='/login' component={LoginPage} />
           </Switch>
           
