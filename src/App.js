@@ -16,6 +16,7 @@ import UserPage from './routes/UserPage';
 import LoginPage from './routes/LoginPage';
 import TokenService from './services/token-service';
 import Favorites from './Favorites/Favorites';
+import UserRestaurants from './UserRestaurants/UserRestaurants';
 
 
 class App extends Component {
@@ -63,7 +64,7 @@ class App extends Component {
     TokenService.hasAuthToken()
       ? this.setState({ loggedIn: true })
       : this.setState({ loggedIn: false })
-      
+
     this.setUserId();
     }
   findRecipe = (recipeId) => {
@@ -219,8 +220,8 @@ class App extends Component {
           ? <nav>
               <ul>
                 <Link to={`/${userId}/favorites`}><li>Favorites</li></Link>
-                <Link to={`/${userId}/my-restaurants`}><li>My Restaurants</li></Link>
-                <Link to={`/${userId}/my-recipes`}><li>My Recipes</li></Link>
+                <Link to={`/${userId}/restaurants`}><li>My Restaurants</li></Link>
+                <Link to={`/${userId}/recipes`}><li>My Recipes</li></Link>
                 <Link to={`/${userId}/add-new`}><li>Add New</li></Link>
               </ul>
             </nav>
@@ -232,6 +233,8 @@ class App extends Component {
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
+            <PrivateRoute path='/:userId/restaurants' component={UserRestaurants} />
+
             <PrivateRoute path='/:userId/favorites' component={Favorites} />
             <PublicOnlyRoute path='/login' component={LoginPage} />
           </Switch>
