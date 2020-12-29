@@ -1,4 +1,5 @@
 import React from 'react';
+import Context from '../Context';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 class RegistrationPage extends React.Component {
@@ -7,10 +8,12 @@ class RegistrationPage extends React.Component {
       push: () => {},
     },
   }
+  static contextType = Context;
 
   handleRegistrationSuccess = user => {
     const { history } = this.props;
     history.push(`/`)
+    this.context.handleToken();
   }
   render() {
     return (

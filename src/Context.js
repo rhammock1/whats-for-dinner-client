@@ -9,4 +9,5 @@ export default React.createContext({
   wheelOptions: [],
   handleWheelOptions: () => {},
   findRecipe: () => {},
+  handleToken: () => {},
 })

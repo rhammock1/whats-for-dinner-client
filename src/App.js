@@ -58,9 +58,7 @@ class App extends Component {
     .catch(error => {
       console.error({ error })
     })
-    TokenService.hasAuthToken()
-      ? this.setState({ loggedIn: true })
-      : this.setState({ loggedIn: false })
+    
     }
   findRecipe = (recipeId) => {
     
@@ -82,7 +80,16 @@ class App extends Component {
       console.error({ error })
     })
   }
-
+  handleToken = () => {
+    TokenService.hasAuthToken()
+      ? this.setState({ loggedIn: true })
+      : this.setState({ loggedIn: false })
+    // if(TokenService.hasAuthToken()) {
+    //   this.setState({ loggedIn: true });
+    // } else {
+    //   this.setState({ loggedIn: false });
+    // }
+  }
 
   
   handleChange = (ev) => {
@@ -190,7 +197,8 @@ class App extends Component {
       recipe: this.state.recipe,
       wheelOptions: this.state.wheelOptions,
       handleWheelOptions: this.handleWheelOptions,
-      findRecipe: this.findRecipe
+      findRecipe: this.findRecipe,
+      handleToken: this.handleToken,
     }
     return (
       <Context.Provider value={value}>
