@@ -58,7 +58,9 @@ class App extends Component {
     .catch(error => {
       console.error({ error })
     })
-    
+    TokenService.hasAuthToken()
+      ? this.setState({ loggedIn: true })
+      : this.setState({ loggedIn: false })
     }
   findRecipe = (recipeId) => {
     

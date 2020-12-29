@@ -22,7 +22,9 @@ class LoginForm extends React.Component {
         user_name.value = '';
         password.value = '';
         TokenService.saveAuthToken(res.authToken)
+        TokenService.saveFirstName(res.first_name)
         this.props.onLoginSuccess();
+        
       })
       .catch(res => {
         this.setState({ error: res.error })
@@ -34,6 +36,7 @@ class LoginForm extends React.Component {
       <form className='login-form' onSubmit={this.handleSubmitJWTAuth}>
         <fieldset>
           <legend>Form</legend>
+          <div role='alert'>{error && <p className='red'>{error}</p>}</div>
           <div className='form-group'>
             <label htmlFor='user_name'>Username: </label>
             <input type='text' required id='user_name' name='user_name' />

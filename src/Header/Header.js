@@ -14,6 +14,7 @@ class Header extends React.Component {
   }
 
   render() {
+    const firstName = TokenService.getFirstName();
     return (
     <header>
       <h1><Link className='link' to={'/'} >It's What's For Dinner</Link></h1>
@@ -24,7 +25,7 @@ class Header extends React.Component {
             <Link to='/register'><button>Sign Up</button></Link>
           </div>
         : <div className='logged-in'>
-            <p>Hello</p>
+            <p>Hello, {firstName} </p>
             <Link to='/'><button onClick={() => this.handleClick()}>Logout</button></Link>
           </div>}
       
