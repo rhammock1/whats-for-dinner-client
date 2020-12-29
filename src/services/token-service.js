@@ -10,6 +10,9 @@ const TokenService = {
   getFirstName() {
     return window.localStorage.getItem('first_name')
   },
+  clearFirstName() {
+    window.localStorage.removeItem('first_name')
+  },
   getAuthToken() {
     return window.localStorage.getItem(config.TOKEN_KEY)
   },
