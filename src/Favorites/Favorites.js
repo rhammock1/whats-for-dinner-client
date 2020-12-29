@@ -20,6 +20,7 @@ class Favorites extends React.Component {
     
     return (
       <section className='favorites'>
+        <h2>My Favorites</h2>
         <p>You made it</p>
       </section>
 

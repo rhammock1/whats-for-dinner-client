@@ -21,6 +21,7 @@ class UserRestaurants extends React.Component {
     
     return (
       <section className='user-restaurants'>
+        <h2>My Restaurants</h2>
         <div className='restaurant-container'>
           {this.state.restaurants.map(restaurant => {
             return (
