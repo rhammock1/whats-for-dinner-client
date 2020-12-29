@@ -23,7 +23,6 @@ class UserRestaurants extends React.Component {
       <section className='user-restaurants'>
         <div className='restaurant-container'>
           {this.state.restaurants.map(restaurant => {
-            console.log(restaurant.style)
             return (
               <div key={restaurant.id}>
                 <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
