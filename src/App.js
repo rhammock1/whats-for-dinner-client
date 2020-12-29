@@ -29,6 +29,7 @@ class App extends Component {
     recipe: {},
     hasError: false,
     loggedIn: false,
+    userId: 0,
   }
 
   static getDerivedStateFromError(error) {
@@ -62,6 +63,8 @@ class App extends Component {
     TokenService.hasAuthToken()
       ? this.setState({ loggedIn: true })
       : this.setState({ loggedIn: false })
+      
+    this.setUserId();
     }
   findRecipe = (recipeId) => {
     
@@ -92,6 +95,10 @@ class App extends Component {
     // } else {
     //   this.setState({ loggedIn: false });
     // }
+  }
+  setUserId = () => {
+    const id = TokenService.getUserId();
+    this.setState({ userId: id })
   }
 
   
@@ -202,17 +209,19 @@ class App extends Component {
       handleWheelOptions: this.handleWheelOptions,
       findRecipe: this.findRecipe,
       handleToken: this.handleToken,
+      setUserId: this.setUserId,
     }
+    const userId = this.state.userId;
     return (
       <Context.Provider value={value}>
         <Header loggedIn={this.state.loggedIn} />
         {this.state.loggedIn 
           ? <nav>
               <ul>
-                <Link to='/:userId/favorites'><li>Favorites</li></Link>
-                <Link to='/:userId/my-restaurants'><li>My Restaurants</li></Link>
-                <Link to='/:userId/my-recipes'><li>My Recipes</li></Link>
-                <Link to='/:userId/add-new'><li>Add New</li></Link>
+                <Link to={`/${userId}/favorites`}><li>Favorites</li></Link>
+                <Link to={`/${userId}/my-restaurants`}><li>My Restaurants</li></Link>
+                <Link to={`/${userId}/my-recipes`}><li>My Recipes</li></Link>
+                <Link to={`/${userId}/add-new`}><li>Add New</li></Link>
               </ul>
             </nav>
           : <></> 

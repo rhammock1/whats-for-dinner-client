@@ -10,14 +10,18 @@ const TokenService = {
   getUserName() {
     return window.localStorage.getItem('user_name')
   },
-  clearUserName() {
-    window.localStorage.removeItem('user_name')
+  saveUserId(userId) {
+    window.localStorage.setItem('userId', userId)
+  },
+  getUserId() {
+    return window.localStorage.getItem('userId')
+  },
+  clearAll() {
+    const items = ['user_name', 'userId', config.TOKEN_KEY]
+    items.forEach(item => window.localStorage.removeItem(item))
   },
   getAuthToken() {
     return window.localStorage.getItem(config.TOKEN_KEY)
-  },
-  clearAuthToken() {
-    window.localStorage.removeItem(config.TOKEN_KEY)
   },
   hasAuthToken() {
     return !!TokenService.getAuthToken()

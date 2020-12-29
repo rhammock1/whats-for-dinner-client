@@ -9,8 +9,7 @@ class Header extends React.Component {
   static contextType = Context;
 
   handleClick = () => {
-    TokenService.clearAuthToken();
-    TokenService.clearUserName();
+    TokenService.clearAll();
     this.context.handleToken();
   }
 
