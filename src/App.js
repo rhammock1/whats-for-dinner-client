@@ -234,10 +234,7 @@ class App extends Component {
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
-            <PrivateRoute path='/:userId/restaurants' component={UserRestaurants} />
-            <PrivateRoute path='/:userId/recipes' component={UserRecipes} />
-
-            <PrivateRoute path='/:userId/favorites' component={Favorites} />
+            <PrivateRoute path='/:userId' component={UserPage} />
             <PublicOnlyRoute path='/login' component={LoginPage} />
           </Switch>
           
