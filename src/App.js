@@ -7,7 +7,7 @@ import Wheel from './Wheel/Wheel';
 import Context from './Context';
 import Footer from './Footer/Footer';
 import RestaurantDetailView from './RestaurantDetailView/RestaurantDetailView';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import RecipeDetailView from './RecipeDetailView/RecipeDetailView';
 import PublicOnlyRoute from './Utils/PublicOnlyRoute';
 import RegistrationPage from './routes/RegistrationPage';
@@ -203,6 +203,17 @@ class App extends Component {
     return (
       <Context.Provider value={value}>
         <Header loggedIn={this.state.loggedIn} />
+        {this.state.loggedIn 
+          ? <nav>
+              <ul>
+                <Link to='/:user_name/favorites'><li>Favorites</li></Link>
+                <Link to='/:user_name/my-restaurants'><li>My Restaurants</li></Link>
+                <Link to='/:user_name/my-recipes'><li>My Recipes</li></Link>
+                <Link to='/:user_name/add-new'><li>Add New</li></Link>
+              </ul>
+            </nav>
+          : <></> 
+        }
         <main>
           <Switch>
             <Route exact path='/' component={this.renderMainView} />

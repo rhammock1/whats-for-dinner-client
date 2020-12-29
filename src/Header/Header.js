@@ -2,10 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import TokenService from '../services/token-service';
+import Context from '../Context';
 
 
 class Header extends React.Component {
+  static contextType = Context;
 
+  handleClick = () => {
+    TokenService.clearAuthToken();
+    this.context.handleToken();
+  }
 
   render() {
     return (
@@ -19,8 +25,9 @@ class Header extends React.Component {
           </div>
         : <div className='logged-in'>
             <p>Hello</p>
-            <Link to='/'><button onClick={() => TokenService.clearAuthToken()}>Logout</button></Link>
+            <Link to='/'><button onClick={() => this.handleClick()}>Logout</button></Link>
           </div>}
+      
       
     </header>
   )
