@@ -60,6 +60,21 @@ const apiService = {
       },
       body:JSON.stringify(thing)
     })
+  },
+  deleteFavorite(userId, favoriteId) {
+    return fetch(`${config.API_ENDPOINT}/dinner/${userId}/favorites`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(e => Promise.reject(e))
+        }
+        return res
+      })
   }
 
 }
