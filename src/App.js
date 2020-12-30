@@ -31,6 +31,7 @@ class App extends Component {
     hasError: false,
     loggedIn: false,
     userId: 0,
+    favorites: [],
   }
 
   static getDerivedStateFromError(error) {
@@ -70,11 +71,12 @@ class App extends Component {
     })
     .then(([restaurants, recipes]) => {
       this.setState({ recipes, restaurants })
+      this.getFavorites();
     })
     .catch(error => {
       console.error({ error })
     })
-    this.getFavorites();
+    
     } else {
       this.setState({ loggedIn: false })
       Promise.all([
@@ -128,6 +130,7 @@ class App extends Component {
       : this.setState({ loggedIn: false })
     const userId = TokenService.getUserId()
     this.setState({ userId })
+    this.getFavorites();
   }
  
   
@@ -142,8 +145,11 @@ class App extends Component {
       : this.setState({ style: ev.target.value })
   }
   getFavorites = () => {
+    
     if(TokenService.hasAuthToken()) {
-      const userId = this.state.userId;
+      
+      const {userId} = this.state;
+      console.log(userId);
       apiService.getUsersThings(userId, 'favorites')
         .then(favorites => this.setState({favorites}))
         .catch(error => console.error(error))
@@ -168,17 +174,16 @@ class App extends Component {
       }
      
     let recipes=[];
-    filtered.map(array => 
- 
-      array.map(recipe => 
-        
-        recipes.push(recipe)
-      )
-    )
-      
+    filtered.map(array => {
+      return array.map(recipe => {
+        return recipes.push(recipe)
+    })
+    })
+      console.log(this.state.favor);
       for(let i = 0; i < 3; i++) {
         let chosen = recipes[Math.floor(Math.random() * recipes.length)];
         wheelOptions.push(chosen);
+        console.log(chosen);
       }
       for(let i = 0; i < 6; i++) {
         let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
@@ -217,7 +222,9 @@ class App extends Component {
       for(let i = 0; i < 3; i++) {
         let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
         wheelOptions.push(chosen);
+        console.log(chosen);
       }
+      
       for(let i = 0; i < 6; i++) {
         let chosen = local[Math.floor(Math.random() * 9)];
         wheelOptions.push(chosen);

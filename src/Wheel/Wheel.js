@@ -50,6 +50,7 @@ class Wheel extends React.Component {
 
     //dynamically genereate sectors from state wheelOptions
     let angle = 0;
+    
     for(let i = 0; i < numOptions; i++) {
       let text = this.state.wheelOptions[i].title;
       this.renderSector(i + 1, text, angle, arcSize, this.getColor());
