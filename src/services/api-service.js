@@ -50,6 +50,16 @@ const apiService = {
       body: JSON.stringify(ingredients)
     })
     
+  },
+  postNewFavorite(userId, thing) {
+    return fetch(`${config.API_ENDPOINT}/dinner/${userId}/favorites`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(thing)
+    })
   }
 
 }
