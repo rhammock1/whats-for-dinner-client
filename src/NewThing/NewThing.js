@@ -36,6 +36,11 @@ class NewThing extends React.Component {
   handleChange = (event) => {
     this.setState({ thing: event.target.value })
   }
+  handleRemoveIngredient = () => {
+    const ingredients = this.state.ingredients;
+    ingredients.pop();
+    this.setState({ ingredients })
+  }
 
   handleSubmitThing = event => {
     event.preventDefault();
@@ -68,10 +73,10 @@ class NewThing extends React.Component {
       }
       apiService.postNewThing('recipes', thing)
       .then(res => {
-        console.log(res.id)
+        
         ingredients.forEach(ingredient => ingredient.recipe_id = res.id
         )
-        console.log(ingredients)
+        
         apiService.postIngredients(res.id, ingredients)
           .catch(error => console.error(error))
       })
@@ -114,7 +119,7 @@ class NewThing extends React.Component {
             </div>
           {this.state.thing === 'restaurant'
                 ? <div className='form-group'><NewRestaurant /></div>
-                 : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
+                 : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe handleRemoveIngredient={this.handleRemoveIngredient} ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
                  : null} 
             <button type='submit'>Add {this.state.thing}</button>
           </fieldset>

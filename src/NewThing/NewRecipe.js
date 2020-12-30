@@ -19,7 +19,7 @@ class NewRecipe extends React.Component {
           <input type='text' id='unit' name='unit' placeholder='Cup' /> 
           <label htmlFor='ingredient'>Ingredient <span>* required</span></label>
           <input type='text' id='ingredient' name='ingredient' placeholder='Carrots' />
-          <button>Remove previous ingredient</button> 
+          <button type='button' onClick={() => this.props.handleRemoveIngredient()}>Remove previous ingredient</button> 
           <button type='button' onClick={() => this.props.handleAddIngredient()}>Add new ingrdient</button>
         </div>
         <div className='form-group'>
