@@ -9,16 +9,24 @@ const NewRestaurant = function() {
         <input type='text' id='title' name='title' required placeholder='e.g. Papi Queso' />        
       </div>
       <div className='form-group'>
-        <label htmlFor='phone-number'>Phone Number: <span>* optional</span></label>
-        <input type='tel' id='phone-number' name='phone-number' placeholder='e.g. 123-456-7890' pattern='^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'/>        
+        <label htmlFor='style'>Is it Chain or Local? <span>* required</span></label>
+        <select id='style' name='style' required>
+          <option value=''>Please Choose one:</option>
+          <option value='chain'>Chain</option>
+          <option value='local'>Local</option>
+        </select>
       </div>
       <div className='form-group'>
-        <label htmlFor='website'>Website: <span>* optional</span></label>
-        <input type='url' id='website' name='website' placeholder='e.g. http://cool-restaurant.com/'  />        
+        <label htmlFor='phone_number'>Phone Number: <span>* optional</span></label>
+        <input type='tel' id='phone_number' name='phone_number' placeholder='e.g. 123-456-7890' pattern='^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'/>        
       </div>
       <div className='form-group'>
-        <label htmlFor='address'>Address: <span>* optional</span></label>
-        <input type='text' id='address' placeholder='e.g. 123 Main St.' />        
+        <label htmlFor='web_url'>Website: <span>* optional</span></label>
+        <input type='url' id='web_url' name='web_url' placeholder='e.g. http://cool-restaurant.com/'  />        
+      </div>
+      <div className='form-group'>
+        <label htmlFor='restaurant_address'>Address: <span>* optional</span></label>
+        <input type='text' id='restaurant_address' placeholder='e.g. 123 Main St.' name='restaurant_address' />        
       </div>
     </>
     )

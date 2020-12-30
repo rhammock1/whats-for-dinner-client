@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import apiService from '../services/api-service';
+import NewRecipe from './NewRecipe';
 import NewRestaurant from './NewRestaurant';
 
 class NewThing extends React.Component {
@@ -6,6 +9,29 @@ class NewThing extends React.Component {
   state = {
     thing: '',
     error: null,
+    amount: 0,
+    unit: '',
+    ingredient: '',
+    ingredients: [],
+    added: false,
+  }
+
+
+  handleAddIngredient = () => {
+    const newIngredient = { amount: parseFloat(this.state.amount), unit: this.state.unit, ingredient: this.state.ingredient }
+    console.log(newIngredient);
+    const ingredients = this.state.ingredients;
+    ingredients.push(newIngredient);
+    this.setState({ ingredients: ingredients })
+
+  }
+  handleIngredientChange = event => {
+    const name = event.target.name;
+
+    const value = event.target.value;
+    this.setState({
+      [name]: value,
+    })
   }
 
   handleChange = (event) => {
@@ -14,11 +40,60 @@ class NewThing extends React.Component {
 
   handleSubmitThing = event => {
     event.preventDefault();
-    console.log('hello');
+    const {userId} = this.props.match.params
+    
+    let thing;
+    if(this.state.thing === 'restaurant') {
+      const { title, phone_number, web_url, restaurant_address, style } = event.target;
+      
+      thing = {
+        title: title.value,
+        phone_number: phone_number.value,
+        web_url: web_url.value,
+        restaurant_address: restaurant_address.value,
+        style: style.value,
+        user_id: parseFloat(userId)
+      };
+
+      apiService.postNewThing('restaurants', thing)
+      .then(() => this.setState({ added: true }))
+      .catch(error => console.error(error))
+    }
+    if(this.state.thing === 'recipe') {
+      const { title, content } = event.target;
+      const ingredients = this.state.ingredients;
+      thing = {
+        title: title.value,
+        content: content.value,
+        user_id: userId
+      }
+      apiService.postNewThing('recipes', thing)
+      .then(res => {
+        console.log(res.id)
+        ingredients.forEach(ingredient => ingredient.recipe_id = res.id
+        )
+        apiService.postIngredients(res.id, ingredients)
+          .catch(error => console.error(error))
+      })
+      .then(() => {
+        this.setState({ added: true })
+      })
+      .catch(error => console.error(error))
+    }
+    
+    
+    
+    
     // Needs to make a post request to save the new thing with their userId
+  }
+  handleSuccessClick = () => {
+    this.setState({ added: false })
+    const {userId} = this.props.match.params 
+    this.props.history.push(`/${userId}/newThing`);
   }
 
   render() {
+    
     const thingCapitalized = this.state.thing.charAt(0).toUpperCase() + this.state.thing.slice(1)
     return (
       <>
@@ -39,12 +114,12 @@ class NewThing extends React.Component {
             </div>
           {this.state.thing === 'restaurant'
                 ? <div className='form-group'><NewRestaurant /></div>
-                : null}
-                {/*  : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe /></div>
-                 : null} */}
+                 : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
+                 : null} 
             <button type='submit'>Add {this.state.thing}</button>
           </fieldset>
         </form>
+        {this.state.added ? <div className='added'><p>Successfully Added {thingCapitalized}</p><button onClick={() => this.handleSuccessClick()} type='button'>Back</button></div> : null}
       </div>
       </>
         )

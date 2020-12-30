@@ -23,6 +23,33 @@ const apiService = {
       console.error({ error })
     })
   },
+  postNewThing(type, newThing) {
+    
+    return fetch(`${config.API_ENDPOINT}/${type}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(newThing),
+    })
+      .then(res => 
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  },
+
+  postIngredients(recipeId, ingredients) {
+    return fetch(`${config.API_ENDPOINT}/recipes/${recipeId}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    body: JSON.stringify(ingredients)
+  }
 
 }
 

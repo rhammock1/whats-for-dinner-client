@@ -223,7 +223,7 @@ class App extends Component {
                 <Link to={`/${userId}/favorites`}><li>Favorites</li></Link>
                 <Link to={`/${userId}/restaurants`}><li>My Restaurants</li></Link>
                 <Link to={`/${userId}/recipes`}><li>My Recipes</li></Link>
-                <Link to={`/${userId}/add-new`}><li>Add New</li></Link>
+                <Link to={`/${userId}/newThing`}><li>Add New</li></Link>
               </ul>
             </nav>
           : <></> 
