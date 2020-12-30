@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import apiService from '../services/api-service';
 import NewRecipe from './NewRecipe';
 import NewRestaurant from './NewRestaurant';

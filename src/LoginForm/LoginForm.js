@@ -12,28 +12,28 @@ class LoginForm extends React.Component {
   state = { error: null }
   static contextType = Context;
 
-  // handleSubmitJWTAuth = event => {
-  //   event.preventDefault();
-  //   this.setState({ error: null })
-  //   const { user_name, password } = event.target;
+  handleSubmitJWTAuth = event => {
+    event.preventDefault();
+    this.setState({ error: null })
+    const { user_name, password } = event.target;
 
-  //   AuthApiService.postLogin({
-  //     user_name: user_name.value,
-  //     password: password.value,
-  //   })
-  //     .then(res => {
-  //       user_name.value = '';
-  //       password.value = '';
-  //       TokenService.saveAuthToken(res.authToken)
-  //       TokenService.saveUserName(res.user_name)
-  //       TokenService.saveUserId(res.id);
-  //       this.props.onLoginSuccess();
+    AuthApiService.postLogin({
+      user_name: user_name.value,
+      password: password.value,
+    })
+      .then(res => {
+        user_name.value = '';
+        password.value = '';
+        TokenService.saveAuthToken(res.authToken)
+        TokenService.saveUserName(res.user_name)
+        TokenService.saveUserId(res.id);
+        this.props.onLoginSuccess();
         
-  //     })
-  //     .catch(res => {
-  //       this.setState({ error: res.error })
-  //     })
-  // }
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
+  }
   render() {
     const { error } = this.state;
     return (

@@ -194,13 +194,13 @@ class App extends Component {
       }
      
     let restaurants=[];
-    filtered.map(array => {
+    filtered.map(array => 
  
-      array.map(restaurant => {
+      array.map(restaurant => 
         
         restaurants.push(restaurant)
-      })
-    })
+      )
+    )
     if(this.state.style === 'local') {
       let local = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'local'
@@ -338,8 +338,8 @@ class App extends Component {
             <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetailView {...props} recipe={this.state.recipe} />)} />
             <Route path='/restaurants/:restaurantId' render={(props) => (<RestaurantDetailView {...props} />)} />
             <PublicOnlyRoute path='/register' component={RegistrationPage} />
-            <PrivateRoute path='/:userId' component={UserPage} />
             <PublicOnlyRoute path='/login' component={LoginPage} />
+            <PrivateRoute path='/:userId' component={UserPage} />
           </Switch>
           
         </main>
