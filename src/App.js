@@ -118,7 +118,8 @@ class App extends Component {
     TokenService.hasAuthToken()
       ? this.setState({ loggedIn: true })
       : this.setState({ loggedIn: false })
-
+    const userId = TokenService.getUserId()
+    this.setState({ userId })
   }
  
   
