@@ -45,8 +45,16 @@ class App extends Component {
       this.setState({ userId: userId })
 
       Promise.all([
-      fetch(`${config.API_ENDPOINT}/dinner/${userId}/restaurants`),
-      fetch(`${config.API_ENDPOINT}/dinner/${userId}/recipes`)
+      fetch(`${config.API_ENDPOINT}/dinner/${userId}/restaurants`, {
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    }),
+      fetch(`${config.API_ENDPOINT}/dinner/${userId}/recipes`, {
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
     ])
     .then(([restaurantsRes, recipesRes]) => {
       if (!restaurantsRes.ok) {

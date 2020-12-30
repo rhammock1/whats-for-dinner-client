@@ -7,7 +7,7 @@ const FavoriteRecipe = function(props) {
   const recipe = props.recipe[0] || {}
   
   return (
-     <div key={recipe.id}>
+     <div>
         <Link to={`/recipes/${recipe.id}`}><p>{recipe.title}</p></Link>
       </div>
     )
@@ -17,7 +17,7 @@ const FavoriteRestaurant = function(props) {
   
   const restaurant = props.restaurant[0] || {}
   return (
-    <div key={restaurant.id}>
+    <div>
       <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
     </div>
   )
