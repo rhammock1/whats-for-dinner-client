@@ -65,6 +65,7 @@ const apiService = {
     return fetch(`${config.API_ENDPOINT}/dinner/${userId}/favorites`, {
       method: 'DELETE',
       headers: {
+        'id': favoriteId,
         'Authorization': `bearer ${TokenService.getAuthToken()}`,
         'Content-Type': 'application/json'
       },
