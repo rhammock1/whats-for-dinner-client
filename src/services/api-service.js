@@ -46,9 +46,10 @@ const apiService = {
       headers: {
         'Authorization': `bearer ${TokenService.getAuthToken()}`,
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify(ingredients)
     })
-    body: JSON.stringify(ingredients)
+    
   }
 
 }

@@ -19,7 +19,6 @@ class NewThing extends React.Component {
 
   handleAddIngredient = () => {
     const newIngredient = { amount: parseFloat(this.state.amount), unit: this.state.unit, ingredient: this.state.ingredient }
-    console.log(newIngredient);
     const ingredients = this.state.ingredients;
     ingredients.push(newIngredient);
     this.setState({ ingredients: ingredients })
@@ -72,6 +71,7 @@ class NewThing extends React.Component {
         console.log(res.id)
         ingredients.forEach(ingredient => ingredient.recipe_id = res.id
         )
+        console.log(ingredients)
         apiService.postIngredients(res.id, ingredients)
           .catch(error => console.error(error))
       })
