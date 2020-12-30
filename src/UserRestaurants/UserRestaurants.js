@@ -102,13 +102,13 @@ handleRemoveFromFavorites = event => {
 
 
     let restaurants=[];
-    filtered.map(array => {
+    filtered.map(array => 
  
-      array.map(restaurant => {
+      array.map(restaurant => 
         
         restaurants.push(restaurant)
-      })
-    })
+      )
+    )
 
     
     return (
@@ -122,7 +122,7 @@ handleRemoveFromFavorites = event => {
                 <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
                 <div className='favorite'>
                   <p>Remove from favorites</p>
-                  <img id={restaurant.id} onClick={event => this.handleRemoveFromFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                  <img alt='button-to-remove-from-favorite' id={restaurant.id} onClick={event => this.handleRemoveFromFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                 </div>
                 {/* {this.state.deleted
                   ? <div className='added'>
@@ -139,7 +139,7 @@ handleRemoveFromFavorites = event => {
                 <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
                 <div className='favorite'>
                   <p>Add to favorites</p>
-                  <img id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                  <img alt='button-to-add-to-favorite'id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                 </div>
                 {this.state.added
                   ? <div className='added'>

@@ -39,7 +39,37 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
+    if(TokenService.hasAuthToken()) {
+      this.setState({ loggedIn: true })
+      const userId = TokenService.getUserId();
+      this.setState({ userId: userId })
+
+      Promise.all([
+      fetch(`${config.API_ENDPOINT}/dinner/${userId}/restaurants`),
+      fetch(`${config.API_ENDPOINT}/dinner/${userId}/recipes`)
+    ])
+    .then(([restaurantsRes, recipesRes]) => {
+      if (!restaurantsRes.ok) {
+        return restaurantsRes.json().then(e => Promise.reject(e))
+      }
+      if(!recipesRes.ok) {
+        return recipesRes.json().then(e => Promise.reject(e))
+      }
+      return Promise.all([
+        restaurantsRes.json(),
+        recipesRes.json(),
+      ])
+    })
+    .then(([restaurants, recipes]) => {
+      this.setState({ recipes, restaurants })
+    })
+    .catch(error => {
+      console.error({ error })
+    })
+    this.getFavorites();
+    } else {
+      this.setState({ loggedIn: false })
+      Promise.all([
       fetch(`${config.API_ENDPOINT}/restaurants`),
       fetch(`${config.API_ENDPOINT}/recipes`)
     ])
@@ -61,12 +91,8 @@ class App extends Component {
     .catch(error => {
       console.error({ error })
     })
-    TokenService.hasAuthToken()
-      ? this.setState({ loggedIn: true })
-      : this.setState({ loggedIn: false })
-
-    this.setUserId();
-    this.getFavorites();
+    }
+    
     }
   findRecipe = (recipeId) => {
     
@@ -92,17 +118,9 @@ class App extends Component {
     TokenService.hasAuthToken()
       ? this.setState({ loggedIn: true })
       : this.setState({ loggedIn: false })
-    // if(TokenService.hasAuthToken()) {
-    //   this.setState({ loggedIn: true });
-    // } else {
-    //   this.setState({ loggedIn: false });
-    // }
-  }
-  setUserId = () => {
-    const id = TokenService.getUserId();
-    this.setState({ userId: id })
-  }
 
+  }
+ 
   
   handleChange = (ev) => {
     if(this.state.touched === true) {
@@ -114,8 +132,8 @@ class App extends Component {
       ? this.setState({ inOrOut: ev.target.value })
       : this.setState({ style: ev.target.value })
   }
-  getFavorites = async () => {
-    if(await TokenService.hasAuthToken()) {
+  getFavorites = () => {
+    if(TokenService.hasAuthToken()) {
       const userId = this.state.userId;
       apiService.getUsersThings(userId, 'favorites')
         .then(favorites => this.setState({favorites}))
@@ -141,13 +159,13 @@ class App extends Component {
       }
      
     let recipes=[];
-    filtered.map(array => {
+    filtered.map(array => 
  
-      array.map(recipe => {
+      array.map(recipe => 
         
         recipes.push(recipe)
-      })
-    })
+      )
+    )
       
       for(let i = 0; i < 3; i++) {
         let chosen = recipes[Math.floor(Math.random() * recipes.length)];

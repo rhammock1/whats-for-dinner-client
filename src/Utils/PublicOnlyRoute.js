@@ -4,6 +4,7 @@ import TokenService from '../services/token-service';
 
 const PublicOnlyRoute = function({ component, ...props }) {
   const Component = component;
+  console.log('public');
   return (
     <Route
       {...props}
