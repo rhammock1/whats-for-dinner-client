@@ -15,9 +15,8 @@ import PrivateRoute from './Utils/PrivateRoute';
 import UserPage from './routes/UserPage';
 import LoginPage from './routes/LoginPage';
 import TokenService from './services/token-service';
-import Favorites from './Favorites/Favorites';
-import UserRestaurants from './UserRestaurants/UserRestaurants';
-import UserRecipes from './UserRecipes/UserRecipes';
+import apiService from './services/api-service';
+
 
 
 class App extends Component {
@@ -67,6 +66,7 @@ class App extends Component {
       : this.setState({ loggedIn: false })
 
     this.setUserId();
+    this.getFavorites();
     }
   findRecipe = (recipeId) => {
     
@@ -114,19 +114,105 @@ class App extends Component {
       ? this.setState({ inOrOut: ev.target.value })
       : this.setState({ style: ev.target.value })
   }
+  getFavorites = async () => {
+    if(await TokenService.hasAuthToken()) {
+      const userId = this.state.userId;
+      apiService.getUsersThings(userId, 'favorites')
+        .then(favorites => this.setState({favorites}))
+        .catch(error => console.error(error))
+      }
+  }
 
   handleWheelOptions = e => {
     e.preventDefault();
     this.setState({ touching: false, touched: true })
     let wheelOptions = [];
-    if (this.state.inOrOut === 'recipes') {
+    if(this.state.loggedIn && this.state.inOrOut === 'recipes') {
+      let filteredFavorites = this.state.favorites.filter(favorite => favorite.what_it_is === 'recipe');
+      let filtered = [];
+      let recipeIds = this.state.recipes.map(recipe => {
+        return recipe.id
+      })
+      for(let i = 0; i < filteredFavorites.length; i++) {
+        if(recipeIds.includes(filteredFavorites[i].item_id)) {
+          filtered.push(this.state.recipes.filter(recipe => recipe.id === filteredFavorites[i].item_id))
+        }
+
+      }
+     
+    let recipes=[];
+    filtered.map(array => {
+ 
+      array.map(recipe => {
+        
+        recipes.push(recipe)
+      })
+    })
+      
+      for(let i = 0; i < 3; i++) {
+        let chosen = recipes[Math.floor(Math.random() * recipes.length)];
+        wheelOptions.push(chosen);
+      }
+      for(let i = 0; i < 6; i++) {
+        let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
+        wheelOptions.push(chosen);
+      }
+      console.log(wheelOptions)
+    } else if (this.state.inOrOut === 'recipes') {
       for(let i = 0; i < 9; i++) {
         let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
         wheelOptions.push(chosen);
       }
       
     }
-    if(this.state.inOrOut === 'restaurants') {
+    if(this.state.loggedIn && this.state.inOrOut === 'restaurants') {
+      let filteredFavorites = this.state.favorites.filter(favorite => favorite.what_it_is === 'restaurant');
+      let filtered = [];
+  
+      for(let i = 0; i < filteredFavorites.length; i++) {
+    
+        filtered.push(this.state.restaurants.filter(restaurant => restaurant.id === filteredFavorites[i].item_id))
+
+      }
+     
+    let restaurants=[];
+    filtered.map(array => {
+ 
+      array.map(restaurant => {
+        
+        restaurants.push(restaurant)
+      })
+    })
+    if(this.state.style === 'local') {
+      let local = this.state.restaurants.filter(restaurant => 
+          restaurant.style === 'local'
+        );
+      for(let i = 0; i < 3; i++) {
+        let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
+        wheelOptions.push(chosen);
+      }
+      for(let i = 0; i < 6; i++) {
+        let chosen = local[Math.floor(Math.random() * 9)];
+        wheelOptions.push(chosen);
+      }
+      console.log(wheelOptions)
+    }
+    if(this.state.style === 'chain') {
+      let chain = this.state.restaurants.filter(restaurant => 
+          restaurant.style === 'chain'
+        );
+      for(let i = 0; i < 3; i++) {
+        let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
+        wheelOptions.push(chosen);
+      }
+      for(let i = 0; i < 6; i++) {
+        let chosen = chain[Math.floor(Math.random() * 9)];
+        wheelOptions.push(chosen);
+      }
+      console.log(wheelOptions)
+    }
+      
+    } else if(this.state.inOrOut === 'restaurants') {
       if(this.state.style === 'local') {
         
         let local = this.state.restaurants.filter(restaurant => 

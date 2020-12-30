@@ -114,7 +114,7 @@ class Wheel extends React.Component {
     ctx.rotate(angle - arc / 2 + Math.PI / 1);
 
     // Handles text fill of each sector will need to figure out a good solution. Right now it just uses the first letter
-    ctx.fillText(text[0], -ctx.measureText(text[0]).width /9, 1);
+    ctx.fillText(text, -ctx.measureText(text).width /9, 1);
     ctx.restore();
   }
 

@@ -87,20 +87,15 @@ handleRemoveFromFavorites = event => {
 
    
     let filtered = [];
- 
-    let restaurantIds = restaurantsInState.map(restaurant => {
-        return restaurant.id
-      })
 
     for(let i = 0; i < favoritedRestaurants.length; i++) {
-      if (restaurantIds.includes(favoritedRestaurants[i].item_id)) {
-        
-        filtered.push(restaurantsInState.filter(restaurant => restaurant.id === favoritedRestaurants[i].item_id))
-        let restaurantIndex = restaurantsInState.findIndex(restaurant => {
-          return restaurant.id === favoritedRestaurants[i].item_id
-        })
-        restaurantsInState.splice(restaurantIndex, 1);
-      }
+    
+      filtered.push(restaurantsInState.filter(restaurant => restaurant.id === favoritedRestaurants[i].item_id))
+      let restaurantIndex = restaurantsInState.findIndex(restaurant => {
+        return restaurant.id === favoritedRestaurants[i].item_id
+      })
+      restaurantsInState.splice(restaurantIndex, 1);
+      
 
     }
       console.log(filtered)
