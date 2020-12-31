@@ -124,13 +124,13 @@ class App extends Component {
       console.error({ error })
     })
   }
-  handleToken = () => {
+  handleToken = async () => {
     TokenService.hasAuthToken()
       ? this.setState({ loggedIn: true })
       : this.setState({ loggedIn: false })
     const userId = TokenService.getUserId()
     this.setState({ userId })
-    this.getFavorites();
+    await this.getFavorites();
   }
  
   
@@ -148,7 +148,7 @@ class App extends Component {
     
     if(TokenService.hasAuthToken()) {
       
-      const {userId} = this.state;
+      const userId = TokenService.getUserId();
       console.log(userId);
       apiService.getUsersThings(userId, 'favorites')
         .then(favorites => this.setState({favorites}))
