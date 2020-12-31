@@ -55,14 +55,14 @@ class Favorites extends React.Component {
       favoriteThing = this.state.restaurants.filter(restaurant => restaurant.id === favorite.item_id)
       
       return (
-        <FavoriteRestaurant key={favoriteThing.id} restaurant={favoriteThing} />
+        <FavoriteRestaurant key={favorite.id} restaurant={favoriteThing} />
       )
     }
     if(whatItIS === 'recipes') {
       favoriteThing = this.state.recipes.filter(recipe => recipe.id === parseFloat(favorite.item_id))
       
       return (
-        <FavoriteRecipe key={favoriteThing.id}recipe={favoriteThing} />
+        <FavoriteRecipe key={favorite.id}recipe={favoriteThing} />
       )
     }
   }
