@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthApiService from '../services/auth-api-service';
-import TokenService from '../services/token-service';
+import AuthApiService from '../../services/auth-api-service';
+import TokenService from '../../services/token-service';
 
 class RegistrationForm extends React.Component {
   state = { error: null }

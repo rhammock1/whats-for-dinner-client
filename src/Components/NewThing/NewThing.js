@@ -1,5 +1,5 @@
 import React from 'react';
-import apiService from '../services/api-service';
+import apiService from '../../services/api-service';
 import NewRecipe from './NewRecipe';
 import NewRestaurant from './NewRestaurant';
 

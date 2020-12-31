@@ -1,6 +1,6 @@
 import React from 'react';
 import Context from '../Context';
-import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import RegistrationForm from '../Components/RegistrationForm/RegistrationForm';
 
 class RegistrationPage extends React.Component {
   static defaultProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import apiService from '../services/api-service';
+import apiService from '../../services/api-service';
 
 // TODO:
 //  Favorites becomes undefined on login, need to assign a default value to prevent that

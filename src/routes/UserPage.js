@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Favorites from '../Favorites/Favorites';
-import NewThing from '../NewThing/NewThing';
-import UserRecipes from '../UserRecipes/UserRecipes';
-import UserRestaurants from '../UserRestaurants/UserRestaurants';
+import Favorites from '../Components/Favorites/Favorites';
+import NewThing from '../Components/NewThing/NewThing';
+import UserRecipes from '../Components/UserRecipes/UserRecipes';
+import UserRestaurants from '../Components/UserRestaurants/UserRestaurants';
 
 class UserPage extends React.Component {
   render() {

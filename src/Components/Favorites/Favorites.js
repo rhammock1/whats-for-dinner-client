@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import apiService from '../services/api-service';
+import apiService from '../../services/api-service';
 
 
 const FavoriteRecipe = function(props) {

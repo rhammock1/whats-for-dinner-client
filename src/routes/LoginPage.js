@@ -1,6 +1,6 @@
 import React from 'react';
 import Context from '../Context';
-import LoginForm from '../LoginForm/LoginForm';
+import LoginForm from '../Components/LoginForm/LoginForm';
 
 
 
