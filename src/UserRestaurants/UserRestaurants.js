@@ -202,7 +202,7 @@ handleRemoveFromFavorites = event => {
                 </div>
                 {this.state.deleted
                   ? <div className='added'>
-                      <p>Successfully deleted from favorites</p>
+                      <p>Successfully removed from favorites</p>
                     </div>
                   : null
                 }
