@@ -23,6 +23,8 @@ class App extends Component {
   state = {
     recipes: [],
     restaurants: [],
+    userRecipes: [],
+    userRestaurants: [],
     inOrOut: '',
     style: '',
     wheelOptions: [],
@@ -57,28 +59,29 @@ class App extends Component {
       },
     })
     ])
-    .then(([restaurantsRes, recipesRes]) => {
-      if (!restaurantsRes.ok) {
-        return restaurantsRes.json().then(e => Promise.reject(e))
+    .then(([userRestaurantsRes, userRecipesRes]) => {
+      if (!userRestaurantsRes.ok) {
+        return userRestaurantsRes.json().then(e => Promise.reject(e))
       }
-      if(!recipesRes.ok) {
-        return recipesRes.json().then(e => Promise.reject(e))
+      if(!userRecipesRes.ok) {
+        return userRecipesRes.json().then(e => Promise.reject(e))
       }
       return Promise.all([
-        restaurantsRes.json(),
-        recipesRes.json(),
+        userRestaurantsRes.json(),
+        userRecipesRes.json(),
       ])
     })
-    .then(([restaurants, recipes]) => {
-      this.setState({ recipes, restaurants })
+    .then(([userRestaurants, userRecipes]) => {
+      console.log(userRestaurants)
+      this.setState({ userRecipes, userRestaurants })
       this.getFavorites();
     })
     .catch(error => {
       console.error({ error })
     })
     
-    } else {
-      this.setState({ loggedIn: false })
+    } 
+      
       Promise.all([
       fetch(`${config.API_ENDPOINT}/restaurants`),
       fetch(`${config.API_ENDPOINT}/recipes`)
@@ -96,12 +99,15 @@ class App extends Component {
       ])
     })
     .then(([restaurants, recipes]) => {
+      
+      restaurants = restaurants.filter(restaurant => restaurant.user_id === null)
+      recipes = recipes.filter(recipe => recipe.user_id === null)
       this.setState({ recipes, restaurants })
     })
     .catch(error => {
       console.error({ error })
     })
-    }
+    
     
     }
   findRecipe = (recipeId) => {
@@ -162,16 +168,18 @@ class App extends Component {
     let wheelOptions = [];
     
     if(this.state.loggedIn && this.state.inOrOut === 'recipes') {
-      let filteredFavorites = (this.state.favorites.length > 0)
-        ? this.state.favorites.filter(favorite => favorite.what_it_is === 'recipe')
-        : this.state.recipes;
+      let filteredFavorites;
+      if (this.state.favorites.length > 0) {
+        
+        filteredFavorites = this.state.favorites.filter(favorite => favorite.what_it_is === 'recipe')
+
       let filtered = [];
-      let recipeIds = this.state.recipes.map(recipe => {
+      let recipeIds = this.state.userRecipes.map(recipe => {
         return recipe.id
       })
       for(let i = 0; i < filteredFavorites.length; i++) {
         if(recipeIds.includes(filteredFavorites[i].item_id)) {
-          filtered.push(this.state.recipes.filter(recipe => recipe.id === filteredFavorites[i].item_id))
+          filtered.push(this.state.userRecipes.filter(recipe => recipe.id === filteredFavorites[i].item_id))
         }
 
       }
@@ -189,9 +197,22 @@ class App extends Component {
         console.log(chosen);
       }
       for(let i = 0; i < 6; i++) {
-        let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
+        let chosen = this.state.userRecipes[Math.floor(Math.random() * 9)];
         wheelOptions.push(chosen);
+      }} else {
+        if(this.state.userRecipes.length < 6) {
+          for(let i = 0; i < 9; i++) {
+            let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
+            wheelOptions.push(chosen);
+            }
+        } else {
+          for(let i = 0; i < 9; i++) {
+            let chosen = this.state.userRecipes[Math.floor(Math.random() * 9)];
+            wheelOptions.push(chosen);
+            }
+        }
       }
+
       console.log(wheelOptions)
     } else if (this.state.inOrOut === 'recipes') {
       for(let i = 0; i < 9; i++) {
@@ -201,18 +222,20 @@ class App extends Component {
       
     }
     if(this.state.loggedIn && this.state.inOrOut === 'restaurants') {
-      let filteredFavorites = (this.state.favorites.length > 0)
-        ? this.state.favorites.filter(favorite => favorite.what_it_is === 'restaurant')
-        : this.state.restaurants;
+      let restaurants = []
+      if (this.state.favorites.length > 0) {
+      let filteredFavorites = this.state.favorites.filter(favorite => favorite.what_it_is === 'restaurant')
+
       let filtered = [];
   
       for(let i = 0; i < filteredFavorites.length; i++) {
     
-        filtered.push(this.state.restaurants.filter(restaurant => restaurant.id === filteredFavorites[i].item_id))
+        filtered.push(this.state.userRestaurants.filter(restaurant => restaurant.id === filteredFavorites[i].item_id))
 
       }
      
-    let restaurants=[];
+    restaurants= [...filtered]
+ 
     filtered.map(array => 
  
       array.map(restaurant => 
@@ -220,10 +243,24 @@ class App extends Component {
         restaurants.push(restaurant)
       )
     )
+    
+      } else {
+        if(this.state.userRestaurants.length < 6) {
+          restaurants = this.state.restaurants;
+        } else {
+          restaurants = this.state.userRestaurants;
+        }
+      }
+      
     if(this.state.style === 'local') {
-      let local = this.state.restaurants.filter(restaurant => 
+      let local = this.state.userRestaurants.filter(restaurant => 
           restaurant.style === 'local'
         );
+      
+      if(local.length < 3) {
+        let stateRestaurants = this.state.restaurants.filter(restaurant => restaurant.style === 'local')
+        local.push(...stateRestaurants)
+      }
       console.log(local);
       for(let i = 0; i < 3; i++) {
         let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
@@ -238,9 +275,13 @@ class App extends Component {
       console.log(wheelOptions)
     }
     if(this.state.style === 'chain') {
-      let chain = this.state.restaurants.filter(restaurant => 
+      let chain = this.state.userRestaurants.filter(restaurant => 
           restaurant.style === 'chain'
         );
+      if(chain.length < 3) {
+        let stateRestaurants = this.state.restaurants.filter(restaurant => restaurant.style === 'chain')
+        chain.push(...stateRestaurants)
+      }
       for(let i = 0; i < 3; i++) {
         let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
         wheelOptions.push(chosen);
@@ -279,13 +320,17 @@ class App extends Component {
         ? this.state.favorites
         : [...this.state.restaurants, ...this.state.recipes];
     
-      let recipes = this.state.recipes;
+      let recipes = this.state.userRecipes;
       let both;
       if(this.state.style === 'local') {
         
         let local = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'local'
         )
+        if(local.length < 3) {
+        let stateRestaurants = this.state.restaurants.filter(restaurant => restaurant.style === 'local')
+        local.push(...stateRestaurants)
+      }
         both = [...local, ...recipes];
 
         for(let i = 0; i < 3; i++) {
@@ -303,6 +348,10 @@ class App extends Component {
       } else if(this.state.style === 'chain') {
         let chain = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'chain')
+        if(chain.length < 3) {
+        let stateRestaurants = this.state.restaurants.filter(restaurant => restaurant.style === 'chain')
+        chain.push(...stateRestaurants)
+      }
         both = [...chain, ...recipes]
         for(let i = 0; i < 3; i++) {
         
@@ -316,7 +365,7 @@ class App extends Component {
               wheelOptions.push(chosen);
           }
         } else {
-          let both = [...this.state.restaurants, ...this.state.recipes]
+          let both = [...this.state.userRestaurants, ...this.state.userRecipes]
           for(let i = 0; i < 3; i++) {
         
             let chosen = favorites[Math.floor(Math.random() * favorites.length)];
