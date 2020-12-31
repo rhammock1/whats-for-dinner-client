@@ -160,8 +160,11 @@ class App extends Component {
     e.preventDefault();
     this.setState({ touching: false, touched: true })
     let wheelOptions = [];
+    
     if(this.state.loggedIn && this.state.inOrOut === 'recipes') {
-      let filteredFavorites = this.state.favorites.filter(favorite => favorite.what_it_is === 'recipe');
+      let filteredFavorites = (this.state.favorites.length > 0)
+        ? this.state.favorites.filter(favorite => favorite.what_it_is === 'recipe')
+        : this.state.recipes;
       let filtered = [];
       let recipeIds = this.state.recipes.map(recipe => {
         return recipe.id
@@ -179,7 +182,7 @@ class App extends Component {
         return recipes.push(recipe)
     })
     })
-      console.log(this.state.favor);
+      console.log(this.state.favorite);
       for(let i = 0; i < 3; i++) {
         let chosen = recipes[Math.floor(Math.random() * recipes.length)];
         wheelOptions.push(chosen);
@@ -198,7 +201,9 @@ class App extends Component {
       
     }
     if(this.state.loggedIn && this.state.inOrOut === 'restaurants') {
-      let filteredFavorites = this.state.favorites.filter(favorite => favorite.what_it_is === 'restaurant');
+      let filteredFavorites = (this.state.favorites.length > 0)
+        ? this.state.favorites.filter(favorite => favorite.what_it_is === 'restaurant')
+        : this.state.restaurants;
       let filtered = [];
   
       for(let i = 0; i < filteredFavorites.length; i++) {
@@ -219,6 +224,7 @@ class App extends Component {
       let local = this.state.restaurants.filter(restaurant => 
           restaurant.style === 'local'
         );
+      console.log(local);
       for(let i = 0; i < 3; i++) {
         let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
         wheelOptions.push(chosen);
@@ -226,7 +232,7 @@ class App extends Component {
       }
       
       for(let i = 0; i < 6; i++) {
-        let chosen = local[Math.floor(Math.random() * 9)];
+        let chosen = local[Math.floor(Math.random() * local.length)];
         wheelOptions.push(chosen);
       }
       console.log(wheelOptions)
@@ -240,7 +246,7 @@ class App extends Component {
         wheelOptions.push(chosen);
       }
       for(let i = 0; i < 6; i++) {
-        let chosen = chain[Math.floor(Math.random() * 9)];
+        let chosen = chain[Math.floor(Math.random() * chain.length)];
         wheelOptions.push(chosen);
       }
       console.log(wheelOptions)
@@ -254,7 +260,7 @@ class App extends Component {
         )
         for(let i = 0; i < 9; i++) {
         
-        let chosen = local[Math.floor(Math.random() * 9)];
+        let chosen = local[Math.floor(Math.random() * local.length)];
         wheelOptions.push(chosen);
       }
          
@@ -263,12 +269,67 @@ class App extends Component {
           restaurant.style === 'chain')
             for(let i = 0; i < 9; i++) {
         
-              let chosen = chain[Math.floor(Math.random() * 9)];
+              let chosen = chain[Math.floor(Math.random() * chain.length)];
               wheelOptions.push(chosen);
             }
           }
         }
-    if(this.state.inOrOut === 'both') {
+    if(this.state.loggedIn && this.state.inOrOut === 'both') {
+      let favorites = (this.state.favorites.length > 0)
+        ? this.state.favorites
+        : [...this.state.restaurants, ...this.state.recipes];
+    
+      let recipes = this.state.recipes;
+      let both;
+      if(this.state.style === 'local') {
+        
+        let local = this.state.restaurants.filter(restaurant => 
+          restaurant.style === 'local'
+        )
+        both = [...local, ...recipes];
+
+        for(let i = 0; i < 3; i++) {
+        
+        let chosen = favorites[Math.floor(Math.random() * favorites.length)];
+        wheelOptions.push(chosen);
+      }
+        
+        for(let i = 0; i < 6; i++) {
+        
+        let chosen = both[Math.floor(Math.random() * both.length)];
+        wheelOptions.push(chosen);
+      }
+         
+      } else if(this.state.style === 'chain') {
+        let chain = this.state.restaurants.filter(restaurant => 
+          restaurant.style === 'chain')
+        both = [...chain, ...recipes]
+        for(let i = 0; i < 3; i++) {
+        
+        let chosen = favorites[Math.floor(Math.random() * favorites.length)];
+        wheelOptions.push(chosen);
+      }
+        
+        for(let i = 0; i < 6; i++) {
+        
+              let chosen = both[Math.floor(Math.random() * both.length)];
+              wheelOptions.push(chosen);
+          }
+        } else {
+          let both = [...this.state.restaurants, ...this.state.recipes]
+          for(let i = 0; i < 3; i++) {
+        
+            let chosen = favorites[Math.floor(Math.random() * favorites.length)];
+            wheelOptions.push(chosen);
+          }
+          for(let i = 0; i < 6; i++) {
+        
+              let chosen = both[Math.floor(Math.random() * both.length)];
+              wheelOptions.push(chosen);
+          }
+        }
+    
+    } else if(this.state.inOrOut === 'both') {
       let recipes = this.state.recipes;
       let both;
       if(this.state.style === 'local') {
@@ -304,6 +365,7 @@ class App extends Component {
           }
         }
     }
+    console.log(wheelOptions)
     this.setState({ wheelOptions: wheelOptions  })
   }
   renderMainView = () => {
