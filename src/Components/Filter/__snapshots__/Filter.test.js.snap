@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter component renders the complete form 1`] = `
+<form
+  className="filters"
+  onSubmit={[Function]}
+>
+  <fieldset>
+    <legend>
+      What are you looking for?
+    </legend>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="inOrOut"
+      >
+        Restaurants or Recipes?
+      </label>
+      <select
+        id="inOrOut"
+        name="inOrOut"
+        required={true}
+      >
+        <option
+          value="null"
+        >
+          Choose One:
+        </option>
+        <option
+          value="restaurants"
+        >
+          Restaurants
+        </option>
+        <option
+          value="recipes"
+        >
+          Recipes
+        </option>
+        <option
+          value="both"
+        >
+          Either
+        </option>
+      </select>
+    </div>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </fieldset>
+</form>
+`;

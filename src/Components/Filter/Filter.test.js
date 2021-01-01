@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Favorites from './Favorites';
+import Filter from './Filter';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 
-describe('Favorites component', () => {
+describe('Filter component', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<BrowserRouter><Favorites />
+    ReactDOM.render(<BrowserRouter><Filter />
     </BrowserRouter>, div)
   })
   it('renders the complete form', () => {
-    const wrapper = shallow(<Favorites />)
+    const wrapper = shallow(<Filter />)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
 })

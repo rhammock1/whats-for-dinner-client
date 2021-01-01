@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Favorites component renders the complete form 1`] = `
+<section
+  className="favorites"
+>
+  <h2>
+    My Favorites
+  </h2>
+  <div
+    className="favorites-container"
+  />
+</section>
+`;
