@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import Context from '../../Context';
 import { findRestaurant } from '../../helper-functions';
 import './RestaurantDetailView.css';
