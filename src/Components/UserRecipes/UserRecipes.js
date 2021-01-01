@@ -40,25 +40,23 @@ class UserRecipes extends React.Component {
     let removedDoubles = [];
     for(let i = 0; i < favoritedRecipes.length; i++) {
       
-      removedDoubles.push(favoritedRecipes.filter(favorite => {
-        if (favorite.item_id === favoritedRecipes[i].item_id) {
-          return favorite
-      } 
-      }))
+      removedDoubles.push(favoritedRecipes.filter(favorite => 
+        favorite.item_id === favoritedRecipes[i].item_id
+      ))
     }
  
     let doubleFree = []
-    removedDoubles.filter(array => {
-      if(array.length < 2) {
-        
-        return doubleFree.push(array[0])
-      }
-    })
+    removedDoubles = removedDoubles.filter(array => {
+      return (array.length < 2)
+        ? doubleFree.push(array[0])
+        : null
+ })
     
     removedDoubles = removedDoubles.filter(array => {
-      if(array.length >= 2) {
-        return array
-      }
+      return (array.length >= 2) 
+        ? array
+        : null
+      
     })
   
     let singleDouble;
@@ -80,13 +78,8 @@ class UserRecipes extends React.Component {
     if(doubleFree.length > 0) {
       for(let i = 0; i < doubleFree.length; i++) {
       
-      filtered.push(recipesInState.filter(recipe => {
-
-        if(recipe.id === doubleFree[i].item_id) {
-        
-          return recipe;
-        }
-        }))
+      filtered.push(recipesInState.filter(recipe => (recipe.id === doubleFree[i].item_id)
+        ))
      
       let itemIds = doubleFree.map(each => each.item_id)
       newArray = recipesInState.filter(recipe => !itemIds.includes(recipe.id))

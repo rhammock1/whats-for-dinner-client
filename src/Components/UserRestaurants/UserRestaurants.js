@@ -55,26 +55,19 @@ class UserRestaurants extends React.Component {
     let removedDoubles = [];
     for(let i = 0; i < favoritedRestaurants.length; i++) {
       
-      removedDoubles.push(favoritedRestaurants.filter(favorite => {
-        if (favorite.item_id === favoritedRestaurants[i].item_id) {
-          return favorite
-      } 
-      }))
+      removedDoubles.push(favoritedRestaurants.filter(favorite => (favorite.item_id === favoritedRestaurants[i].item_id)
+        ))
     }
   
     let doubleFree = []
     removedDoubles.filter(array => {
-      if(array.length < 2) {
-        
-        return doubleFree.push(array[0])
-      }
+      return (array.length < 2) 
+        ? doubleFree.push(array[0])
+        : null
+      
     })
     
-    removedDoubles = removedDoubles.filter(array => {
-      if(array.length >= 2) {
-        return array
-      }
-    })
+    removedDoubles = removedDoubles.filter(array => (array.length >= 2))
   
     let singleDouble;
     singleDouble = removedDoubles.map(double => double[0])
@@ -95,13 +88,7 @@ class UserRestaurants extends React.Component {
     if(doubleFree.length > 0) {
       for(let i = 0; i < doubleFree.length; i++) {
       
-      filtered.push(restaurantsInState.filter(restaurant => {
-
-        if(restaurant.id === doubleFree[i].item_id) {
-        
-          return restaurant;
-        }
-        }))
+      filtered.push(restaurantsInState.filter(restaurant => (restaurant.id === doubleFree[i].item_id)))
     
       let itemIds = doubleFree.map(each => each.item_id)
       
