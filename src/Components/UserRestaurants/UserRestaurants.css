@@ -3,6 +3,11 @@
   flex-direction: column;
   align-items: center;
 }
+.user-restaurants {
+  display: flex;
+  flex-direction: column;
+  
+}
 /* .detail {
   background-color: #313753;
   width: 75%;
@@ -14,4 +19,27 @@
 .label {
   font-size: 12px;
   vertical-align: top;
+}
+.add {
+  align-self: center;
+  width: 30%;
+  margin:auto;
+  margin-top:10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #AE4421;
+  box-shadow: 2px 3px 2px #121212;
+}
+.add>a {
+  color: #efefef;
+  text-decoration: none;
+}
+.delete {
+  margin: 5px 0px;
+  color: #efefef;
+  background-color: #16213E;
+  border: none;
+  padding: 5px 7px;
+  box-shadow: 1px 2px 1px #121212; 
 }

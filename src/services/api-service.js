@@ -76,8 +76,54 @@ const apiService = {
         }
         return res
       })
+  },
+  deleteThing(thingId, thing) {
+    return fetch(`${config.API_ENDPOINT}/${thing}/${thingId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(e => Promise.reject(e))
+        }
+        return res
+      })
+  },
+  deleteIngredient(ingredientId, recipeId) {
+     return fetch(`${config.API_ENDPOINT}/recipes/${recipeId}`, {
+      method: 'DELETE',
+      headers: {
+        'ingredientId': ingredientId,
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(e => Promise.reject(e))
+        }
+        return res
+      })
+  },
+  deleteAllIngredientsAndRecipe(recipeId) {
+    return fetch(`${config.API_ENDPOINT}/recipes/${recipeId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(e => Promise.reject(e))
+        }
+        return res
+      })
+  },
   }
 
-}
 
 export default apiService;

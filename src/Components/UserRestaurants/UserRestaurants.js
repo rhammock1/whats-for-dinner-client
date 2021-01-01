@@ -195,6 +195,49 @@ handleRemoveFromFavorites = event => {
   
 
 }
+handleDelete = event => {
+  event.preventDefault();
+  const id = parseFloat(event.target.id);
+  const {userId} = this.props.match.params; 
+  const favorite = this.state.favorites.filter(favorite => {
+    return favorite.item_id === id && favorite.what_it_is === 'restaurant'
+    }) || []
+  console.log(favorite)
+
+  const restOfTheFavoriteRestaurants = this.state.favoriteRestaurants.filter(restaurant => restaurant.id !== id)
+
+  let allButDeleted;
+  if(favorite.length > 0 ) {
+
+  const favoriteId = favorite[0].id
+  console.log(favoriteId)
+  allButDeleted = [...this.state.splicedRestaurants].filter(restaurant => restaurant.id !== id)
+  console.log(allButDeleted)
+
+  console.log('hello')
+  apiService.deleteFavorite(userId, favoriteId)
+    .then(() => {
+      apiService.deleteThing(id, 'restaurants')
+        .then(() => {
+          this.setState({ splicedRestaurants: allButDeleted })
+        })
+        .catch(error => console.error(error))
+      })
+      .then(() => {
+        this.setState({favoriteRestaurants: restOfTheFavoriteRestaurants})
+      })
+      .catch(error => console.error(error))
+  } else {
+    allButDeleted = [...this.state.splicedRestaurants].filter(restaurant => restaurant.id !== id)
+    console.log(allButDeleted);
+      apiService.deleteThing(id, 'restaurants')
+        .then(() => {
+          this.setState({ splicedRestaurants: allButDeleted })
+  })
+    
+}
+}
+
   render() {
     const restaurants = this.state.favoriteRestaurants;
     const restaurantsInState = this.state.splicedRestaurants || [{}];
@@ -204,7 +247,7 @@ handleRemoveFromFavorites = event => {
     return (
       <section className='user-restaurants'>
         <h2>My Restaurants</h2>
-        <Link to={`/${userId}/newThing`}><button>Add new restaurant </button></Link>
+        
         <div className='restaurant-container'>
           {restaurants.map(restaurant => {
               
@@ -227,7 +270,7 @@ handleRemoveFromFavorites = event => {
                     </div>
                   : null
                 } */}
-                 
+                <button className='delete' id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
               </div>
             )
           })}
@@ -242,10 +285,11 @@ handleRemoveFromFavorites = event => {
                     </div>
                   : null
                   }
-               
+               <button className='delete' id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
               </div>
                 )
           })}
+          <button className='add'><Link to={`/${userId}/newThing`}>Add new restaurant </Link></button>
         </div>
       </section>
 

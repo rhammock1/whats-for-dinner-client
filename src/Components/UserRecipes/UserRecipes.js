@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import apiService from '../../services/api-service';
-
+import './UserRecipes.css';
 
 class UserRecipes extends React.Component {
   static defaultProps = {
@@ -18,6 +18,7 @@ class UserRecipes extends React.Component {
     deleted: false,
     splicedRecipes: [],
     favoritedRecipes: [],
+    recipeId: 0,
   }
 
 
@@ -66,16 +67,18 @@ class UserRecipes extends React.Component {
     const set = new Set(singleDouble)
     let iterator = set.entries()
     
-    for(let i = 0; i < set.size; i++) {
+    if(set.size > 0) {
+      for(let i = 0; i < set.size; i++) {
       doubleFree.push(iterator.next().value[0])
     }
-    
+    }
     
     const recipesInState = [...this.state.recipes];
    
     let filtered = [];
     let newArray;
-    for(let i = 0; i < doubleFree.length; i++) {
+    if(doubleFree.length > 0) {
+      for(let i = 0; i < doubleFree.length; i++) {
       
       filtered.push(recipesInState.filter(recipe => {
 
@@ -88,6 +91,10 @@ class UserRecipes extends React.Component {
       let itemIds = doubleFree.map(each => each.item_id)
       newArray = recipesInState.filter(recipe => !itemIds.includes(recipe.id))
     }
+    } else {
+      newArray = recipesInState
+    }
+    
   
     let recipes=[];
     filtered.map(array => 
@@ -117,7 +124,7 @@ class UserRecipes extends React.Component {
   
 
   apiService.postNewFavorite(userId, newFavorite)
-    .then(() => {this.setState({ added: true })})
+    .then(() => {this.setState({ added: true, recipeId: parseFloat(recipeId) })})
     .then(() => {
       apiService.getUsersThings(userId, 'favorites')
       .then(favorites => {
@@ -170,6 +177,52 @@ handleRemoveFromFavorites = event => {
   
 
 }
+handleDelete = event => {
+  event.preventDefault();
+  const id = parseFloat(event.target.id);
+  const {userId} = this.props.match.params; 
+  const favorite = this.state.favorites.filter(favorite => {
+    return favorite.item_id === id && favorite.what_it_is === 'recipe'
+    }) || []
+  console.log(favorite)
+
+  const restOfTheFavoriteRecipes = this.state.favoritedRecipes.filter(recipe => recipe.id !== id)
+
+  let allButDeleted;
+  if(favorite.length > 0 ) {
+
+  const favoriteId = favorite[0].id
+  console.log(favoriteId)
+  allButDeleted = [...this.state.splicedRecipes].filter(recipe => recipe.id !== id)
+  console.log(allButDeleted)
+
+  console.log('hello')
+  apiService.deleteFavorite(userId, favoriteId)
+    .then(() => {
+      apiService.deleteAllIngredientsAndRecipe(id)
+        .then(() => {
+          apiService.deleteThing(id, 'recipes')
+          .then(() => {
+            this.setState({ splicedRecipes: allButDeleted })
+          })
+          .catch(error => console.error(error))
+        })
+    })
+      .then(() => {
+        this.setState({favoritedRecipes: restOfTheFavoriteRecipes})
+      })
+      .catch(error => console.error(error))
+  } else {
+    allButDeleted = [...this.state.splicedRecipes].filter(recipe => recipe.id !== id)
+    console.log(allButDeleted);
+      apiService.deleteThing(id, 'recipes')
+        .then(() => {
+          console.log(allButDeleted)
+          this.setState({ splicedRecipes: allButDeleted })
+  })
+    
+}
+}
   render() {
     const recipes = this.state.favoritedRecipes;
     const recipesInState = this.state.splicedRecipes || [{}];
@@ -178,47 +231,44 @@ handleRemoveFromFavorites = event => {
     return (
       <section className='user-recipes'>
         <h2>My Recipes</h2>
-        <Link to={`/${userId}/newThing`}><button>Add new recipe </button></Link>
+        
         <div className='recipe-container'>
           {recipes.map(recipe => {
             return (
-              <div key={recipe.id}>
-                <Link to={`/recipes/${recipe.id}`}><p>{recipe.title}</p></Link>
+              <div className='detail' key={recipe.id}>
+                <p><Link className='detail-link' to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
                 <div className='favorite'>
-                  <p>Remove from favorites</p>
-                  <img alt='button-to-remove-from-favorite' id={recipe.id} onClick={event => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                  <label className='label'>Remove from favorites</label>
+                  <input type='image' alt='button-to-remove-from-favorite' id={recipe.id} onClick={event => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                 </div>
-                {/* {this.state.deleted
-                  ? <div className='added'>
-                      <p>Successfully removed from favorites</p>
-                    </div>
-                  : null
-                } */}
-                {this.state.added
+      
+                {(this.state.added && this.state.recipeId === recipe.id)
                   ? <div className='added'>
                       <p>Successfully added to favorites</p>
                     </div>
                   : null
                 }
+                <button className='delete' id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
               </div>
               
               )
           })}
           {recipesInState.map((recipe, index) => {
             return (
-              <div key={index}>
-                <Link to={`/restaurants/${recipe.id}`}><p>{recipe.title}</p></Link>
+              <div className='detail' key={index}>
+                <p><Link className='detail-link' to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
                 {(recipesInState.length > 0)
                   ? <div className='favorite'>
-                      <p>Add to favorites</p>
-                      <img alt='button-to-add-to-favorite'id={recipe.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                      <label className='label'>Add to favorites</label>
+                      <input type='image' alt='button-to-add-to-favorite'id={recipe.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                     </div>
                   : null
                 }
-                
+                <button className='delete' id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
               </div>
                 )
                 })}
+                <button className='add' ><Link to={`/${userId}/newThing`}>Add new recipe</Link></button>
         </div>
       </section>
 
