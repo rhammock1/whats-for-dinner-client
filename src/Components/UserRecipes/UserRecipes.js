@@ -45,7 +45,7 @@ class UserRecipes extends React.Component {
       } 
       }))
     }
-    console.log(removedDoubles)
+ 
     let doubleFree = []
     removedDoubles.filter(array => {
       if(array.length < 2) {
@@ -62,15 +62,15 @@ class UserRecipes extends React.Component {
   
     let singleDouble;
     singleDouble = removedDoubles.map(double => double[0])
-    console.log(singleDouble)
+    
     const set = new Set(singleDouble)
     let iterator = set.entries()
-    console.log(set.size)
+    
     for(let i = 0; i < set.size; i++) {
       doubleFree.push(iterator.next().value[0])
     }
     
-    console.log(doubleFree)
+    
     const recipesInState = [...this.state.recipes];
    
     let filtered = [];
@@ -88,7 +88,7 @@ class UserRecipes extends React.Component {
       let itemIds = doubleFree.map(each => each.item_id)
       newArray = recipesInState.filter(recipe => !itemIds.includes(recipe.id))
     }
-    console.log(filtered)
+  
     let recipes=[];
     filtered.map(array => 
  
@@ -97,7 +97,7 @@ class UserRecipes extends React.Component {
         recipes.push(recipe)
       )
     )
-    console.log(recipes)
+    
     
   this.setState({ favoritedRecipes: recipes })
   this.setState({ splicedRecipes: newArray })
@@ -198,9 +198,9 @@ handleRemoveFromFavorites = event => {
               
               )
           })}
-          {recipesInState.map(recipe => {
+          {recipesInState.map((recipe, index) => {
             return (
-              <div key={recipe.id}>
+              <div key={index}>
                 <Link to={`/restaurants/${recipe.id}`}><p>{recipe.title}</p></Link>
                 {recipesInState.length < 1
                   ? <div className='favorite'>

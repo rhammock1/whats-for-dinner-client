@@ -72,7 +72,7 @@ class App extends Component {
       ])
     })
     .then(([userRestaurants, userRecipes]) => {
-      console.log(userRestaurants)
+      
       this.setState({ userRecipes, userRestaurants })
       this.getFavorites();
     })
@@ -155,7 +155,7 @@ class App extends Component {
     if(TokenService.hasAuthToken()) {
       
       const userId = TokenService.getUserId();
-      console.log(userId);
+      
       apiService.getUsersThings(userId, 'favorites')
         .then(favorites => this.setState({favorites}))
         .catch(error => console.error(error))
@@ -190,11 +190,11 @@ class App extends Component {
         return recipes.push(recipe)
     })
     })
-      console.log(this.state.favorite);
+      
       for(let i = 0; i < 3; i++) {
         let chosen = recipes[Math.floor(Math.random() * recipes.length)];
         wheelOptions.push(chosen);
-        console.log(chosen);
+        
       }
       for(let i = 0; i < 6; i++) {
         let chosen = this.state.userRecipes[Math.floor(Math.random() * 9)];
@@ -213,7 +213,7 @@ class App extends Component {
         }
       }
 
-      console.log(wheelOptions)
+      
     } else if (this.state.inOrOut === 'recipes') {
       for(let i = 0; i < 9; i++) {
         let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
@@ -261,18 +261,18 @@ class App extends Component {
         let stateRestaurants = this.state.restaurants.filter(restaurant => restaurant.style === 'local')
         local.push(...stateRestaurants)
       }
-      console.log(local);
+     
       for(let i = 0; i < 3; i++) {
         let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
         wheelOptions.push(chosen);
-        console.log(chosen);
+        
       }
       
       for(let i = 0; i < 6; i++) {
         let chosen = local[Math.floor(Math.random() * local.length)];
         wheelOptions.push(chosen);
       }
-      console.log(wheelOptions)
+      
     }
     if(this.state.style === 'chain') {
       let chain = this.state.userRestaurants.filter(restaurant => 
@@ -290,7 +290,7 @@ class App extends Component {
         let chosen = chain[Math.floor(Math.random() * chain.length)];
         wheelOptions.push(chosen);
       }
-      console.log(wheelOptions)
+ 
     }
       
     } else if(this.state.inOrOut === 'restaurants') {
@@ -414,7 +414,7 @@ class App extends Component {
           }
         }
     }
-    console.log(wheelOptions)
+    
     this.setState({ wheelOptions: wheelOptions  })
   }
   renderMainView = () => {
