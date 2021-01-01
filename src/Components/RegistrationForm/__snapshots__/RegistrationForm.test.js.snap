@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Form component for user to add new thing renders the complete form 1`] = `
+exports[`Registration form renders the complete form 1`] = `
 <form
   className="registration-form"
   onSubmit={[Function]}

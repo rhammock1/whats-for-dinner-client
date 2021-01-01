@@ -4,7 +4,7 @@ import toJson from 'enzyme-to-json';
 import LoginForm from './LoginForm';
 
 
-describe('Form component for user to add new thing', () => {
+describe('Login Form ', () => {
   it('renders the complete form', () => {
     const wrapper = shallow(<LoginForm />)
     expect(toJson(wrapper)).toMatchSnapshot()

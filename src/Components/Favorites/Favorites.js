@@ -28,6 +28,14 @@ const FavoriteRestaurant = function(props) {
 
 class Favorites extends React.Component {
 
+  static defaultProps = {
+    match: {
+      params: {
+        userId: 0,
+      },
+    },
+  }
+
   state = {
     favorites: [],
     recipes: [],
