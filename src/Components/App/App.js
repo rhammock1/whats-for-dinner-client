@@ -194,24 +194,30 @@ class App extends Component {
         return recipes.push(recipe)
     })
     })
+   
       
       for(let i = 0; i < 3; i++) {
+ 
         let chosen = recipes[Math.floor(Math.random() * recipes.length)];
         wheelOptions.push(chosen);
         
       }
+      
       for(let i = 0; i < 6; i++) {
-        let chosen = this.state.userRecipes[Math.floor(Math.random() * 9)];
+        let chosen = this.state.userRecipes[Math.floor(Math.random() * this.state.userRecipes.length)];
         wheelOptions.push(chosen);
-      }} else {
+      }
+      
+      } else {
         if(this.state.userRecipes.length < 6) {
           for(let i = 0; i < 9; i++) {
-            let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
+            let chosen = this.state.recipes[Math.floor(Math.random() * this.state.recipes)];
             wheelOptions.push(chosen);
             }
         } else {
+          
           for(let i = 0; i < 9; i++) {
-            let chosen = this.state.userRecipes[Math.floor(Math.random() * 9)];
+            let chosen = this.state.userRecipes[Math.floor(Math.random() * this.state.userRecipes.length)];
             wheelOptions.push(chosen);
             }
         }
@@ -220,7 +226,7 @@ class App extends Component {
       
     } else if (this.state.inOrOut === 'recipes') {
       for(let i = 0; i < 9; i++) {
-        let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
+        let chosen = this.state.recipes[Math.floor(Math.random() * this.state.recipes.length)];
         wheelOptions.push(chosen);
       }
       
@@ -239,6 +245,7 @@ class App extends Component {
       }
      
     restaurants= [...filtered]
+    restaurants = restaurants.filter(restaurant => restaurant.length < 1)
  
     filtered.map(array => 
  
@@ -247,7 +254,7 @@ class App extends Component {
         restaurants.push(restaurant)
       )
     )
-    
+    console.log(restaurants)
       } else {
         if(this.state.userRestaurants.length < 6) {
           restaurants = this.state.restaurants;
@@ -283,18 +290,24 @@ class App extends Component {
           restaurant.style === 'chain'
         );
       if(chain.length < 3) {
-        let stateRestaurants = this.state.restaurants.filter(restaurant => restaurant.style === 'chain')
+        let stateRestaurants = [...this.state.restaurants].filter(restaurant => restaurant.style === 'chain')
         chain.push(...stateRestaurants)
+        
       }
       for(let i = 0; i < 3; i++) {
         let chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
+        // if(Array.isArray(chosen)) {
+        //   continue;
+        // }
         wheelOptions.push(chosen);
+        
       }
       for(let i = 0; i < 6; i++) {
+        
         let chosen = chain[Math.floor(Math.random() * chain.length)];
         wheelOptions.push(chosen);
       }
- 
+
     }
       
     } else if(this.state.inOrOut === 'restaurants') {
@@ -418,7 +431,7 @@ class App extends Component {
           }
         }
     }
-    
+    console.log(wheelOptions)
     this.setState({ wheelOptions: wheelOptions  })
   }
   handleClearDemo = () => {
