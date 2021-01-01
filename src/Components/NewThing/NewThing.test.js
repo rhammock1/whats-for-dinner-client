@@ -7,6 +7,13 @@ import NewThing from './NewThing';
 
 
 describe('Form component for user to add new thing', () => {
+  const seedIngredients = [];
+  beforeAll(() => {
+    for(let i = 0; i < 5; i++) {
+      seedIngredients.push(`${i} each ingredient${i}`);
+    }
+  });
+
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<BrowserRouter><NewThing />
@@ -16,4 +23,10 @@ describe('Form component for user to add new thing', () => {
     const wrapper = shallow(<NewThing />)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
+  it('Can add ingredients to the state', () => {
+    const wrapper = shallow(<NewThing />);
+    const instance = wrapper.instance();
+    seedIngredients.forEach(instance.handleAddIngredient);
+    expect(wrapper.state('ingredients').length).toEqual(seedIngredients.length);
+    });
 })

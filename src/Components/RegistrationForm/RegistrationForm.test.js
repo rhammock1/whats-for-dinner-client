@@ -1,7 +1,13 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow, } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import RegistrationForm from './RegistrationForm';
+
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+
+
+
 
 
 describe('Registration form', () => {
@@ -9,10 +15,14 @@ describe('Registration form', () => {
     const wrapper = shallow(<RegistrationForm />)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
-  // it('Should not submit form if the input is empty', () => {
-  //   const callback = jest.fn();
-  //   const wrapper = mount(<RegistrationForm onRegistrationSuccess={callback} />);
-  //   wrapper.simulate('submit');
-  //   expect(callback).not.toHaveBeenCalled();
-  //   });
+  it('renders without crashing', () => {
+  const div = document.createElement('div')
+  ReactDOM.render(
+    <BrowserRouter>
+      <RegistrationForm />
+    </BrowserRouter>,
+    div
+  )
+  ReactDOM.unmountComponentAtNode(div)
+})
 })
