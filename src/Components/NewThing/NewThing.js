@@ -31,6 +31,11 @@ class NewThing extends React.Component {
 
   handleAddIngredient = () => {
     const newIngredient = { amount: parseFloat(this.state.amount), unit: this.state.unit, ingredient: this.state.ingredient }
+    if(newIngredient.amount === 0 || newIngredient.unit === '' || newIngredient.ingredient === '') {
+      this.setState({ error: 'Please fill out ingredient fields'})
+      setTimeout(() => this.setState({error: null}), 5000)
+      return;
+    }
     const ingredients = [...this.state.ingredients];
     ingredients.push(newIngredient);
  
@@ -38,8 +43,7 @@ class NewThing extends React.Component {
       let element = document.getElementById(input)
       element.value = '';
       })
-    this.setState({ ingredients: ingredients })
-    
+    this.setState({ ingredients: ingredients, amount: 0, unit: '', ingredient: '' })
   }
   handleIngredientChange = event => {
     const name = event.target.name;
@@ -112,11 +116,12 @@ class NewThing extends React.Component {
   }
 
   render() {
-    
+    const {error} = this.state
     const thingCapitalized = this.state.thing.charAt(0).toUpperCase() + this.state.thing.slice(1)
     return (
       <>
       <h2>Add New {thingCapitalized}</h2>
+      <div role='alert'>{error && <p className='red'>{error}</p>}</div>
       <div className='form-container'>
         <form className='new-thing-form' onSubmit={event => this.handleSubmitThing(event)}>
           <fieldset>
