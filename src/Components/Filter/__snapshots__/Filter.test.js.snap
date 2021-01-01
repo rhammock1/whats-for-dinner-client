@@ -7,7 +7,9 @@ exports[`Filter component renders the complete form 1`] = `
 >
   <fieldset>
     <legend>
-      What are you looking for?
+      <h2>
+        What are you looking for?
+      </h2>
     </legend>
     <div
       className="form-group"
@@ -23,7 +25,7 @@ exports[`Filter component renders the complete form 1`] = `
         required={true}
       >
         <option
-          value="null"
+          value=""
         >
           Choose One:
         </option>
@@ -45,6 +47,7 @@ exports[`Filter component renders the complete form 1`] = `
       </select>
     </div>
     <button
+      className="filter-button"
       type="submit"
     >
       Submit

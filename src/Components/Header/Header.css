@@ -10,6 +10,9 @@ h1 {
   width: 75%;
   padding-left: 15px;
 }
+.logged-in {
+  margin-right: 10px;
+}
 .link {
   color: #efefef;
   text-decoration: none;

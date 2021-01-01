@@ -6,6 +6,9 @@ exports[`Form component for user to add new thing renders the complete form 1`] 
     Add New 
   </h2>
   <div
+    role="alert"
+  />
+  <div
     className="form-container"
   >
     <form

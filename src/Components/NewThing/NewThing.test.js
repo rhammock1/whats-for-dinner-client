@@ -23,10 +23,4 @@ describe('Form component for user to add new thing', () => {
     const wrapper = shallow(<NewThing />)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
-  it('Can add ingredients to the state', () => {
-    const wrapper = shallow(<NewThing />);
-    const instance = wrapper.instance();
-    seedIngredients.forEach(instance.handleAddIngredient);
-    expect(wrapper.state('ingredients').length).toEqual(seedIngredients.length);
-    });
 })

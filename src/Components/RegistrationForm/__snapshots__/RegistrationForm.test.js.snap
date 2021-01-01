@@ -7,7 +7,9 @@ exports[`Registration form renders the complete form 1`] = `
 >
   <fieldset>
     <legend>
-      Register
+      <h3>
+        Sign Up
+      </h3>
     </legend>
     <div
       role="alert"

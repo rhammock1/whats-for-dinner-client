@@ -7,7 +7,9 @@ exports[`Login Form  renders the complete form 1`] = `
 >
   <fieldset>
     <legend>
-      Form
+      <h3>
+        Login Credentials
+      </h3>
     </legend>
     <div
       role="alert"
@@ -47,15 +49,19 @@ exports[`Login Form  renders the complete form 1`] = `
     >
       Login
     </button>
-    <p>
-      Need an account? 
-      <br />
-      <Link
-        to="/register"
-      >
-        Sign up
-      </Link>
-    </p>
+    <div
+      className="sign-up"
+    >
+      <p>
+        Need an account? 
+        <br />
+        <Link
+          to="/register"
+        >
+          Sign up
+        </Link>
+      </p>
+    </div>
   </fieldset>
 </form>
 `;
