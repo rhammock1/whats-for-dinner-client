@@ -53,13 +53,15 @@ class RecipeDetailView extends React.Component {
     return (
       <section>
       <div className='recipe-container'>
-        <h3>{recipe.title}</h3>
+        <h2>{recipe.title}</h2>
         <div className='ingredients-container'>
+          <h3>Ingredients</h3>
           <ul className='ingredients-list'>
             {ingredients.map(ingredient => { return <Ingredient key={ingredient.id} ing={ingredient} />})}
           </ul>
         </div>
         <div className='content-container'>
+          <h3>Steps</h3>
           <p>{recipe.content}</p>
         </div>
         <button className='back-button'onClick={this.handleBack}>Back</button>
