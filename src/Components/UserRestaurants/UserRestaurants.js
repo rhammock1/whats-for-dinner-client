@@ -193,11 +193,13 @@ handleRemoveFromFavorites = event => {
   render() {
     const restaurants = this.state.favoriteRestaurants;
     const restaurantsInState = this.state.splicedRestaurants || [{}];
-    
+    const {userId} = this.props.match.params;
+   
     
     return (
       <section className='user-restaurants'>
         <h2>My Restaurants</h2>
+        <Link to={`/${userId}/newThing`}><button>Add new restaurant </button></Link>
         <div className='restaurant-container'>
           {restaurants.map(restaurant => {
               
@@ -221,10 +223,13 @@ handleRemoveFromFavorites = event => {
             return (
               <div key={restaurant.id}>
                 <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
-                <div className='favorite'>
-                  <p>Add to favorites</p>
-                  <img alt='button-to-add-to-favorite'id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
-                </div>
+                {(restaurantsInState.length < 1)
+                  ? <div className='favorite'>
+                      <p>Add to favorites</p>
+                      <img alt='button-to-add-to-favorite'id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                    </div>
+                  : null
+                  }
                 {this.state.added
                   ? <div className='added'>
                       <p>Successfully added to favorites</p>

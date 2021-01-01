@@ -11,7 +11,6 @@ class UserRecipes extends React.Component {
       },
     },
   }
-  
   state = {
     recipes: [],
     favorites: [],
@@ -174,9 +173,12 @@ handleRemoveFromFavorites = event => {
   render() {
     const recipes = this.state.favoritedRecipes;
     const recipesInState = this.state.splicedRecipes || [{}];
+    const {userId} = this.props.match.params;
+
     return (
       <section className='user-recipes'>
         <h2>My Recipes</h2>
+        <Link to={`/${userId}/newThing`}><button>Add new recipe </button></Link>
         <div className='recipe-container'>
           {recipes.map(recipe => {
             return (
@@ -200,10 +202,13 @@ handleRemoveFromFavorites = event => {
             return (
               <div key={recipe.id}>
                 <Link to={`/restaurants/${recipe.id}`}><p>{recipe.title}</p></Link>
-                <div className='favorite'>
-                  <p>Add to favorites</p>
-                  <img alt='button-to-add-to-favorite'id={recipe.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
-                </div>
+                {recipesInState.length < 1
+                  ? <div className='favorite'>
+                      <p>Add to favorites</p>
+                      <img alt='button-to-add-to-favorite'id={recipe.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                    </div>
+                  : null
+                }
                 {this.state.added
                   ? <div className='added'>
                       <p>Successfully added to favorites</p>
