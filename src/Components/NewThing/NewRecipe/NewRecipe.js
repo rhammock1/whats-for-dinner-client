@@ -25,8 +25,9 @@ class NewRecipe extends React.Component {
           <button type='button' onClick={() => this.props.handleAddIngredient()}>Add new ingrdient</button>
         </div>
         <div className='form-group'>
+          <h3>Ingredients</h3>
           <ul className='ingredients'>
-            {this.props.ingredients.map(ingredient => <li key={ingredient.id}>{ingredient.amount} {ingredient.unit} {ingredient.ingredient}</li> )}
+            {this.props.ingredients.map((ingredient, index) => <li key={index}>{ingredient.amount} {ingredient.unit} {ingredient.ingredient}</li> )}
           </ul>
         </div>
         <div className='form-group'>

@@ -11,7 +11,11 @@ class NewThing extends React.Component {
         userId: 0
       },
     },
-    
+
+  }
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
   }
 
   state = {
@@ -27,10 +31,15 @@ class NewThing extends React.Component {
 
   handleAddIngredient = () => {
     const newIngredient = { amount: parseFloat(this.state.amount), unit: this.state.unit, ingredient: this.state.ingredient }
-    const ingredients = this.state.ingredients;
+    const ingredients = [...this.state.ingredients];
     ingredients.push(newIngredient);
+ 
+    ['amount', 'unit', 'ingredient'].forEach(input => {
+      let element = document.getElementById(input)
+      element.value = '';
+      })
     this.setState({ ingredients: ingredients })
-
+    
   }
   handleIngredientChange = event => {
     const name = event.target.name;
@@ -95,9 +104,6 @@ class NewThing extends React.Component {
     }
     
     
-    
-    
-    // Needs to make a post request to save the new thing with their userId
   }
   handleSuccessClick = () => {
     this.setState({ added: false })
@@ -127,7 +133,7 @@ class NewThing extends React.Component {
             </div>
           {this.state.thing === 'restaurant'
                 ? <div className='form-group'><NewRestaurant /></div>
-                 : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe handleRemoveIngredient={this.handleRemoveIngredient} ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
+                 : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe refs={this.myRef} handleRemoveIngredient={this.handleRemoveIngredient} ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
                  : null} 
             <button type='submit'>Add {this.state.thing}</button>
           </fieldset>
