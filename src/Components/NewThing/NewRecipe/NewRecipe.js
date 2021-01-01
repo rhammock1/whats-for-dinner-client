@@ -3,7 +3,9 @@ import React from 'react';
 
 class NewRecipe extends React.Component {
 
- 
+ static defaultProps = {
+   ingredients: [],
+ }
 
   render() {
     return (
