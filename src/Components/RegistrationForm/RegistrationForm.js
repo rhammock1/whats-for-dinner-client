@@ -5,7 +5,8 @@ import TokenService from '../../services/token-service';
 class RegistrationForm extends React.Component {
   state = { error: null }
 
-  handleSubmit = event => {
+ 
+  handleSubmit(event) {
     event.preventDefault();
     const { user_name, first_name, password } = event.target;
 
@@ -23,6 +24,8 @@ class RegistrationForm extends React.Component {
         })
           .then(res => {
             TokenService.saveAuthToken(res.authToken)
+            TokenService.saveUserName(res.user_name)
+            TokenService.saveUserId(res.id);
           })
           .catch(res => {
             this.setState({ error: res.error })
@@ -37,7 +40,7 @@ class RegistrationForm extends React.Component {
   render() {
     const { error } = this.state;
     return (
-      <form className='registration-form' onSubmit={this.handleSubmit} >
+      <form className='registration-form' onSubmit={event => this.handleSubmit(event)} >
         <fieldset>
           <legend>Register</legend>
           <div role='alert'>{error && <p className='red'>{error}</p>}</div>
