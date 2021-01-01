@@ -1,0 +1,25 @@
+.detail {
+  background-color: #313753;
+  width: 75%;
+  padding-left: 10px;
+  border-radius:5px;
+  margin: 10px 0px;
+  box-shadow: 2px 3px 6px 3px #121212;
+}
+.detail-link {
+  color: #efefef;
+  
+}
+h2 {
+  width: 75%;
+  margin: 15px 30px;
+}
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#style {
+  vertical-align: top;
+  font-size: 12px;
+}

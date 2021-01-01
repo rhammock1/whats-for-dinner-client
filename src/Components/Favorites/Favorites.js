@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import apiService from '../../services/api-service';
-
+import './Favorites.css';
 
 const FavoriteRecipe = function(props) {
   const recipe = props.recipe[0] || {}
   
   return (
-     <div>
-        <Link to={`/recipes/${recipe.id}`}><p>{recipe.title}</p></Link>
+     <div className='detail'>
+        <p><Link className='detail-link' to={`/recipes/${recipe.id}`}>{recipe.title} </Link><span id='style'>recipe</span></p>
       </div>
     )
 }
@@ -17,8 +17,8 @@ const FavoriteRestaurant = function(props) {
   
   const restaurant = props.restaurant[0] || {}
   return (
-    <div>
-      <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
+    <div className='detail'>
+      <p><Link className='detail-link' to={`/restaurants/${restaurant.id}`}>{restaurant.title} </Link><span id='style'>{restaurant.style}</span></p>
     </div>
   )
   
