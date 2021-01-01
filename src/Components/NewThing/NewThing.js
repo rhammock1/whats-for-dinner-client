@@ -1,8 +1,8 @@
 import React from 'react';
 import apiService from '../../services/api-service';
 import NewRecipe from './NewRecipe/NewRecipe';
-import NewRestaurant from './NewRestaurant/NewRestaurant';
-
+import NewRestaurant from './NewRestaurant';
+import './NewThing.css';
 class NewThing extends React.Component {
 
   static defaultProps = {
@@ -141,6 +141,7 @@ class NewThing extends React.Component {
                  : this.state.thing === 'recipe' ? <div className='form-group'><NewRecipe refs={this.myRef} handleRemoveIngredient={this.handleRemoveIngredient} ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
                  : null} 
             <button type='submit'>Add {this.state.thing}</button>
+            {this.state.thing ? <p className='required'>* is required field</p> : null}
           </fieldset>
         </form>
         {this.state.added ? <div className='added'><p>Successfully Added {thingCapitalized}</p><button onClick={() => this.handleSuccessClick()} type='button'>Back</button></div> : null}

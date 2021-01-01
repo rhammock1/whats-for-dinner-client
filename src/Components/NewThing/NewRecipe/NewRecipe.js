@@ -11,15 +11,15 @@ class NewRecipe extends React.Component {
     return (
       <>
         <div className='form-group'>
-          <label htmlFor='title'>Recipe Name: <span>* required</span></label>
+          <label htmlFor='title'>Recipe Name: <span className='required'>* </span></label>
           <input type='text' id='title' name='title' required placeholder='e.g. Mac N Cheese' />        
         </div>
         <div onChange={event => this.props.handleChange(event)} className='form-group'>
-          <label htmlFor='amount'>Amount <span>* required</span></label>
+          <label htmlFor='amount'>Amount <span className='required'>* </span></label>
           <input type='number' id='amount' name='amount' title='amount' placeholder='2' /> 
-          <label htmlFor='unit'>Unit <span>* required</span></label>
+          <label htmlFor='unit'>Unit <span className='required'>* </span></label> 
           <input type='text' id='unit' name='unit' placeholder='Cup' /> 
-          <label htmlFor='ingredient'>Ingredient <span>* required</span></label>
+          <label htmlFor='ingredient'>Ingredient <span className='required'>* </span></label>
           <input type='text' id='ingredient' name='ingredient' placeholder='Carrots' />
           <button type='button' onClick={() => this.props.handleRemoveIngredient()}>Remove previous ingredient</button> 
           <button type='button' onClick={() => this.props.handleAddIngredient()}>Add new ingrdient</button>
@@ -31,7 +31,7 @@ class NewRecipe extends React.Component {
           </ul>
         </div>
         <div className='form-group'>
-          <label htmlFor='content'>Steps: <span>* required</span></label>
+          <label htmlFor='content'>Steps: <span className='required'>* </span></label>
           <textarea id='content' name='content' placeholder='Step 1: '  />        
         </div>
 

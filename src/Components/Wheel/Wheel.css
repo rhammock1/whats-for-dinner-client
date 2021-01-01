@@ -24,6 +24,9 @@
 #spin, #reset {
   z-index: 5;
   margin: 10px 0;
+  background-color: #AE4421;
+  border-radius: 10px;
+  box-shadow: 2px 3px 6px 3px #121212;
 }
 
 #spin:hover {

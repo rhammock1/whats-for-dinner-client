@@ -1,7 +1,7 @@
   
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NewRestaurant from './NewRestaurant';
+import NewRestaurant from '../NewRestaurant';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('New restaurant form section component', () => {

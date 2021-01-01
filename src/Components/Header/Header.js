@@ -21,12 +21,12 @@ class Header extends React.Component {
       {/* Need to conditionally render based on presence of a web browswer token */}
       {!this.props.loggedIn
         ? <div className='login-container'>
-            <Link to='/login'><button>Login</button></Link>
-            <Link to='/register'><button>Sign Up</button></Link>
+            <Link to='/login'><button className='header-button'>Login</button></Link>
+            <Link to='/register'><button className='header-button'>Sign Up</button></Link>
           </div>
         : <div className='logged-in'>
             <p>Hello, {userName} </p>
-            <Link to='/'><button onClick={() => this.handleClick()}>Logout</button></Link>
+            <Link to='/'><button className='header-button' onClick={() => this.handleClick()}>Logout</button></Link>
           </div>}
       
       
