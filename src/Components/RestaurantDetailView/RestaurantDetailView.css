@@ -6,6 +6,9 @@
   height:auto;
   margin:auto;
 }
+div>.details-container {
+  align-items: flex-start;
+}
 .back-button {
   background-color: #AE4421;
   border-radius: 10px;
@@ -15,12 +18,15 @@
   color: #313753;
   border-color: #313753;
 }
+a:hover {
+  color: #AE4421;
+}
 h3 a{
   color: #efefef;
   font-size: 35px;
 }
 .visit {
-  font-size: 12px;
+  font-size: 14px;
 }
 p {
   font-size: 20px;
