@@ -1,7 +1,7 @@
 import React from 'react';
 import apiService from '../../services/api-service';
-import NewRecipe from './NewRecipe';
-import NewRestaurant from './NewRestaurant';
+import NewRecipe from './NewRecipe/NewRecipe';
+import NewRestaurant from './NewRestaurant/NewRestaurant';
 
 class NewThing extends React.Component {
 
