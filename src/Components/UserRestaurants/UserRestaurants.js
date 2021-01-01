@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import apiService from '../../services/api-service';
-
+import './UserRestaurants.css';
 // TODO:
 //  Favorites becomes undefined on login, need to assign a default value to prevent that
 //  Need to add validation so there wont be duplicates in this.state.favorites
@@ -25,6 +25,7 @@ class UserRestaurants extends React.Component {
     favorites: [],
     deleted: false,
     favoriteRestaurants: [],
+    restaurantId: 0,
   }
 
 
@@ -81,16 +82,18 @@ class UserRestaurants extends React.Component {
     const set = new Set(singleDouble)
     let iterator = set.entries()
     
-    for(let i = 0; i < set.size; i++) {
+    if(set.size > 0) {
+      for(let i = 0; i < set.size; i++) {
       doubleFree.push(iterator.next().value[0])
     }
-    
+    } 
   
     const restaurantsInState = [...this.state.restaurants];
    
     let filtered = [];
     let newArray;
-    for(let i = 0; i < doubleFree.length; i++) {
+    if(doubleFree.length > 0) {
+      for(let i = 0; i < doubleFree.length; i++) {
       
       filtered.push(restaurantsInState.filter(restaurant => {
 
@@ -103,12 +106,13 @@ class UserRestaurants extends React.Component {
       let itemIds = doubleFree.map(each => each.item_id)
       
       newArray = restaurantsInState.filter(restaurant => !itemIds.includes(restaurant.id))
-    
+  
+      }
 
-
+    } else {
+      newArray = restaurantsInState
     }
-
-
+    
     let restaurants=[];
     filtered.map(array => 
  
@@ -117,6 +121,7 @@ class UserRestaurants extends React.Component {
         restaurants.push(restaurant)
       )
     )
+    console.log(newArray)
     
     
   this.setState({ favoriteRestaurants: restaurants })
@@ -137,7 +142,7 @@ handleAddToFavorites = event => {
   
 
   apiService.postNewFavorite(userId, newFavorite)
-    .then(() => {this.setState({ added: true })})
+    .then(() => {this.setState({ added: true, restaurantId: parseFloat(restaurantId) })})
     .then(() => {
       apiService.getUsersThings(userId, 'favorites')
       .then(favorites => {
@@ -204,11 +209,17 @@ handleRemoveFromFavorites = event => {
           {restaurants.map(restaurant => {
               
             return (
-              <div key={restaurant.id}>
-                <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
+              <div className='detail' key={restaurant.id}>
+                <p><Link className='detail-link' to={`/restaurants/${restaurant.id}`}>{restaurant.title} </Link><span id='style'>{restaurant.style}</span></p>
+                {(this.state.added && this.state.restaurantId === restaurant.id)
+                  ? <div className='added'>
+                      <p>Successfully added to favorites</p>
+                    </div>
+                  : null
+                }
                 <div className='favorite'>
-                  <p>Remove from favorites</p>
-                  <img alt='button-to-remove-from-favorite' id={restaurant.id} onClick={event => this.handleRemoveFromFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                  <label className='label'>Remove from favorites</label>
+                  <input type='image' alt='button-to-remove-from-favorite' id={restaurant.id} onClick={event => this.handleRemoveFromFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                 </div>
                 {/* {this.state.deleted
                   ? <div className='added'>
@@ -216,23 +227,18 @@ handleRemoveFromFavorites = event => {
                     </div>
                   : null
                 } */}
-                 {this.state.added
-                  ? <div className='added'>
-                      <p>Successfully added to favorites</p>
-                    </div>
-                  : null
-                }
+                 
               </div>
             )
           })}
           {restaurantsInState.map((restaurant, index) => {
             return (
-              <div key={index}>
-                <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
+              <div className='detail' key={index}>
+                <p><Link className='detail-link' to={`/restaurants/${restaurant.id}`}>{restaurant.title} </Link><span id='style'>{restaurant.style}</span></p>
                 {(restaurantsInState.length > 0)
                   ? <div className='favorite'>
-                      <p>Add to favorites</p>
-                      <img alt='button-to-add-to-favorite'id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
+                      <label className='label'>Add to favorites</label>
+                      <input type='image' alt='button-to-add-to-favorite'id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                     </div>
                   : null
                   }

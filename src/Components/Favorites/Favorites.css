@@ -8,11 +8,12 @@
 }
 .detail-link {
   color: #efefef;
-  
+  font-size: 25px;
 }
 h2 {
   width: 75%;
   margin: 15px 30px;
+  font-size: 40px;
 }
 .favorites-container {
   display: flex;
