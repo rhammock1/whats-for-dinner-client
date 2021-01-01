@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form component for user to add new thing renders the complete form 1`] = `
+<form
+  className="login-form"
+  onSubmit={[Function]}
+>
+  <fieldset>
+    <legend>
+      Form
+    </legend>
+    <div
+      role="alert"
+    />
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="user_name"
+      >
+        Username: 
+      </label>
+      <input
+        id="user_name"
+        name="user_name"
+        required={true}
+        type="text"
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="password"
+      >
+        Password: 
+      </label>
+      <input
+        id="password"
+        name="password"
+        required={true}
+        type="password"
+      />
+    </div>
+    <button
+      type="submit"
+    >
+      Login
+    </button>
+    <p>
+      Need an account? 
+      <br />
+      <Link
+        to="/register"
+      >
+        Sign up
+      </Link>
+    </p>
+  </fieldset>
+</form>
+`;
