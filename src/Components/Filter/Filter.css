@@ -2,6 +2,15 @@
   width: 75%;
   height: auto;
   margin: auto;
+  padding: 5px 10px;
+  background-color: #313753;
+  border-radius: 5px;
+  box-shadow: 2px 3px 6px 3px #121212 ; 
+}
+select {
+  background-color: #1A1A2E;
+  color: #efefef;
+  border: none;
 }
 .form-group {
   display: flex;
@@ -9,5 +18,5 @@
   padding: 10px 0px;
 }
 fieldset {
-  border: 5px solid;
+  border: 0px;
 }

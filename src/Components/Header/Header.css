@@ -3,16 +3,15 @@ header {
   display:flex;
   align-items:baseline;
   justify-content:space-evenly;
-  background: linear-gradient(#706677, 75%, #565264); 
 }
 h1 {
   font-size: 45px;
-  color: #d6cfcb;
+  color: #efefef;
   width: 75%;
   
 }
 .link {
-  color: #d6cfcb;
+  color: #efefef;
   text-decoration: none;
 }
 .login-container {
