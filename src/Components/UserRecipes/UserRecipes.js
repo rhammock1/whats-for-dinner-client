@@ -4,7 +4,14 @@ import apiService from '../../services/api-service';
 
 
 class UserRecipes extends React.Component {
-
+  static defaultProps = {
+    match: {
+      params: {
+        userId: 0,
+      },
+    },
+  }
+  
   state = {
     recipes: [],
     favorites: [],

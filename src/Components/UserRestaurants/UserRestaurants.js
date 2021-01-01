@@ -10,6 +10,14 @@ import apiService from '../../services/api-service';
 
 class UserRestaurants extends React.Component {
 
+  static defaultProps = {
+    match: {
+      params: {
+        userId: 0,
+      },
+    },
+  }
+
   state = {
     restaurants: [],
     splicedRestaurants: [],
