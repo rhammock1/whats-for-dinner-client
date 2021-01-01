@@ -184,7 +184,7 @@ handleDelete = event => {
   const favorite = this.state.favorites.filter(favorite => {
     return favorite.item_id === id && favorite.what_it_is === 'recipe'
     }) || []
-  console.log(favorite)
+
 
   const restOfTheFavoriteRecipes = this.state.favoritedRecipes.filter(recipe => recipe.id !== id)
 
@@ -192,11 +192,11 @@ handleDelete = event => {
   if(favorite.length > 0 ) {
 
   const favoriteId = favorite[0].id
-  console.log(favoriteId)
+ 
   allButDeleted = [...this.state.splicedRecipes].filter(recipe => recipe.id !== id)
-  console.log(allButDeleted)
+  
 
-  console.log('hello')
+  
   apiService.deleteFavorite(userId, favoriteId)
     .then(() => {
       apiService.deleteAllIngredientsAndRecipe(id)
@@ -214,10 +214,10 @@ handleDelete = event => {
       .catch(error => console.error(error))
   } else {
     allButDeleted = [...this.state.splicedRecipes].filter(recipe => recipe.id !== id)
-    console.log(allButDeleted);
+    
       apiService.deleteThing(id, 'recipes')
         .then(() => {
-          console.log(allButDeleted)
+         
           this.setState({ splicedRecipes: allButDeleted })
   })
     

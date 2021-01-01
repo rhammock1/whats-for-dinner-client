@@ -102,7 +102,7 @@ class UserRestaurants extends React.Component {
           return restaurant;
         }
         }))
-      console.log(filtered)
+    
       let itemIds = doubleFree.map(each => each.item_id)
       
       newArray = restaurantsInState.filter(restaurant => !itemIds.includes(restaurant.id))
@@ -121,7 +121,7 @@ class UserRestaurants extends React.Component {
         restaurants.push(restaurant)
       )
     )
-    console.log(newArray)
+    
     
     
   this.setState({ favoriteRestaurants: restaurants })
@@ -202,7 +202,7 @@ handleDelete = event => {
   const favorite = this.state.favorites.filter(favorite => {
     return favorite.item_id === id && favorite.what_it_is === 'restaurant'
     }) || []
-  console.log(favorite)
+ 
 
   const restOfTheFavoriteRestaurants = this.state.favoriteRestaurants.filter(restaurant => restaurant.id !== id)
 
@@ -210,11 +210,11 @@ handleDelete = event => {
   if(favorite.length > 0 ) {
 
   const favoriteId = favorite[0].id
-  console.log(favoriteId)
+  
   allButDeleted = [...this.state.splicedRestaurants].filter(restaurant => restaurant.id !== id)
-  console.log(allButDeleted)
+  
 
-  console.log('hello')
+  
   apiService.deleteFavorite(userId, favoriteId)
     .then(() => {
       apiService.deleteThing(id, 'restaurants')
@@ -229,7 +229,7 @@ handleDelete = event => {
       .catch(error => console.error(error))
   } else {
     allButDeleted = [...this.state.splicedRestaurants].filter(restaurant => restaurant.id !== id)
-    console.log(allButDeleted);
+
       apiService.deleteThing(id, 'restaurants')
         .then(() => {
           this.setState({ splicedRestaurants: allButDeleted })
