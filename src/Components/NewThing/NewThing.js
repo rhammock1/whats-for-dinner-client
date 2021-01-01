@@ -5,6 +5,15 @@ import NewRestaurant from './NewRestaurant/NewRestaurant';
 
 class NewThing extends React.Component {
 
+  static defaultProps = {
+    match: {
+      params: {
+        userId: 0
+      },
+    },
+    
+  }
+
   state = {
     thing: '',
     error: null,

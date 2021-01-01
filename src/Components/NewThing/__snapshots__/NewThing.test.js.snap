@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form component for user to add new thing renders the complete form 1`] = `
+<Fragment>
+  <h2>
+    Add New 
+  </h2>
+  <div
+    className="form-container"
+  >
+    <form
+      className="new-thing-form"
+      onSubmit={[Function]}
+    >
+      <fieldset>
+        <legend>
+          Add New:
+        </legend>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="new-type"
+          >
+            Restaurant or Recipe? 
+          </label>
+          <select
+            id="new-type"
+            name="new-type"
+            onChange={[Function]}
+            required={true}
+          >
+            <option
+              value=""
+            >
+              Please Choose one:
+            </option>
+            <option
+              value="restaurant"
+            >
+              Restaurant
+            </option>
+            <option
+              value="recipe"
+            >
+              Recipe
+            </option>
+          </select>
+        </div>
+        <button
+          type="submit"
+        >
+          Add 
+        </button>
+      </fieldset>
+    </form>
+  </div>
+</Fragment>
+`;
