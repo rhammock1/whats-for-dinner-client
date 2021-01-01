@@ -107,7 +107,8 @@ class Wheel extends React.Component {
     ctx.font = '17px Arial';
     ctx.fillStyle = 'black';
     ctx.stroke();
-
+    ctx.shadowBlur=5;
+    ctx.shadowColor="#121212";
     ctx.save();
     ctx.translate(
       baseSize + Math.cos(angle - arc / 2) * textRadius, baseSize + Math.sin(angle - arc / 2) * textRadius
@@ -115,7 +116,7 @@ class Wheel extends React.Component {
     ctx.rotate(angle - arc / 2 + Math.PI / 1);
 
     // Handles text fill of each sector will need to figure out a good solution. Right now it just uses the first letter
-    ctx.fillText(text, -ctx.measureText(text).width /9, 1);
+    // ctx.fillText(text, -ctx.measureText(text).width /9, 1);
     ctx.restore();
   }
 

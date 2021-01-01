@@ -5,12 +5,21 @@
   padding: 5px 10px;
   background-color: #313753;
   border-radius: 5px;
-  box-shadow: 2px 3px 6px 3px #121212 ; 
+  box-shadow: 2px 3px 6px 3px #121212; 
 }
 select {
   background-color: #1A1A2E;
   color: #efefef;
   border: none;
+  padding: 2px
+}
+.filter-button {
+  background-color: #16213E;
+  color: #efefef;
+  border: none;
+  border-radius: 10%;
+  padding: 8px 11px;
+  box-shadow: 1px 2px 1px #121212; 
 }
 .form-group {
   display: flex;

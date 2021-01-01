@@ -28,7 +28,7 @@ class Filter extends React.Component {
           </select> </div>
           : ''
         }
-        <button type='submit'>Submit</button>
+        <button className='filter-button' type='submit'>Submit</button>
         
       </fieldset>
     </form>
