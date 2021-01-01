@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import Header from './Components/Header/Header';
-import config from './config';
+import Header from '../Header/Header';
+import config from '../../config';
 import './App.css';
-import Filter from './Components/Filter/Filter';
-import Wheel from './Components/Wheel/Wheel';
-import Context from './Context';
-import Footer from './Components/Footer/Footer';
-import RestaurantDetailView from './Components/RestaurantDetailView/RestaurantDetailView';
+import Filter from '../Filter/Filter';
+import Wheel from '../Wheel/Wheel';
+import Context from '../../Context';
+import Footer from '../Footer/Footer';
+import RestaurantDetailView from '../RestaurantDetailView/RestaurantDetailView';
 import { Route, Switch, Link } from 'react-router-dom';
-import RecipeDetailView from './Components/RecipeDetailView/RecipeDetailView';
-import PublicOnlyRoute from './Components/Utils/PublicOnlyRoute';
-import RegistrationPage from './routes/RegistrationPage';
-import PrivateRoute from './Components/Utils/PrivateRoute';
-import UserPage from './routes/UserPage';
-import LoginPage from './routes/LoginPage';
-import TokenService from './services/token-service';
-import apiService from './services/api-service';
+import RecipeDetailView from '../RecipeDetailView/RecipeDetailView';
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
+import RegistrationPage from '../../routes/RegistrationPage';
+import PrivateRoute from '../Utils/PrivateRoute';
+import UserPage from '../../routes/UserPage';
+import LoginPage from '../../routes/LoginPage';
+import TokenService from '../../services/token-service';
+import apiService from '../../services/api-service';
 
 
 
