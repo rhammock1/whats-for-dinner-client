@@ -6,6 +6,11 @@ import './ResultPopUp.css';
 
 class ResultPopUp extends React.Component {
 
+  static defaultProps = {
+    resultId: 1,
+    resultTitle: 'default title',
+  }
+
   static contextType = Context;
 
   handleClick = () => {
