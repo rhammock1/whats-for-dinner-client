@@ -4,6 +4,12 @@ const TokenService = {
   saveAuthToken(token) {
     window.localStorage.setItem(config.TOKEN_KEY, token)
   },
+  setHasVisited() {
+    window.localStorage.setItem('hasVisited', true)
+  },
+  getHasVisited() {
+    return window.localStorage.getItem('hasVisited')
+  },
   saveUserName(user_name) {
     window.localStorage.setItem('user_name', user_name)
   },

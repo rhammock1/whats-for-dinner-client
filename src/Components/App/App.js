@@ -16,6 +16,7 @@ import UserPage from '../../routes/UserPage';
 import LoginPage from '../../routes/LoginPage';
 import TokenService from '../../services/token-service';
 import apiService from '../../services/api-service';
+import Popup from '../Popup/Popup';
 
 
 
@@ -34,6 +35,7 @@ class App extends Component {
     loggedIn: false,
     userId: 0,
     favorites: [],
+    hasVisited: false,
   }
 
   static getDerivedStateFromError(error) {
@@ -46,7 +48,9 @@ class App extends Component {
       this.setState({ loggedIn: true })
       const userId = TokenService.getUserId();
       this.setState({ userId: userId })
-
+      if (TokenService.getHasVisited()) {
+        this.setState({hasVisited: true})
+      }
       Promise.all([
       fetch(`${config.API_ENDPOINT}/dinner/${userId}/restaurants`, {
       headers: {
@@ -417,9 +421,17 @@ class App extends Component {
     
     this.setState({ wheelOptions: wheelOptions  })
   }
+  handleClearDemo = () => {
+    TokenService.setHasVisited();
+    this.setState({hasVisited: true})
+  }
   renderMainView = () => {
     return (
       <>
+      {(this.state.hasVisited === false )
+        ? <Popup handleClear={this.handleClearDemo} />
+        : null
+      }
         <Filter handleChange={this.handleChange}/>
         {(this.state.touched === false)
           ? <></>
@@ -452,6 +464,7 @@ class App extends Component {
         {this.state.loggedIn 
           ? <nav>
               <ul>
+                <li><Link className='nav-link' to={`/`}>Home</Link></li>
                 <li><Link className='nav-link' to={`/${userId}/favorites`}>Favorites</Link></li>
                 <li><Link className='nav-link' to={`/${userId}/restaurants`}>My Restaurants</Link></li>
                 <li><Link className='nav-link' to={`/${userId}/recipes`}>My Recipes</Link></li>
