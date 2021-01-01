@@ -452,10 +452,10 @@ class App extends Component {
         {this.state.loggedIn 
           ? <nav>
               <ul>
-                <Link to={`/${userId}/favorites`}><li>Favorites</li></Link>
-                <Link to={`/${userId}/restaurants`}><li>My Restaurants</li></Link>
-                <Link to={`/${userId}/recipes`}><li>My Recipes</li></Link>
-                <Link to={`/${userId}/newThing`}><li>Add New</li></Link>
+                <li><Link className='nav-link' to={`/${userId}/favorites`}>Favorites</Link></li>
+                <li><Link className='nav-link' to={`/${userId}/restaurants`}>My Restaurants</Link></li>
+                <li><Link className='nav-link' to={`/${userId}/recipes`}>My Recipes</Link></li>
+                <li><Link className='nav-link' to={`/${userId}/newThing`}>Add New</Link></li>
               </ul>
             </nav>
           : <></> 
