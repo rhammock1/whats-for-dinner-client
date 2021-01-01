@@ -6,7 +6,13 @@ import './RestaurantDetailView.css';
 
 class RestaurantDetailView extends React.Component {
   static contextType = Context;
- 
+  static defaultProps = {
+    match: {
+      params: {
+        restaurantId: 0
+      },
+    },
+  }
   render() {
     
     const restaurants = this.context.restaurants;

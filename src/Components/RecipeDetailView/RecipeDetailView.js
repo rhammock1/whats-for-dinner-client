@@ -4,6 +4,7 @@ import Context from '../../Context';
 import './RecipeDetailView.css';
 
 
+
 const Ingredient = function(props) {
   const rounded = Math.round(props.ing.amount * 100)/100;
   if (rounded === 0) {
@@ -20,6 +21,14 @@ const Ingredient = function(props) {
 
 class RecipeDetailView extends React.Component {
   static contextType = Context;
+
+  static defaultProps = {
+    match: {
+      params: {
+        recipeId: 0,
+      },
+    },
+  }
   state = {
     recipe: {
       ingredients: [],
