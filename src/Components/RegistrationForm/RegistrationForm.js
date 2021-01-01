@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthApiService from '../../services/auth-api-service';
 import TokenService from '../../services/token-service';
+import './RegistrationForm.css';
 
 class RegistrationForm extends React.Component {
   state = { error: null }
@@ -42,7 +43,7 @@ class RegistrationForm extends React.Component {
     return (
       <form className='registration-form' onSubmit={event => this.handleSubmit(event)} >
         <fieldset>
-          <legend>Register</legend>
+          <legend><h3>Sign Up</h3></legend>
           <div role='alert'>{error && <p className='red'>{error}</p>}</div>
         <div className='form-group'>
           <label htmlFor='user_name'>Username: </label>

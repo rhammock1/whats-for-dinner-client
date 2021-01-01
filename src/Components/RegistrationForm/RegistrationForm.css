@@ -1,0 +1,9 @@
+.registration-form {
+  width: 75%;
+  height: auto;
+  margin: auto;
+  padding: 5px 10px;
+  background-color: #313753;
+  border-radius: 5px;
+  box-shadow: 2px 3px 6px 3px #121212; 
+}

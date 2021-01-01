@@ -1,0 +1,23 @@
+.login-form {
+  width: 75%;
+  height: auto;
+  margin: auto;
+  padding: 5px 10px;
+  background-color: #313753;
+  border-radius: 5px;
+  box-shadow: 2px 3px 6px 3px #121212; 
+}
+input {
+  padding: 5px;
+}
+.sign-up {
+  background-color: #434D77;
+  border-radius: 5px;
+  box-shadow: 2px 3px 6px 3px #121212; 
+  padding:2px;
+  margin-top: 10px;
+}
+.sign-up>p {
+  margin: 0;
+  padding: 5px;
+}

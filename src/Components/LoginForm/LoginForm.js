@@ -3,6 +3,7 @@ import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
 import {Link} from 'react-router-dom';
 import Context from '../../Context';
+import './LoginForm.css';
 
 class LoginForm extends React.Component {
   static defaultProps = {
@@ -39,7 +40,7 @@ class LoginForm extends React.Component {
     return (
       <form className='login-form' onSubmit={this.handleSubmitJWTAuth}>
         <fieldset>
-          <legend>Form</legend>
+          <legend><h3>Login Credentials</h3></legend>
           <div role='alert'>{error && <p className='red'>{error}</p>}</div>
           <div className='form-group'>
             <label htmlFor='user_name'>Username: </label>
@@ -50,7 +51,9 @@ class LoginForm extends React.Component {
             <input type='password' required id='password' name='password' />
           </div>
           <button type='submit'>Login</button>
-          <p>Need an account? <br/><Link to='/register'>Sign up</Link></p>
+          <div className='sign-up'>
+            <p>Need an account? <br/><Link to='/register'>Sign up</Link></p>
+          </div>
         </fieldset>
       </form>
     )

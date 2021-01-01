@@ -414,7 +414,7 @@ class App extends Component {
           }
         }
     }
-    
+    console.log(wheelOptions)
     this.setState({ wheelOptions: wheelOptions  })
   }
   renderMainView = () => {
