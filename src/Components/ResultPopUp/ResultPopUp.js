@@ -27,17 +27,15 @@ class ResultPopUp extends React.Component {
     
     return (
      <div className="display">
-       <span className="close" onClick={this.handleClick}>
-            &times;
-          </span>
-          <span id="readout">
+          <div id="readout">
             Try This:{"  "}
             <span id="result">{this.props.resultTitle}</span>
-          </span>
+          </div>
           <div className='details'>
             {this.context.inOrOut === 'recipes'
-              ? <Link to={`/recipes/${this.props.resultId}`}><button>See more details</button></Link>
-              : <Link to={`/restaurants/${this.props.resultId}`}><button>See more details</button></Link>}
+              ? <Link to={`/recipes/${this.props.resultId}`}><button className='result-button'>See more details</button></Link>
+              : <Link to={`/restaurants/${this.props.resultId}`}><button className='result-button'>See more details</button></Link>}
+          <button className='result-button' onClick={this.handleClick}>I want something different</button>
           </div>
       </div>
   )

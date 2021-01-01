@@ -26,12 +26,14 @@ class RestaurantDetailView extends React.Component {
     return (
       <section>
       <div className='details-container'>
-    <a rel="noreferrer"target='_blank' href={restaurant.web_url}><h3>{restaurant.title}</h3></a>
+        
+      <h3><a rel="noreferrer"target='_blank' href={restaurant.web_url}>{restaurant.title}<br /> <span className='visit'>Click to visit restaurant website</span></a></h3>
+      
     <div className='details-container'>
       <p>{restaurant.phone_number}</p>
       <p>{restaurant.restaurant_address}</p>
     </div>
-    <button onClick={this.handleBack} className='back'>Back</button>
+    <button onClick={this.handleBack} className='back-button'>Back</button>
     </div>
     </section>
       )

@@ -62,7 +62,7 @@ class RecipeDetailView extends React.Component {
         <div className='content-container'>
           <p>{recipe.content}</p>
         </div>
-        <button onClick={this.handleBack}>Back</button>
+        <button className='back-button'onClick={this.handleBack}>Back</button>
       </div>
       </section>
       )

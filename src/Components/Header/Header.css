@@ -24,3 +24,7 @@ h1 {
   border-radius: 10px;
   box-shadow: 2px 3px 6px 3px #121212; 
 }
+.header-button:hover {
+  color: #313753;
+  border-color: #313753;
+}
