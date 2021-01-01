@@ -42,6 +42,9 @@ class RecipeDetailView extends React.Component {
     this.context.findRecipe(this.state.recipeId);
     
   }
+  handleBack = () => {
+    this.props.history.goBack()
+  }
  
   render() {
     const recipe = this.context.recipe
@@ -59,7 +62,7 @@ class RecipeDetailView extends React.Component {
         <div className='content-container'>
           <p>{recipe.content}</p>
         </div>
-        <Link className='back' to={'/'}><button >Back</button></Link>
+        <button onClick={this.handleBack}>Back</button>
       </div>
       </section>
       )

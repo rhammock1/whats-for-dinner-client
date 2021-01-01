@@ -443,6 +443,7 @@ class App extends Component {
       findRecipe: this.findRecipe,
       handleToken: this.handleToken,
       setUserId: this.setUserId,
+      userRestaurants: this.state.userRestaurants
     }
     const userId = this.state.userId;
     return (

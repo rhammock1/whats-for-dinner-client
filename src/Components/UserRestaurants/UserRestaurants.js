@@ -99,7 +99,7 @@ class UserRestaurants extends React.Component {
           return restaurant;
         }
         }))
-     
+      console.log(filtered)
       let itemIds = doubleFree.map(each => each.item_id)
       
       newArray = restaurantsInState.filter(restaurant => !itemIds.includes(restaurant.id))
@@ -210,9 +210,15 @@ handleRemoveFromFavorites = event => {
                   <p>Remove from favorites</p>
                   <img alt='button-to-remove-from-favorite' id={restaurant.id} onClick={event => this.handleRemoveFromFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                 </div>
-                {this.state.deleted
+                {/* {this.state.deleted
                   ? <div className='added'>
                       <p>Successfully removed from favorites</p>
+                    </div>
+                  : null
+                } */}
+                 {this.state.added
+                  ? <div className='added'>
+                      <p>Successfully added to favorites</p>
                     </div>
                   : null
                 }
@@ -223,19 +229,14 @@ handleRemoveFromFavorites = event => {
             return (
               <div key={index}>
                 <Link to={`/restaurants/${restaurant.id}`}><p>{restaurant.title} <span id='style'>{restaurant.style}</span></p></Link>
-                {(restaurantsInState.length < 1)
+                {(restaurantsInState.length > 0)
                   ? <div className='favorite'>
                       <p>Add to favorites</p>
                       <img alt='button-to-add-to-favorite'id={restaurant.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                     </div>
                   : null
                   }
-                {this.state.added
-                  ? <div className='added'>
-                      <p>Successfully added to favorites</p>
-                    </div>
-                  : null
-                }
+               
               </div>
                 )
           })}

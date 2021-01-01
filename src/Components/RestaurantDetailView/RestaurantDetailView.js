@@ -13,10 +13,13 @@ class RestaurantDetailView extends React.Component {
       },
     },
   }
+  handleBack = () => {
+    this.props.history.goBack()
+  }
   render() {
     
-    const restaurants = this.context.restaurants;
-    
+    const restaurants = [...this.context.restaurants,...this.context.userRestaurants];
+
     const { restaurantId } = this.props.match.params;
     const restaurant = findRestaurant(restaurants, restaurantId) || {}
     
@@ -28,7 +31,7 @@ class RestaurantDetailView extends React.Component {
       <p>{restaurant.phone_number}</p>
       <p>{restaurant.restaurant_address}</p>
     </div>
-    <Link to={'/'}><button className='back'>Back</button></Link>
+    <button onClick={this.handleBack} className='back'>Back</button>
     </div>
     </section>
       )

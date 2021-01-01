@@ -188,9 +188,15 @@ handleRemoveFromFavorites = event => {
                   <p>Remove from favorites</p>
                   <img alt='button-to-remove-from-favorite' id={recipe.id} onClick={event => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                 </div>
-                {this.state.deleted
+                {/* {this.state.deleted
                   ? <div className='added'>
                       <p>Successfully removed from favorites</p>
+                    </div>
+                  : null
+                } */}
+                {this.state.added
+                  ? <div className='added'>
+                      <p>Successfully added to favorites</p>
                     </div>
                   : null
                 }
@@ -202,19 +208,14 @@ handleRemoveFromFavorites = event => {
             return (
               <div key={index}>
                 <Link to={`/restaurants/${recipe.id}`}><p>{recipe.title}</p></Link>
-                {recipesInState.length < 1
+                {(recipesInState.length > 0)
                   ? <div className='favorite'>
                       <p>Add to favorites</p>
                       <img alt='button-to-add-to-favorite'id={recipe.id} onClick={event => this.handleAddToFavorites(event)}src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png"/>
                     </div>
                   : null
                 }
-                {this.state.added
-                  ? <div className='added'>
-                      <p>Successfully added to favorites</p>
-                    </div>
-                  : null
-                }
+                
               </div>
                 )
                 })}
