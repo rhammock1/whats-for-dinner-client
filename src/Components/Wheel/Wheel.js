@@ -52,8 +52,7 @@ class Wheel extends React.Component {
     let angle = 0;
     
     for(let i = 0; i < numOptions; i++) {
-      let text = this.state.wheelOptions[i].title;
-      this.renderSector(i + 1, text, angle, arcSize, this.getColor());
+      this.renderSector(i + 1, angle, arcSize, this.getColor());
       angle += arcSize;
     }
   }
@@ -86,7 +85,7 @@ class Wheel extends React.Component {
     });
   }
 
-  renderSector(index, text, start, arc, color) {
+  renderSector(index, start, arc, color) {
     // create canvas arc for each wheelOptions element
     let canvas = document.getElementById('wheel');
     let ctx = canvas.getContext('2d');

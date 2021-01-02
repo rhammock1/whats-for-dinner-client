@@ -210,8 +210,9 @@ class App extends Component {
       
       } else {
         if(this.state.userRecipes.length < 6) {
+          
           for(let i = 0; i < 9; i++) {
-            let chosen = this.state.recipes[Math.floor(Math.random() * this.state.recipes)];
+            let chosen = this.state.recipes[Math.floor(Math.random() * 9)];
             wheelOptions.push(chosen);
             }
         } else {
