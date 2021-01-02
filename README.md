@@ -10,8 +10,13 @@ Thinkful first solo capstone project
 
 In the future, I would like to add api for food delivery service with affiliate links and monetize with ads. I would also like to use an api to help users find restaurants that are near them so the results will be based on an input of their zip code.
 
-Currently, Users can decide between restaurants or recipes or both to determine the values on the wheel. 
-They can also filter restaurants by local or chain places. 
+A user can sign up and login. They can choose between restaurants and recipes, spin a wheel, and get a result about what they should do for dinner. As an authenticated user they can add their own restaurants/recipes and favorites. 
+
+### ScreenShots
+
+![ScreenShot](./readMeImages/Dinner_SS.png)
+![ScreenShot](./readMeImages/Dinner_SS_Wheel.png)
+
 
 ### Deploying
 
