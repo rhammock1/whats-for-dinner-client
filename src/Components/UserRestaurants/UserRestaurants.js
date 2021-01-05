@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
@@ -222,8 +225,8 @@ render() {
               )
               : null}
             <div className="favorite">
-              <label htmlFor="favorite-icon" className="label">Remove from favorites</label>
-              <input id="favorite-icon" type="image" alt="button-to-remove-from-favorite" id={restaurant.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+              <label htmlFor={restaurant.id} className="label">Remove from favorites</label>
+              <input type="image" alt="button-to-remove-from-favorite" id={restaurant.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
             </div>
             {/* {this.state.deleted
                   ? <div className='added'>
@@ -246,8 +249,8 @@ render() {
             {(restaurantsInState.length > 0)
               ? (
                 <div className="favorite">
-                  <label htmlFor="favorite-icon" className="label">Add to favorites</label>
-                  <input id="favorite-icon" type="image" alt="button-to-add-to-favorite" id={restaurant.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+                  <label htmlFor={restaurant.id} className="label">Add to favorites</label>
+                  <input type="image" alt="button-to-add-to-favorite" id={restaurant.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
                 </div>
               )
               : null}

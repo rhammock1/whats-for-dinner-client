@@ -1,7 +1,7 @@
 import React from 'react';
 import apiService from '../../services/api-service';
 import NewRecipe from './NewRecipe/NewRecipe';
-import NewRestaurant from './NewRestaurant';
+import NewRestaurant from './NewRestaurant/NewRestaurant';
 import './NewThing.css';
 class NewThing extends React.Component {
 

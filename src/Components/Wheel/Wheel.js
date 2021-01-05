@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable no-plusplus */
 /* eslint-disable max-len */
 import React from 'react';
@@ -188,7 +189,8 @@ class Wheel extends React.Component {
       easeOut,
       spinning,
       seen,
-      winner } = this.state;
+      winner,
+    } = this.state;
     return (
       <div className="wheel-container">
         <span id="selector">&#9660;</span>

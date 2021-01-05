@@ -1,3 +1,8 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-plusplus */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-unused-state */
 /* eslint-disable max-len */
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -52,8 +57,7 @@ class UserRecipes extends React.Component {
      ? array
      : null));
 
-   let singleDouble;
-   singleDouble = removedDoubles.map((double) => double[0]);
+   const singleDouble = removedDoubles.map((double) => double[0]);
 
    const set = new Set(singleDouble);
    const iterator = set.entries();
@@ -63,7 +67,7 @@ class UserRecipes extends React.Component {
        doubleFree.push(iterator.next().value[0]);
      }
    }
-    const { recipes } = this.state;
+   const { recipes } = this.state;
    const recipesInState = [...recipes];
 
    const filtered = [];
@@ -133,7 +137,7 @@ handleRemoveFromFavorites = (event) => {
     .then(() => { this.setState({ deleted: true }); })
     .then(() => {
       apiService.getUsersThings(userId, 'favorites')
-        .then((favorites) => this.setState({ favorites }))
+        .then((each) => this.setState({ favorites: each }))
         .then(async () => this.handleFavorites())
         .catch((error) => this.setState({ error }));
     })
@@ -200,8 +204,8 @@ render() {
           <div className="detail" key={recipe.id}>
             <p><Link className="detail-link" to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
             <div className="favorite">
-              <label htmlFor="remove-favorite" className="label">Remove from favorites</label>
-              <input id="remove-favorite" type="image" alt="button-to-remove-from-favorite" id={recipe.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+              <label htmlFor={recipe.id} className="label">Remove from favorites</label>
+              <input type="image" alt="button-to-remove-from-favorite" id={recipe.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
             </div>
 
             {(added && recipeId === recipe.id)
@@ -221,8 +225,8 @@ render() {
             {(recipesInState.length > 0)
               ? (
                 <div className="favorite">
-                  <label htmlFor="favorite-icon" className="label">Add to favorites</label>
-                  <input id="favorite-icon" type="image" alt="button-to-add-to-favorite" id={recipe.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+                  <label htmlFor={recipe.id} className="label">Add to favorites</label>
+                  <input type="image" alt="button-to-add-to-favorite" id={recipe.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
                 </div>
               )
               : null}

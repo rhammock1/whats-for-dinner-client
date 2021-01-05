@@ -28,5 +28,6 @@ module.exports = {
     'react/static-property-placement': [0, 'static public field'],
     'react/state-in-constructor': [2, 'never'],
     'react/jsx-props-no-spreading': [0, { explicitSpread: 'ignore' }],
+    'react/prop-types': 0,
   },
 };
