@@ -9,15 +9,12 @@ const AuthApiService = {
       },
       body: JSON.stringify({ user_name, password }),
     })
-      .then(res => {
-         if (!res.ok) {
-           return res.json().then(e => Promise.reject(e))
-        } else {
-          return res.json()
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((e) => Promise.reject(e));
         }
-      }
-       
-      )
+        return res.json();
+      });
   },
   postUser(user) {
     return fetch(`${config.API_ENDPOINT}/users`, {
@@ -27,14 +24,13 @@ const AuthApiService = {
       },
       body: JSON.stringify(user),
     })
-      .then( res => {
-        if(!res.ok) {
-          return res.json().then(e => Promise.reject(e))
-        } else {
-          return res.json()
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((e) => Promise.reject(e));
         }
-      })
-  }
-}
+        return res.json();
+      });
+  },
+};
 
 export default AuthApiService;

@@ -21,5 +21,6 @@ module.exports = {
   rules: {
     semi: ['error', 'always'],
     'linebreak-style': ['error', 'windows'],
+    camelcase: [0, { properties: 'always' }],
   },
 };
