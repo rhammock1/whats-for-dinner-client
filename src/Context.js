@@ -11,4 +11,4 @@ export default React.createContext({
   handleWheelOptions: () => {},
   findRecipe: () => {},
   handleToken: () => {},
-})
+});

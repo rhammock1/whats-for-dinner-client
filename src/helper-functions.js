@@ -1,11 +1,4 @@
-
-export function findRestaurant(restaurants, restaurantId) {
-  
-  let restaurant = restaurants.filter(restaurant =>
-    restaurant.id === parseFloat(restaurantId))
-  
+export default function findRestaurant(restaurants, restaurantId) {
+  const restaurant = restaurants.filter((each) => each.id === parseFloat(restaurantId));
   return restaurant[0];
-};
-
-
-
+}
