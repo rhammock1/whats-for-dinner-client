@@ -8,20 +8,23 @@ class RegistrationPage extends React.Component {
       push: () => {},
     },
   }
+
   static contextType = Context;
 
-  handleRegistrationSuccess = user => {
+  handleRegistrationSuccess = () => {
     const { history } = this.props;
-    history.push(`/`)
-    this.context.handleToken();
+    history.push('/');
+    const { handleToken } = this.context;
+    handleToken();
   }
+
   render() {
     return (
-      <section className='registrationPage'>
+      <section className="registrationPage">
         <h2>Welcome</h2>
-        <RegistrationForm onRegistrationSuccess={this.handleRegistrationSuccess} /> 
+        <RegistrationForm onRegistrationSuccess={this.handleRegistrationSuccess} />
       </section>
-      )
+    );
   }
 }
 

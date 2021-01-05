@@ -5,19 +5,16 @@ import NewThing from '../Components/NewThing/NewThing';
 import UserRecipes from '../Components/UserRecipes/UserRecipes';
 import UserRestaurants from '../Components/UserRestaurants/UserRestaurants';
 
-class UserPage extends React.Component {
-  render() {
-    return (
-      <section className='user-page'>
-        <Route path='/:userId/recipes' component={UserRecipes} />
-        <Route path='/:userId/restaurants' component={UserRestaurants} />
-        <Route path='/:userId/favorites' component={Favorites} />
-        <Route path='/:userId/newThing' component={NewThing} />
+function UserPage() {
+  return (
+    <section className="user-page">
+      <Route path="/:userId/recipes" component={UserRecipes} />
+      <Route path="/:userId/restaurants" component={UserRestaurants} />
+      <Route path="/:userId/favorites" component={Favorites} />
+      <Route path="/:userId/newThing" component={NewThing} />
+    </section>
 
-      </section>
-
-      )
-  }
+  );
 }
 
 export default UserPage;

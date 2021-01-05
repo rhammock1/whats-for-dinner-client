@@ -2,12 +2,10 @@ import React from 'react';
 import Context from '../Context';
 import LoginForm from '../Components/LoginForm/LoginForm';
 
-
-
 class LoginPage extends React.Component {
   static defaultProps = {
     location: {},
-    history : {
+    history: {
       push: () => {},
     },
   }
@@ -15,24 +13,25 @@ class LoginPage extends React.Component {
   static contextType = Context;
 
   componentWillUnmount() {
-    this.context.handleToken();
+    const { handleToken } = this.context;
+    handleToken();
   }
+
   handleLoginSuccess = () => {
-    
     const { location, history } = this.props;
-    const destination = (location.state || {}).from || '/'
-    history.push(destination)
-   
+    const destination = (location.state || {}).from || '/';
+    history.push(destination);
   }
 
   render() {
     return (
-      <section className='login-page'>
-        <h2>It's nice to see you!</h2>
+      <section className="login-page">
+        <h2>It is nice to see you!</h2>
         <LoginForm
-       onLoginSuccess={this.handleLoginSuccess} />
+          onLoginSuccess={this.handleLoginSuccess}
+        />
       </section>
-    )
+    );
   }
 }
 

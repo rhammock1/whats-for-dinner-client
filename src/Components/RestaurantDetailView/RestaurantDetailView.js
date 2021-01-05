@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Context from '../../Context';
-import { findRestaurant } from '../../helper-functions';
+import findRestaurant from '../../helper-functions';
 import './RestaurantDetailView.css';
 
 class RestaurantDetailView extends React.Component {
