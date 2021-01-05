@@ -1,2 +1,3 @@
 setupTests.js
 index.js
+*.test.js

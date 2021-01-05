@@ -1,16 +1,18 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
 import Context from '../../Context';
 import './RecipeDetailView.css';
 
-const Ingredient = function (props) {
-  const rounded = Math.round(props.ing.amount * 100) / 100;
+const Ingredient = (props) => {
+  const { ing } = props;
+  const rounded = Math.round(ing.amount * 100) / 100;
   if (rounded === 0) {
     return (
       <li className="recipe-ing">
-        {props.ing.unit}
+        {ing.unit}
         {' '}
-        <span className="ingredient">{props.ing.ingredient}</span>
+        <span className="ingredient">{ing.ingredient}</span>
       </li>
     );
   }
@@ -18,9 +20,9 @@ const Ingredient = function (props) {
     <li className="recipe-ing">
       <span className="amount">{rounded}</span>
       {' '}
-      <span className="unit">{props.ing.unit}</span>
+      <span className="unit">{ing.unit}</span>
       {' '}
-      <span className="ingredient">{props.ing.ingredient}</span>
+      <span className="ingredient">{ing.ingredient}</span>
     </li>
   );
 };
