@@ -13,7 +13,7 @@ class Filter extends React.Component {
     return (
       <form onSubmit={(e) => handleWheelOptions(e)} onChange={handleChange} className="filters">
         <fieldset>
-          <legend><h2>What are you looking for?</h2></legend>
+          <legend><h2 className="filter-heading">What are you looking for?</h2></legend>
           <div className="form-group">
             <label htmlFor="inOrOut">Restaurants or Recipes?</label>
             <select id="inOrOut" name="inOrOut" required>
