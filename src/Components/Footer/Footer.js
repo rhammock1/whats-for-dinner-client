@@ -6,7 +6,7 @@ function Footer() {
     <footer>
       &#169; RHammock
     </footer>
-    )
+  );
 }
 
 export default Footer;
