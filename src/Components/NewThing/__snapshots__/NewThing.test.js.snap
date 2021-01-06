@@ -3,7 +3,8 @@
 exports[`Form component for user to add new thing renders the complete form 1`] = `
 <Fragment>
   <h2>
-    Add New 
+    Add New
+     
   </h2>
   <div
     role="alert"
@@ -53,7 +54,8 @@ exports[`Form component for user to add new thing renders the complete form 1`] 
         <button
           type="submit"
         >
-          Add 
+          Add
+           
         </button>
       </fieldset>
     </form>

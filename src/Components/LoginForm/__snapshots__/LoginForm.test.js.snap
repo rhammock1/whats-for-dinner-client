@@ -53,7 +53,7 @@ exports[`Login Form  renders the complete form 1`] = `
       className="sign-up"
     >
       <p>
-        Need an account? 
+        Need an account?
         <br />
         <Link
           to="/register"

@@ -8,6 +8,9 @@ exports[`Favorites component renders the complete form 1`] = `
     My Favorites
   </h2>
   <div
+    role="alert"
+  />
+  <div
     className="favorites-container"
   />
 </section>
