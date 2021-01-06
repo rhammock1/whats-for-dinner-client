@@ -204,14 +204,13 @@ render() {
     isResolved,
   } = this.state;
   const { userId } = this.props.match.params;
-
   return (
     <section className="user-recipes">
       <h2>My Recipes</h2>
       <div role="alert">{error && <p className="red">{error}</p>}</div>
       <div className="recipe-container">
         {(isResolved)
-          ? (favoritedRecipes.map((recipe) => (
+          ? ([favoritedRecipes.map((recipe) => (
             <div className="detail" key={recipe.id}>
               <p><Link className="detail-link" to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
               <div className="favorite">
@@ -243,7 +242,7 @@ render() {
                 : null}
               <button type="button" className="delete" id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
             </div>
-          )))
+          ))])
           : <p>loading...</p>}
         <button type="button" className="add"><Link to={`/${userId}/newThing`}>Add new recipe</Link></button>
       </div>

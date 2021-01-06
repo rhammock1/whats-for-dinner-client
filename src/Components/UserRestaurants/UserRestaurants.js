@@ -219,7 +219,7 @@ render() {
       <div role="alert">{error && <p className="red">{error}</p>}</div>
       <div className="restaurant-container">
         {(isResolved)
-          ? (favoriteRestaurants.map((restaurant) => (
+          ? ([favoriteRestaurants.map((restaurant) => (
             // Favorite restaurants first
             <div className="detail" key={restaurant.id}>
               <p>
@@ -262,7 +262,7 @@ render() {
                 : null}
               <button type="button" className="delete" id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
             </div>
-          )))
+          ))])
           : <p>loading...</p>}
 
         <button type="button" className="add"><Link to={`/${userId}/newThing`}>Add new restaurant </Link></button>
