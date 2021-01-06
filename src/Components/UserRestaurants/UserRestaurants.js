@@ -86,7 +86,7 @@ class UserRestaurants extends React.Component {
       }
     }
 
-    const restaurantsInState = [...restaurants];
+    const restaurantsInState = restaurants;
     const filtered = [];
     let newArray;
     if (doubleFree.length > 0) {
@@ -157,13 +157,11 @@ handleRemoveFromFavorites = (event) => {
         .then(async () => this.handleFavorites())
         .catch((error) => this.setState({ error }));
     })
-    .then(() => {
-      setTimeout(
-        () => { this.setState({ deleted: false }); },
-        5000,
-      );
-    })
     .catch((error) => this.setState({ error }));
+  setTimeout(
+    () => { this.setState({ deleted: false }); },
+    5000,
+  );
 }
 
 handleDelete = (event) => {
@@ -211,6 +209,7 @@ render() {
     added,
     restaurantId,
     isResolved,
+    deleted,
   } = this.state;
   const { userId } = this.props.match.params;
   return (
@@ -257,6 +256,13 @@ render() {
                   <div className="favorite">
                     <label htmlFor={restaurant.id} className="label">Add to favorites</label>
                     <input type="image" alt="button-to-add-to-favorite" id={restaurant.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+                    {(deleted && restaurantId === restaurant.id)
+                      ? (
+                        <div className="added">
+                          <p>Successfully removed from favorites</p>
+                        </div>
+                      )
+                      : null}
                   </div>
                 )
                 : null}

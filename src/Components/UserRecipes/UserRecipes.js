@@ -73,7 +73,7 @@ class UserRecipes extends React.Component {
      }
    }
    const { recipes } = this.state;
-   const recipesInState = [...recipes];
+   const recipesInState = recipes;
 
    const filtered = [];
    let newArray;
@@ -202,12 +202,15 @@ render() {
     added,
     recipeId,
     isResolved,
+    deleted,
   } = this.state;
   const { userId } = this.props.match.params;
   return (
     <section className="user-recipes">
       <h2>My Recipes</h2>
-      <div role="alert">{error && <p className="red">{error}</p>}</div>
+      <div role="alert">
+        {error && <p className="red">{error}</p>}
+      </div>
       <div className="recipe-container">
         {(isResolved)
           ? ([favoritedRecipes.map((recipe) => (
@@ -216,15 +219,15 @@ render() {
               <div className="favorite">
                 <label htmlFor={recipe.id} className="label">Remove from favorites</label>
                 <input type="image" alt="button-to-remove-from-favorite" id={recipe.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
-              </div>
 
-              {(added && recipeId === recipe.id)
-                ? (
-                  <div className="added">
-                    <p>Successfully added to favorites</p>
-                  </div>
-                )
-                : null}
+                {(added && recipeId === recipe.id)
+                  ? (
+                    <div className="added">
+                      <p>Successfully added to favorites</p>
+                    </div>
+                  )
+                  : null}
+              </div>
               <button type="button" className="delete" id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
             </div>
 
@@ -237,6 +240,13 @@ render() {
                   <div className="favorite">
                     <label htmlFor={recipe.id} className="label">Add to favorites</label>
                     <input type="image" alt="button-to-add-to-favorite" id={recipe.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+                    {(deleted && recipeId === recipe.id)
+                      ? (
+                        <div className="added">
+                          <p>Successfully removed from favorites</p>
+                        </div>
+                      )
+                      : null}
                   </div>
                 )
                 : null}
