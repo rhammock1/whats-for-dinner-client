@@ -16,21 +16,26 @@ class RestaurantDetailView extends React.Component {
     },
   }
 
+  state = {
+    error: null,
+  }
+
   handleBack = () => {
     this.props.history.goBack();
   }
 
   render() {
-    const { restaurants, userRestaurants } = this.context;
-    const copyRestaurants = [...restaurants, ...userRestaurants];
-
     const { restaurantId } = this.props.match.params;
-    const restaurant = findRestaurant(copyRestaurants, restaurantId) || {};
-
+    const { restaurants, userRestaurants } = this.context;
+    const allRestaurants = [...restaurants, ...userRestaurants];
+    const restaurant = findRestaurant(allRestaurants, restaurantId) || {};
+    const { error } = this.state;
     return (
       <section>
         <div className="details-container">
-
+          <div role="alert">
+            {error && <p className="red">{error.message}</p>}
+          </div>
           <h3>
             <a rel="noreferrer" target="_blank" href={restaurant.web_url}>
               {restaurant.title}

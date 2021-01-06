@@ -41,12 +41,65 @@ class App extends Component {
     hasVisited: false,
   }
 
-  // static getDerivedStateFromError(error) {
-  //   this.setState({ hasError: error });
-  //   return { hasError: true };
-  // }
-
   componentDidMount() {
+    this.handleApiCalls();
+  }
+
+  handleUpdateUserThings = async (userId) => {
+    await Promise.all([
+
+      fetch(`${config.API_ENDPOINT}/dinner/${userId}/restaurants`, {
+
+        headers: {
+
+          Authorization: `bearer ${TokenService.getAuthToken()}`,
+
+        },
+
+      }),
+
+      fetch(`${config.API_ENDPOINT}/dinner/${userId}/recipes`, {
+
+        headers: {
+
+          Authorization: `bearer ${TokenService.getAuthToken()}`,
+
+        },
+
+      }),
+
+    ])
+
+      .then(([userRestaurantsRes, userRecipesRes]) => {
+        if (!userRestaurantsRes.ok) {
+          return userRestaurantsRes.json().then((e) => Promise.reject(e));
+        }
+
+        if (!userRecipesRes.ok) {
+          return userRecipesRes.json().then((e) => Promise.reject(e));
+        }
+
+        return Promise.all([
+
+          userRestaurantsRes.json(),
+
+          userRecipesRes.json(),
+
+        ]);
+      })
+
+      .then(([userRestaurants, userRecipes]) => {
+        this.setState({ userRecipes, userRestaurants });
+
+        this.getFavorites();
+      })
+
+      .catch((error) => {
+        this.setState({ error });
+      });
+  }
+
+  handleApiCalls = async () => {
     if (TokenService.hasAuthToken()) {
       this.setState({ loggedIn: true });
 
@@ -57,61 +110,9 @@ class App extends Component {
       if (TokenService.getHasVisited()) {
         this.setState({ hasVisited: true });
       }
-
-      Promise.all([
-
-        fetch(`${config.API_ENDPOINT}/dinner/${userId}/restaurants`, {
-
-          headers: {
-
-            Authorization: `bearer ${TokenService.getAuthToken()}`,
-
-          },
-
-        }),
-
-        fetch(`${config.API_ENDPOINT}/dinner/${userId}/recipes`, {
-
-          headers: {
-
-            Authorization: `bearer ${TokenService.getAuthToken()}`,
-
-          },
-
-        }),
-
-      ])
-
-        .then(([userRestaurantsRes, userRecipesRes]) => {
-          if (!userRestaurantsRes.ok) {
-            return userRestaurantsRes.json().then((e) => Promise.reject(e));
-          }
-
-          if (!userRecipesRes.ok) {
-            return userRecipesRes.json().then((e) => Promise.reject(e));
-          }
-
-          return Promise.all([
-
-            userRestaurantsRes.json(),
-
-            userRecipesRes.json(),
-
-          ]);
-        })
-
-        .then(([userRestaurants, userRecipes]) => {
-          this.setState({ userRecipes, userRestaurants });
-
-          this.getFavorites();
-        })
-
-        .catch((error) => {
-          this.setState({ error });
-        });
+      this.handleUpdateUserThings(userId);
     }
-
-    Promise.all([
+    await Promise.all([
       fetch(`${config.API_ENDPOINT}/restaurants`),
       fetch(`${config.API_ENDPOINT}/recipes`),
     ])
@@ -516,6 +517,7 @@ class App extends Component {
       handleToken: this.handleToken,
       setUserId: this.setUserId,
       userRestaurants,
+      handleUpdateUserThings: this.handleUpdateUserThings,
     };
 
     return (

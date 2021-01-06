@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React from 'react';
+import Context from '../../Context';
 import apiService from '../../services/api-service';
 import NewRecipe from './NewRecipe/NewRecipe';
 import NewRestaurant from './NewRestaurant/NewRestaurant';
@@ -16,6 +17,8 @@ class NewThing extends React.Component {
     },
 
   }
+
+  static contextType = Context;
 
   constructor(props) {
     super(props);
@@ -97,6 +100,10 @@ class NewThing extends React.Component {
 
       apiService.postNewThing('restaurants', thing)
         .then(() => this.setState({ added: true }))
+        .then(() => {
+          const { handleUpdateUserThings } = this.context;
+          handleUpdateUserThings(userId);
+        })
         .catch((error) => this.setState({ error }));
     }
     if (this.state.thing === 'recipe') {
@@ -113,6 +120,10 @@ class NewThing extends React.Component {
 
           apiService.postIngredients(res.id, ingredients)
             .catch((error) => this.setState({ error }));
+        })
+        .then(() => {
+          const { handleUpdateUserThings } = this.context;
+          handleUpdateUserThings(userId);
         })
         .then(() => {
           this.setState({ added: true });

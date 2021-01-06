@@ -41,20 +41,28 @@ class UserRestaurants extends React.Component {
   componentDidMount() {
     // Makes API calls to get restaurants and favoritees
     // Should prolly be refactored so it uses context from the APP component instead of making it's own api request?
+    this.handleApiCalls();
+    const { error } = this.state;
+    if (error) {
+      this.handleApiCalls();
+    }
+  }
+
+  handleApiCalls = async () => {
     const { userId } = this.props.match.params;
     let favorites;
     let restaurants;
-    apiService.getUsersThings(userId, 'restaurants')
+    await apiService.getUsersThings(userId, 'restaurants')
       .then((resRestaurants) => { restaurants = resRestaurants; })
-      .catch((error) => this.setState({ error }));
-    apiService.getUsersThings(userId, 'favorites')
+      .catch((error) => this.setState({ error: error.message }));
+    await apiService.getUsersThings(userId, 'favorites')
       .then((resFavorites) => { favorites = resFavorites; })
-      .then(() => this.setState({ restaurants, favorites }))
+      .then(() => { this.setState({ restaurants, favorites }); })
       .then(() => {
         this.handleFavorites();
         this.setState({ isResolved: true });
       })
-      .catch((error) => this.setState({ error }));
+      .catch((error) => this.setState({ error: error.message }));
   }
 
   // Removes duplicates from favoritedRestaurants array
@@ -197,7 +205,12 @@ handleDelete = (event) => {
     apiService.deleteThing(id, 'restaurants')
       .then(() => {
         this.setState({ splicedRestaurants: allButDeleted });
-      });
+      })
+      .then(() => {
+        const { handleUpdateUserThings } = this.context;
+        handleUpdateUserThings(userId);
+      })
+      .catch((error) => this.setState({ error: error.message }));
   }
 }
 

@@ -31,18 +31,30 @@ class UserRecipes extends React.Component {
   }
 
   componentDidMount() {
+    this.handleApiCalls();
+    const { error } = this.state;
+    if (error) {
+      this.handleApiCalls();
+    }
+  }
+
+  handleApiCalls = () => {
     const { userId } = this.props.match.params;
     let favorites;
     let recipes;
     apiService.getUsersThings(userId, 'recipes')
-      .then((resRecipes) => { recipes = resRecipes; })
-      .catch((error) => this.setState({ error }));
+      .then((resRecipes) => {
+        recipes = resRecipes;
+      })
+      .catch((error) => this.setState({ error: error.message }));
     apiService.getUsersThings(userId, 'favorites')
       .then((resFavorites) => { favorites = resFavorites; })
-      .then(() => this.setState({ recipes, favorites }))
+      .then(() => {
+        this.setState({ recipes, favorites });
+      })
       .then(() => this.handleFavorites())
       .then(() => this.setState({ isResolved: true }))
-      .catch((error) => this.setState({ error }));
+      .catch((error) => this.setState({ error: error.message }));
   }
 
  handleFavorites = () => {
@@ -209,7 +221,7 @@ render() {
     <section className="user-recipes">
       <h2>My Recipes</h2>
       <div role="alert">
-        {error && <p className="red">{error}</p>}
+        {error && <p className="red">{error.message}</p>}
       </div>
       <div className="recipe-container">
         {(isResolved)

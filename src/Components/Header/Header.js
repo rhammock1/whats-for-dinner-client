@@ -32,8 +32,8 @@ class Header extends React.Component {
             <div className="logged-in">
               <p>
                 Hello,
-                {userName}
                 {' '}
+                {userName}
 
               </p>
               <button type="button" className="header-button" onClick={() => this.handleClick()}><Link to="/">Logout</Link></button>
