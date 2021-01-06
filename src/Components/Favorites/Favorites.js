@@ -5,8 +5,8 @@ import apiService from '../../services/api-service';
 import './Favorites.css';
 
 const FavoriteRecipe = (props) => {
-  const { recipe } = props || {};
-
+  let { recipe } = props || {};
+  recipe = recipe[0] || {};
   return (
     <div className="detail">
       <p>
@@ -21,7 +21,8 @@ const FavoriteRecipe = (props) => {
 };
 
 const FavoriteRestaurant = (props) => {
-  const { restaurant } = props || {};
+  let { restaurant } = props || {};
+  restaurant = restaurant[0] || {};
   return (
     <div className="detail">
       <p>
