@@ -6,6 +6,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Context from '../../Context';
 import apiService from '../../services/api-service';
 import './UserRestaurants.css';
 // TODO:
@@ -23,6 +24,8 @@ class UserRestaurants extends React.Component {
     },
   }
 
+  static contextType = Context;
+
   state = {
     error: null,
     restaurants: [],
@@ -32,18 +35,25 @@ class UserRestaurants extends React.Component {
     deleted: false,
     favoriteRestaurants: [],
     restaurantId: 0,
+    isResolved: false,
   }
 
   componentDidMount() {
     // Makes API calls to get restaurants and favoritees
     // Should prolly be refactored so it uses context from the APP component instead of making it's own api request?
     const { userId } = this.props.match.params;
+    let favorites;
+    let restaurants;
     apiService.getUsersThings(userId, 'restaurants')
-      .then((restaurants) => this.setState({ restaurants }))
+      .then((resRestaurants) => { restaurants = resRestaurants; })
       .catch((error) => this.setState({ error }));
     apiService.getUsersThings(userId, 'favorites')
-      .then((favorites) => this.setState({ favorites }))
-      .then(() => this.handleFavorites())
+      .then((resFavorites) => { favorites = resFavorites; })
+      .then(() => this.setState({ restaurants, favorites }))
+      .then(() => {
+        this.handleFavorites();
+        this.setState({ isResolved: true });
+      })
       .catch((error) => this.setState({ error }));
   }
 
@@ -77,7 +87,6 @@ class UserRestaurants extends React.Component {
     }
 
     const restaurantsInState = [...restaurants];
-
     const filtered = [];
     let newArray;
     if (doubleFree.length > 0) {
@@ -91,10 +100,8 @@ class UserRestaurants extends React.Component {
     } else {
       newArray = restaurantsInState;
     }
-
     const favRestaurants = [];
     filtered.map((array) => array.map((restaurant) => favRestaurants.push(restaurant)));
-
     this.setState({ favoriteRestaurants: favRestaurants });
     this.setState({ splicedRestaurants: newArray });
   }
@@ -198,65 +205,66 @@ handleDelete = (event) => {
 
 render() {
   const {
-    restaurants, restaurantsInState, error, added, restaurantId,
+    favoriteRestaurants,
+    splicedRestaurants,
+    error,
+    added,
+    restaurantId,
+    isResolved,
   } = this.state;
-
   const { userId } = this.props.match.params;
-
   return (
     <section className="user-restaurants">
       <h2>My Restaurants</h2>
       <div role="alert">{error && <p className="red">{error}</p>}</div>
       <div className="restaurant-container">
-        {restaurants.map((restaurant) => (
-          <div className="detail" key={restaurant.id}>
-            <p>
-              <Link className="detail-link" to={`/restaurants/${restaurant.id}`}>
-                {restaurant.title}
-                {' '}
-              </Link>
-              <span id="style">{restaurant.style}</span>
-            </p>
-            {(added && restaurantId === restaurant.id)
-              ? (
-                <div className="added">
-                  <p>Successfully added to favorites</p>
-                </div>
-              )
-              : null}
-            <div className="favorite">
-              <label htmlFor={restaurant.id} className="label">Remove from favorites</label>
-              <input type="image" alt="button-to-remove-from-favorite" id={restaurant.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+        {(isResolved)
+          ? (favoriteRestaurants.map((restaurant) => (
+            // Favorite restaurants first
+            <div className="detail" key={restaurant.id}>
+              <p>
+                <Link className="detail-link" to={`/restaurants/${restaurant.id}`}>
+                  {restaurant.title}
+                  {' '}
+                </Link>
+                <span id="style">{restaurant.style}</span>
+              </p>
+              {(added && restaurantId === restaurant.id)
+                ? (
+                  <div className="added">
+                    <p>Successfully added to favorites</p>
+                  </div>
+                )
+                : null}
+              <div className="favorite">
+                <label htmlFor={restaurant.id} className="label">Remove from favorites</label>
+                <input type="image" alt="button-to-remove-from-favorite" id={restaurant.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+              </div>
+              <button type="button" className="delete" id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
             </div>
-            {/* {this.state.deleted
-                  ? <div className='added'>
-                      <p>Successfully removed from favorites</p>
-                    </div>
-                  : null
-                } */}
-            <button type="button" className="delete" id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
-          </div>
-        ))}
-        {restaurantsInState.map((restaurant, index) => (
-          <div className="detail" key={index}>
-            <p>
-              <Link className="detail-link" to={`/restaurants/${restaurant.id}`}>
-                {restaurant.title}
-                {' '}
-              </Link>
-              <span id="style">{restaurant.style}</span>
-            </p>
-            {(restaurantsInState.length > 0)
-              ? (
-                <div className="favorite">
-                  <label htmlFor={restaurant.id} className="label">Add to favorites</label>
-                  <input type="image" alt="button-to-add-to-favorite" id={restaurant.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
-                </div>
-              )
-              : null}
-            <button type="button" className="delete" id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
-          </div>
-        ))}
+          )),
+          splicedRestaurants.map((restaurant, index) => (
+            <div className="detail" key={index}>
+              <p>
+                <Link className="detail-link" to={`/restaurants/${restaurant.id}`}>
+                  {restaurant.title}
+                  {' '}
+                </Link>
+                <span id="style">{restaurant.style}</span>
+              </p>
+              {(splicedRestaurants.length > 0)
+                ? (
+                  <div className="favorite">
+                    <label htmlFor={restaurant.id} className="label">Add to favorites</label>
+                    <input type="image" alt="button-to-add-to-favorite" id={restaurant.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+                  </div>
+                )
+                : null}
+              <button type="button" className="delete" id={restaurant.id} onClick={this.handleDelete}>Delete restaurant</button>
+            </div>
+          )))
+          : <p>loading...</p>}
+
         <button type="button" className="add"><Link to={`/${userId}/newThing`}>Add new restaurant </Link></button>
       </div>
     </section>

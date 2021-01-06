@@ -41,10 +41,10 @@ class App extends Component {
     hasVisited: false,
   }
 
-  static getDerivedStateFromError(error) {
-    this.setState({ hasError: error });
-    return { hasError: true };
-  }
+  // static getDerivedStateFromError(error) {
+  //   this.setState({ hasError: error });
+  //   return { hasError: true };
+  // }
 
   componentDidMount() {
     if (TokenService.hasAuthToken()) {

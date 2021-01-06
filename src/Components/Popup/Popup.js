@@ -2,7 +2,7 @@ import React from 'react';
 import './Popup.css';
 
 function Popup(props) {
-  const handleClear = props;
+  const { handleClear } = props;
   return (
     <div className="popup">
       <p>

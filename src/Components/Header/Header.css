@@ -28,9 +28,11 @@ h1 {
 .header-button {
   background-color: #AE4421;
   border-radius: 10px;
-  box-shadow: 2px 3px 6px 3px #121212; 
 }
-.header-button:hover {
+.header-button>a:link, .header-button>a:hover {
   color: #313753;
   border-color: #313753;
 }
+/* .header-button>a:visited {
+  color: #efefef;
+} */

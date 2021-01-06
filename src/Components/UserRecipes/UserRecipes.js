@@ -27,16 +27,21 @@ class UserRecipes extends React.Component {
     splicedRecipes: [],
     favoritedRecipes: [],
     recipeId: 0,
+    isResolved: false,
   }
 
   componentDidMount() {
     const { userId } = this.props.match.params;
+    let favorites;
+    let recipes;
     apiService.getUsersThings(userId, 'recipes')
-      .then((recipes) => this.setState({ recipes }))
+      .then((resRecipes) => { recipes = resRecipes; })
       .catch((error) => this.setState({ error }));
     apiService.getUsersThings(userId, 'favorites')
-      .then((favorites) => this.setState({ favorites }))
+      .then((resFavorites) => { favorites = resFavorites; })
+      .then(() => this.setState({ recipes, favorites }))
       .then(() => this.handleFavorites())
+      .then(() => this.setState({ isResolved: true }))
       .catch((error) => this.setState({ error }));
   }
 
@@ -191,7 +196,12 @@ handleDelete = (event) => {
 
 render() {
   const {
-    recipes, recipesInState, error, added, recipeId,
+    favoritedRecipes,
+    splicedRecipes,
+    error,
+    added,
+    recipeId,
+    isResolved,
   } = this.state;
   const { userId } = this.props.match.params;
 
@@ -200,39 +210,41 @@ render() {
       <h2>My Recipes</h2>
       <div role="alert">{error && <p className="red">{error}</p>}</div>
       <div className="recipe-container">
-        {recipes.map((recipe) => (
-          <div className="detail" key={recipe.id}>
-            <p><Link className="detail-link" to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
-            <div className="favorite">
-              <label htmlFor={recipe.id} className="label">Remove from favorites</label>
-              <input type="image" alt="button-to-remove-from-favorite" id={recipe.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+        {(isResolved)
+          ? (favoritedRecipes.map((recipe) => (
+            <div className="detail" key={recipe.id}>
+              <p><Link className="detail-link" to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
+              <div className="favorite">
+                <label htmlFor={recipe.id} className="label">Remove from favorites</label>
+                <input type="image" alt="button-to-remove-from-favorite" id={recipe.id} onClick={(event) => this.handleRemoveFromFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+              </div>
+
+              {(added && recipeId === recipe.id)
+                ? (
+                  <div className="added">
+                    <p>Successfully added to favorites</p>
+                  </div>
+                )
+                : null}
+              <button type="button" className="delete" id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
             </div>
 
-            {(added && recipeId === recipe.id)
-              ? (
-                <div className="added">
-                  <p>Successfully added to favorites</p>
-                </div>
-              )
-              : null}
-            <button type="button" className="delete" id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
-          </div>
-
-        ))}
-        {recipesInState.map((recipe, index) => (
-          <div className="detail" key={index}>
-            <p><Link className="detail-link" to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
-            {(recipesInState.length > 0)
-              ? (
-                <div className="favorite">
-                  <label htmlFor={recipe.id} className="label">Add to favorites</label>
-                  <input type="image" alt="button-to-add-to-favorite" id={recipe.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
-                </div>
-              )
-              : null}
-            <button type="button" className="delete" id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
-          </div>
-        ))}
+          )),
+          splicedRecipes.map((recipe, index) => (
+            <div className="detail" key={index}>
+              <p><Link className="detail-link" to={`/recipes/${recipe.id}`}>{recipe.title}</Link></p>
+              {(splicedRecipes.length > 0)
+                ? (
+                  <div className="favorite">
+                    <label htmlFor={recipe.id} className="label">Add to favorites</label>
+                    <input type="image" alt="button-to-add-to-favorite" id={recipe.id} onClick={(event) => this.handleAddToFavorites(event)} src="https://img.icons8.com/office/16/000000/add-to-favorites--v2.png" />
+                  </div>
+                )
+                : null}
+              <button type="button" className="delete" id={recipe.id} onClick={this.handleDelete}>Delete recipe</button>
+            </div>
+          )))
+          : <p>loading...</p>}
         <button type="button" className="add"><Link to={`/${userId}/newThing`}>Add new recipe</Link></button>
       </div>
     </section>
