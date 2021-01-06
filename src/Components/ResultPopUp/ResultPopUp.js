@@ -27,6 +27,7 @@ class ResultPopUp extends React.Component {
   render() {
     const { inOrOut } = this.context;
     const { resultId, resultTitle } = this.props;
+
     return (
       <div className="display">
         <div id="readout">

@@ -108,7 +108,6 @@ class Wheel extends React.Component {
     } else {
       result = wheelOptions.length + count;
     }
-
     // set state variable to display result
     this.setState({
       net: netRotation,
@@ -163,7 +162,10 @@ class Wheel extends React.Component {
 
   renderWheel() {
     // determine number and size of sectors that need to be created
-    const { wheelOptions } = this.context;
+    let { wheelOptions } = this.context;
+    if (!wheelOptions.length) {
+      wheelOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    }
     const numOptions = wheelOptions.length;
     const arcSize = (2 * Math.PI) / numOptions;
 
@@ -191,6 +193,7 @@ class Wheel extends React.Component {
       seen,
       winner,
     } = this.state;
+
     return (
       <div className="wheel-container">
         <span id="selector">&#9660;</span>
@@ -216,7 +219,7 @@ class Wheel extends React.Component {
             spin
           </button>
         )}
-        {seen ? <ResultPopUp toggle={this.togglePop} resultId={winner.id} resultTitle={winner.title} /> : null }
+        {(seen && winner !== undefined) ? <ResultPopUp toggle={this.togglePop} resultId={winner.id} resultTitle={winner.title} /> : null }
       </div>
     );
   }

@@ -32,7 +32,7 @@ class App extends Component {
     inOrOut: '',
     style: '',
     wheelOptions: [],
-    touched: false,
+    // touched: false,
     recipe: {},
     hasError: false,
     loggedIn: false,
@@ -184,10 +184,10 @@ class App extends Component {
   }
 
   handleChange = (ev) => {
-    const { touched } = this.state;
-    if (touched === true) {
-      this.setState({ touched: false });
-    }
+    // const { touched } = this.state;
+    // if (touched === true) {
+    //   this.setState({ touched: false });
+    // }
 
     const filterOption = ev.target.id;
     (filterOption === 'inOrOut')
@@ -210,7 +210,7 @@ class App extends Component {
   handleWheelOptions = (e) => {
     e.preventDefault();
 
-    this.setState({ touching: false, touched: true });
+    // this.setState({ touching: false, touched: true });
 
     const wheelOptions = [];
     const {
@@ -470,7 +470,7 @@ class App extends Component {
   }
 
   renderMainView = () => {
-    const { hasVisited, touched } = this.state;
+    const { hasVisited } = this.state;
     return (
       <>
 
@@ -482,11 +482,7 @@ class App extends Component {
 
         <Filter handleChange={this.handleChange} />
 
-        {(touched === false)
-
-          ? <></>
-
-          : <Wheel />}
+        <Wheel />
 
       </>
     );
