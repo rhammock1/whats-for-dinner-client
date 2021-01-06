@@ -121,15 +121,16 @@ class NewThing extends React.Component {
     }
   }
 
-  handleSuccessClick = () => {
+  handleSuccessClick = (thing) => {
     this.setState({ added: false });
     const { userId } = this.props.match.params;
-    this.props.history.push(`/${userId}/newThing`);
+    this.props.history.push(`/${userId}/${thing}s`);
   }
 
   render() {
     const { error, thing, added } = this.state;
-    const thingCapitalized = thing.charAt(0).toUpperCase() + thing.slice(1);
+    let thingCapitalized = thing.charAt(0).toUpperCase() + thing.slice(1);
+    thingCapitalized = ` ${thingCapitalized}`;
     return (
       <>
         <h2>
@@ -155,22 +156,25 @@ class NewThing extends React.Component {
                 ? <div className="form-group"><NewRestaurant /></div>
                 : thing === 'recipe' ? <div className="form-group"><NewRecipe refs={this.myRef} handleRemoveIngredient={this.handleRemoveIngredient} ingredients={this.state.ingredients} handleAddIngredient={this.handleAddIngredient} handleChange={this.handleIngredientChange} /></div>
                   : null}
-              <button type="submit">
-                Add
-                {thing}
-              </button>
+              {added ? (
+                <div className="added">
+                  <p>
+                    Successfully Added
+                    { thingCapitalized }
+                  </p>
+                  <button onClick={() => this.handleSuccessClick(thing)} type="button">Back</button>
+                </div>
+              ) : (
+                <button type="submit">
+                  Add
+                  { thingCapitalized }
+                </button>
+              )}
+
               {thing ? <p className="required">* is required field</p> : null}
             </fieldset>
           </form>
-          {added ? (
-            <div className="added">
-              <p>
-                Successfully Added
-                {thingCapitalized}
-              </p>
-              <button onClick={() => this.handleSuccessClick()} type="button">Back</button>
-            </div>
-          ) : null}
+
         </div>
       </>
     );
