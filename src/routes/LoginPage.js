@@ -1,6 +1,7 @@
 import React from 'react';
 import Context from '../Context';
 import LoginForm from '../Components/LoginForm/LoginForm';
+import TokenService from '../services/token-service';
 
 class LoginPage extends React.Component {
   static defaultProps = {
@@ -18,6 +19,9 @@ class LoginPage extends React.Component {
   }
 
   handleLoginSuccess = () => {
+    const userId = TokenService.getUserId();
+    const { handleUpdateUserThings } = this.context;
+    handleUpdateUserThings(userId);
     const { location, history } = this.props;
     const destination = (location.state || {}).from || '/';
     history.push(destination);

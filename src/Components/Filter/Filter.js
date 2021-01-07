@@ -10,7 +10,8 @@ class Filter extends React.Component {
 
   render() {
     const { handleWheelOptions, inOrOut } = this.context;
-    const { handleChange, loggedIn } = this.props;
+    const { handleChange, loggedIn, userRestaurants } = this.props;
+    const doTheyHaveLocal = userRestaurants.filter((each) => each.style === 'local');
     return (
       <form onSubmit={(e) => handleWheelOptions(e)} onChange={handleChange} className="filters">
         <fieldset>
@@ -24,7 +25,7 @@ class Filter extends React.Component {
               <option value="both">Either</option>
             </select>
           </div>
-          {loggedIn
+          {loggedIn && doTheyHaveLocal.length
             ? (inOrOut === 'restaurants' || inOrOut === 'both')
               ? (
                 <div className="form-group">

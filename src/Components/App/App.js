@@ -30,7 +30,7 @@ class App extends Component {
     userRecipes: [],
     userRestaurants: [],
     inOrOut: '',
-    style: '',
+    style: 'chain',
     wheelOptions: [],
     // touched: false,
     recipe: {},
@@ -174,7 +174,13 @@ class App extends Component {
   handleToken = async () => {
     TokenService.hasAuthToken()
       ? this.setState({ loggedIn: true })
-      : this.setState({ loggedIn: false });
+      : this.setState({
+        loggedIn: false,
+        userRecipes: [],
+        userRestaurants: [],
+        userId: 0,
+        wheelOptions: [],
+      });
 
     const userId = TokenService.getUserId();
 
@@ -209,8 +215,6 @@ class App extends Component {
 
   handleWheelOptions = (e) => {
     e.preventDefault();
-
-    // this.setState({ touching: false, touched: true });
 
     const wheelOptions = [];
     const {
@@ -308,7 +312,7 @@ class App extends Component {
         }
 
         for (let i = 0; i < 3; i++) {
-          const chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
+          const chosen = favRestaurants[Math.floor(Math.random() * favRestaurants.length)];
 
           wheelOptions.push(chosen);
         }
@@ -322,15 +326,13 @@ class App extends Component {
 
       if (style === 'chain') {
         const chain = userRestaurants.filter((restaurant) => restaurant.style === 'chain');
+        const stateRestaurants = [...restaurants].filter((restaurant) => restaurant.style === 'chain');
 
         if (chain.length < 3) {
-          const stateRestaurants = [...restaurants].filter((restaurant) => restaurant.style === 'chain');
-
           chain.push(...stateRestaurants);
         }
-
         for (let i = 0; i < 3; i++) {
-          const chosen = restaurants[Math.floor(Math.random() * restaurants.length)];
+          const chosen = stateRestaurants[Math.floor(Math.random() * stateRestaurants.length)];
 
           wheelOptions.push(chosen);
         }
@@ -362,10 +364,24 @@ class App extends Component {
     }
 
     if (loggedIn && inOrOut === 'both') {
-      const userFavorites = (favorites.length > 0)
-        ? favorites
-        : [...restaurants, ...recipes];
+      let fullFavorites = [];
+      if (favorites.length > 0) {
+        const favoriteRestaurants = favorites.filter((favorite) => favorite.what_it_is === 'restaurant');
+        const favoriteRecipes = favorites.filter((favorite) => favorite.what_it_is === 'recipe');
+        for (let i = 0; i < favoriteRestaurants.length; i++) {
+          fullFavorites.push(userRestaurants.filter((restaurant) => restaurant.id === favoriteRestaurants[i].item_id));
+        }
+        for (let i = 0; i < favoriteRecipes.length; i++) {
+          fullFavorites.push(userRecipes.filter((recipe) => recipe.id === favoriteRecipes[i].item_id));
+        }
 
+        fullFavorites = fullFavorites.filter((each) => each.length >= 1);
+        fullFavorites = fullFavorites.map((favorite) => favorite[0]);
+      } else if (userRestaurants.length < 6) {
+        fullFavorites = [...restaurants, ...recipes];
+      } else {
+        fullFavorites = [...userRestaurants, ...userRecipes];
+      }
       let both;
 
       if (style === 'local') {
@@ -379,7 +395,7 @@ class App extends Component {
         both = [...local, ...recipes];
 
         for (let i = 0; i < 3; i++) {
-          const chosen = userFavorites[Math.floor(Math.random() * userFavorites.length)];
+          const chosen = fullFavorites[Math.floor(Math.random() * fullFavorites.length)];
 
           wheelOptions.push(chosen);
         }
@@ -401,7 +417,7 @@ class App extends Component {
         both = [...chain, ...recipes];
 
         for (let i = 0; i < 3; i++) {
-          const chosen = userFavorites[Math.floor(Math.random() * userFavorites.length)];
+          const chosen = fullFavorites[Math.floor(Math.random() * fullFavorites.length)];
 
           wheelOptions.push(chosen);
         }
@@ -415,7 +431,7 @@ class App extends Component {
         const either = [...userRestaurants, ...userRecipes];
 
         for (let i = 0; i < 3; i++) {
-          const chosen = userFavorites[Math.floor(Math.random() * userFavorites.length)];
+          const chosen = fullFavorites[Math.floor(Math.random() * fullFavorites.length)];
 
           wheelOptions.push(chosen);
         }
@@ -470,7 +486,7 @@ class App extends Component {
   }
 
   renderMainView = () => {
-    const { hasVisited, loggedIn } = this.state;
+    const { hasVisited, loggedIn, userRestaurants } = this.state;
     return (
       <>
 
@@ -480,7 +496,7 @@ class App extends Component {
 
           : null}
         <div className="big-container">
-          <Filter loggedIn={loggedIn} handleChange={this.handleChange} />
+          <Filter userRestaurants={userRestaurants} loggedIn={loggedIn} handleChange={this.handleChange} />
 
           <Wheel />
         </div>
