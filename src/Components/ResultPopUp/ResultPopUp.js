@@ -25,8 +25,7 @@ class ResultPopUp extends React.Component {
   }
 
   render() {
-    const { inOrOut } = this.context;
-    const { resultId, resultTitle } = this.props;
+    const { resultId, resultTitle, type } = this.props;
 
     return (
       <div className="display">
@@ -36,9 +35,9 @@ class ResultPopUp extends React.Component {
           <span id="result">{resultTitle}</span>
         </div>
         <div className="details">
-          {inOrOut === 'recipes'
-            ? <Link to={`/recipes/${resultId}`}><button type="button" className="result-button">See more details</button></Link>
-            : <Link to={`/restaurants/${resultId}`}><button type="button" className="result-button">See more details</button></Link>}
+          {type === 'recipes'
+            ? <button type="button" className="result-button"><Link to={`/recipes/${resultId}`}>See more details</Link></button>
+            : <button type="button" className="result-button"><Link to={`/restaurants/${resultId}`}>See more details</Link></button>}
           <button type="button" className="result-button" onClick={this.handleClick}>I want something different</button>
         </div>
       </div>

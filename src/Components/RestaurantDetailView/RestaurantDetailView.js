@@ -30,6 +30,7 @@ class RestaurantDetailView extends React.Component {
     const allRestaurants = [...restaurants, ...userRestaurants];
     const restaurant = findRestaurant(allRestaurants, restaurantId) || {};
     const { error } = this.state;
+    const fields = ['phone_number', 'restaurant_address'];
     return (
       <section>
         <div className="details-container">
@@ -46,14 +47,38 @@ class RestaurantDetailView extends React.Component {
           </h3>
 
           <div className="details-container">
-            <p>
-              Phone Number:
-              {restaurant.phone_number}
-            </p>
-            <p>
-              Street Address:
-              {restaurant.restaurant_address}
-            </p>
+
+            {(restaurant.phone_number !== '' && restaurant.restaurant_address !== '')
+              ? (
+                <>
+                  {' '}
+                  <p>
+                    Phone Number:
+                    {restaurant.phone_number}
+                  </p>
+                  <p>
+                    Street Address:
+                    {restaurant.restaurant_address}
+                  </p>
+                </>
+              )
+              : null}
+            {fields.map((field) => {
+              if (!restaurant[field]) {
+                return null;
+              }
+              return (
+                <>
+                  {' '}
+                  <p>
+                    {(field === 'phone_number')
+                      ? 'Phone Number: '
+                      : 'Street Address: '}
+                    {restaurant[field]}
+                  </p>
+                </>
+              );
+            })}
           </div>
           <button type="button" onClick={this.handleBack} className="back-button">Back</button>
         </div>

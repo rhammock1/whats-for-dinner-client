@@ -193,7 +193,11 @@ class Wheel extends React.Component {
       seen,
       winner,
     } = this.state;
-
+    const type = (
+      Object.prototype.hasOwnProperty.call(winner, 'style')
+        ? 'restaurants'
+        : 'recipes'
+    );
     return (
       <div className="wheel-container">
         <span id="selector">&#9660;</span>
@@ -219,7 +223,7 @@ class Wheel extends React.Component {
             spin
           </button>
         )}
-        {(seen && winner !== undefined) ? <ResultPopUp toggle={this.togglePop} resultId={winner.id} resultTitle={winner.title} /> : null }
+        {(seen && winner !== undefined) ? <ResultPopUp type={type} toggle={this.togglePop} resultId={winner.id} resultTitle={winner.title} /> : null }
       </div>
     );
   }
