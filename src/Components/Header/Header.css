@@ -47,7 +47,7 @@ h1 {
   }
   header {
     flex-direction: column;
-    padding: 20px 5px;
+    padding: 20px 0px;
 
   }
   .login-container, .logged-in {
@@ -60,11 +60,11 @@ h1 {
   }
   .header-button {
     margin: 0px 10px;
-    padding: 6px 9px;
-    height: max-content;
+    height: max-content; 
   }
   .header-button>a {
+    height:100%;
     font-size:20px;
-    padding: 5px 7px;
+    padding: 10px 16px;
   }
 }

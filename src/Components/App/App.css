@@ -54,9 +54,12 @@ li {
     display:flex;
     height: auto;
     justify-content: space-around;
-    align-items: center;
-    position:relative;
-    top:0px;
+    align-items: flex-start;
+
+  }
+  .filters {
+    position: relative;
+    top: 100px;
   }
   .wheel-container {
     max-width:50%;

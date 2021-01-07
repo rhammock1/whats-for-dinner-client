@@ -39,3 +39,12 @@ button:hover {
 #readout {
   padding: 10px;
 }
+@media all and (min-width: 900px) {
+  .display {
+    top: -300px;
+
+  }
+  .details {
+    padding: 0px 5px;
+  }
+}
