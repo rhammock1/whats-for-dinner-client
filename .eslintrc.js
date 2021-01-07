@@ -1,4 +1,3 @@
-/* eslint linebreak-style: [2, "unix"] */
 module.exports = {
   env: {
     browser: true,
@@ -22,7 +21,7 @@ module.exports = {
   ],
   rules: {
     semi: ['error', 'always'],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['0', 'unix'],
     camelcase: [0, { properties: 'always' }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/static-property-placement': [0, 'static public field'],
