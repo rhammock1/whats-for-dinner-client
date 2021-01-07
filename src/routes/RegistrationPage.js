@@ -21,7 +21,7 @@ class RegistrationPage extends React.Component {
   render() {
     return (
       <section className="registrationPage">
-        <h2>Welcome</h2>
+        <h2 className="register-heading">Welcome</h2>
         <RegistrationForm onRegistrationSuccess={this.handleRegistrationSuccess} />
       </section>
     );

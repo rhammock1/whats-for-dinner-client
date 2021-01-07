@@ -21,7 +21,7 @@ h1 {
 .link:hover {
   color: #efefef;
 }
-.login-container {
+.login-container, .logged-in {
   display:flex;
   flex-direction: column;
   align-items:right;
@@ -50,8 +50,9 @@ h1 {
     padding: 20px 5px;
 
   }
-  .login-container {
+  .login-container, .logged-in {
     flex-direction: row;
+    align-items:baseline;
     align-self: flex-end;
     padding: 10px;
     position: relative;
@@ -59,7 +60,11 @@ h1 {
   }
   .header-button {
     margin: 0px 10px;
+    padding: 6px 9px;
+    height: max-content;
+  }
+  .header-button>a {
     font-size:20px;
-    padding: 10px 16px;
+    padding: 5px 7px;
   }
 }

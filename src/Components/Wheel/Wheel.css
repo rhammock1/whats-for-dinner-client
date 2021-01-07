@@ -48,6 +48,8 @@
 #selector {
   font-size: 40px;
   z-index: 3;
+  color: #AE4421;
+  text-shadow: 3px 3px #121212;
 }
 
 

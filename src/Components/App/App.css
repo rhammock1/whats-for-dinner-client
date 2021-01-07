@@ -37,8 +37,8 @@ li {
   body {
     font-size: 25px;
   }
-  main {
-    position: relative;
-    top: -25px;
+  nav {
+    padding: 0;
+    padding-bottom:20px;
   }
 }

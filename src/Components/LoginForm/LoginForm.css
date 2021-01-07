@@ -32,7 +32,7 @@ p>a {
     position: relative;
     top: 50px;
   }
-  .login-heading {
+  .login-heading, .register-heading {
     position:relative;
     top: -50px;
     margin: auto;
