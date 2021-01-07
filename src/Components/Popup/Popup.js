@@ -26,7 +26,7 @@ function Popup(props) {
       </p>
       <p>
         If you are logged in and have added favorites, 3 of those favorites will
-        always appear on the wheel. If you have added more than 3 local restaurants
+        always appear on the wheel. If you have added at least 1 local restaurant
         then a new style option will appear to filter by local restaurants.
       </p>
       <button type="button" onClick={handleClear}>Clear</button>
