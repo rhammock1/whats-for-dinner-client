@@ -193,11 +193,14 @@ class Wheel extends React.Component {
       seen,
       winner,
     } = this.state;
-    const type = (
-      Object.prototype.hasOwnProperty.call(winner, 'style')
-        ? 'restaurants'
-        : 'recipes'
-    );
+    let type;
+    if (winner !== undefined) {
+      type = (
+        Object.prototype.hasOwnProperty.call(winner, 'style')
+          ? 'restaurants'
+          : 'recipes'
+      );
+    }
     return (
       <div className="wheel-container">
         <span id="selector">&#9660;</span>
