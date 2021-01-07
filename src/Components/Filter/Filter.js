@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
@@ -9,7 +10,7 @@ class Filter extends React.Component {
 
   render() {
     const { handleWheelOptions, inOrOut } = this.context;
-    const { handleChange } = this.props;
+    const { handleChange, loggedIn } = this.props;
     return (
       <form onSubmit={(e) => handleWheelOptions(e)} onChange={handleChange} className="filters">
         <fieldset>
@@ -23,21 +24,24 @@ class Filter extends React.Component {
               <option value="both">Either</option>
             </select>
           </div>
-          {(inOrOut === 'restaurants' || inOrOut === 'both')
-            ? (
-              <div className="form-group">
-                <label htmlFor="style">Style: </label>
-                {' '}
-                <select id="style" name="style" required>
-                  <option value="" />
-                  <option value="chain">Chain</option>
-                  <option value="local">Local</option>
-                </select>
-                {' '}
+          {loggedIn
+            ? (inOrOut === 'restaurants' || inOrOut === 'both')
+              ? (
+                <div className="form-group">
+                  <label htmlFor="style">Style: </label>
+                  {' '}
+                  <select id="style" name="style" required>
+                    <option value="" />
+                    <option value="chain">Chain</option>
+                    <option value="local">Local</option>
+                  </select>
+                  {' '}
 
-              </div>
-            )
-            : ''}
+                </div>
+              )
+              : ''
+            : null}
+
           <button className="filter-button" type="submit">Submit</button>
 
         </fieldset>

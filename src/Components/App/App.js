@@ -470,7 +470,7 @@ class App extends Component {
   }
 
   renderMainView = () => {
-    const { hasVisited } = this.state;
+    const { hasVisited, loggedIn } = this.state;
     return (
       <>
 
@@ -480,7 +480,7 @@ class App extends Component {
 
           : null}
         <div className="big-container">
-          <Filter handleChange={this.handleChange} />
+          <Filter loggedIn={loggedIn} handleChange={this.handleChange} />
 
           <Wheel />
         </div>
