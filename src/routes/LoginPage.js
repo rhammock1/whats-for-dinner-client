@@ -26,7 +26,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <section className="login-page">
-        <h2>It is nice to see you!</h2>
+        <h2 className="login-heading">It is nice to see you!</h2>
         <LoginForm
           onLoginSuccess={this.handleLoginSuccess}
         />

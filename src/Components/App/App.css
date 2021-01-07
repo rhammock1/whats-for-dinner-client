@@ -33,3 +33,12 @@ li {
   text-decoration: none;
   color:#efefef;
 }
+@media all and (min-width: 750px) {
+  body {
+    font-size: 25px;
+  }
+  main {
+    position: relative;
+    top: -25px;
+  }
+}

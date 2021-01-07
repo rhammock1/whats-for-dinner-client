@@ -1,5 +1,6 @@
 header {
   width:100%;
+  margin-bottom: 20px;
   display:flex;
   align-items:baseline;
   justify-content:space-evenly;
@@ -35,4 +36,30 @@ h1 {
 }
 .header-button>a:visited {
   color: #efefef;
+}
+@media all and (min-width: 750px) {
+  h1 {
+    width:max-content;
+    font-size: 65px;
+    margin:auto;
+    padding: 10px 5px;
+    
+  }
+  header {
+    flex-direction: column;
+    padding: 20px 5px;
+
+  }
+  .login-container {
+    flex-direction: row;
+    align-self: flex-end;
+    padding: 10px;
+    position: relative;
+    right: 25px;
+  }
+  .header-button {
+    margin: 0px 10px;
+    font-size:20px;
+    padding: 10px 16px;
+  }
 }
