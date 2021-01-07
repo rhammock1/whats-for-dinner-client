@@ -1,6 +1,5 @@
 footer {
-  justify-self: flex-end;
+  position: relative;
   text-align: center;
   padding:20px 0;
-  /* background: linear-gradient(#565264, #706677);  */
 }

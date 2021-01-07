@@ -13,6 +13,8 @@ html, body {
   color:#efefef;
 }
 main {
+  width:100%;
+  height:100%;
   display:flex;
   flex-direction: column;
 }
@@ -33,6 +35,11 @@ li {
   text-decoration: none;
   color:#efefef;
 }
+.big-container {
+  width:100%;
+  height:100%;
+
+}
 @media all and (min-width: 750px) {
   body {
     font-size: 25px;
@@ -40,5 +47,21 @@ li {
   nav {
     padding: 0;
     padding-bottom:20px;
+  }
+}
+@media all and (min-width:900px) {
+  .big-container {
+    display:flex;
+    height: auto;
+    justify-content: space-around;
+    align-items: center;
+    position:relative;
+    top:0px;
+  }
+  .wheel-container {
+    max-width:50%;
+  }
+  .popup {
+    margin: 0;
   }
 }

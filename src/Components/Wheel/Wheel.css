@@ -1,8 +1,8 @@
 .wheel-container {
   width:100%;
-  height: 100%;
-  margin: 20px 0px;
-  padding: 10px 0px;
+  height: fit-height;
+  /* margin: 5px 0px;
+  padding: 10px 0px; */
   overflow-y: hidden;
   overflow-x: hidden;
   display:flex;
@@ -63,3 +63,10 @@ input {
   width:auto;
   height:auto;
 } */
+@media all and (min-width: 900px) {
+  .wheel-container {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+}

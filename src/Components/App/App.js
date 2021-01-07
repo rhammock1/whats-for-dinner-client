@@ -479,10 +479,11 @@ class App extends Component {
           ? <Popup handleClear={this.handleClearDemo} />
 
           : null}
+        <div className="big-container">
+          <Filter handleChange={this.handleChange} />
 
-        <Filter handleChange={this.handleChange} />
-
-        <Wheel />
+          <Wheel />
+        </div>
 
       </>
     );
