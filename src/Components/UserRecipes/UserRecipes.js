@@ -38,19 +38,20 @@ class UserRecipes extends React.Component {
     }
   }
 
-  handleApiCalls = () => {
+  handleApiCalls = async () => {
     const { userId } = this.props.match.params;
     let favorites;
     let recipes;
-    apiService.getUsersThings(userId, 'recipes')
+    await apiService.getUsersThings(userId, 'recipes')
       .then((resRecipes) => {
         recipes = resRecipes;
       })
+      .then(() => this.setState({ recipes }))
       .catch((error) => this.setState({ error: error.message }));
-    apiService.getUsersThings(userId, 'favorites')
+    await apiService.getUsersThings(userId, 'favorites')
       .then((resFavorites) => { favorites = resFavorites; })
       .then(() => {
-        this.setState({ recipes, favorites });
+        this.setState({ favorites });
       })
       .then(() => this.handleFavorites())
       .then(() => this.setState({ isResolved: true }))
@@ -73,7 +74,6 @@ class UserRecipes extends React.Component {
    removedDoubles = removedDoubles.filter((array) => ((array.length >= 2)
      ? array
      : null));
-
    const singleDouble = removedDoubles.map((double) => double[0]);
 
    const set = new Set(singleDouble);
@@ -86,13 +86,11 @@ class UserRecipes extends React.Component {
    }
    const { recipes } = this.state;
    const recipesInState = recipes;
-
    const filtered = [];
    let newArray;
    if (doubleFree.length > 0) {
      for (let i = 0; i < doubleFree.length; i++) {
        filtered.push(recipesInState.filter((recipe) => (recipe.id === doubleFree[i].item_id)));
-
        const itemIds = doubleFree.map((each) => each.item_id);
        newArray = recipesInState.filter((recipe) => !itemIds.includes(recipe.id));
      }
@@ -125,7 +123,7 @@ class UserRecipes extends React.Component {
           .then((favorites) => {
             this.setState({ favorites });
           })
-          .then(async () => this.handleFavorites())
+          .then(() => this.handleFavorites())
           .catch((error) => this.setState({ error }));
       })
       .then(() => {
@@ -221,7 +219,7 @@ render() {
     <section className="user-recipes">
       <h2>My Recipes</h2>
       <div role="alert">
-        {error && <p className="red">{error.message}</p>}
+        {error && <p className="red">{error}</p>}
       </div>
       <div className="recipe-container">
         {(isResolved)

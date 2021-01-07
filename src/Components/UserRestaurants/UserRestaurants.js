@@ -62,7 +62,7 @@ class UserRestaurants extends React.Component {
         this.handleFavorites();
         this.setState({ isResolved: true });
       })
-      .catch((error) => this.setState({ error: error.message }));
+      .catch((error) => this.setState({ error }));
   }
 
   // Removes duplicates from favoritedRestaurants array
@@ -102,7 +102,6 @@ class UserRestaurants extends React.Component {
         filtered.push(restaurantsInState.filter((restaurant) => (restaurant.id === doubleFree[i].item_id)));
 
         const itemIds = doubleFree.map((each) => each.item_id);
-
         newArray = restaurantsInState.filter((restaurant) => !itemIds.includes(restaurant.id));
       }
     } else {
