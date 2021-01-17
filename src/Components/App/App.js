@@ -229,11 +229,8 @@ class App extends Component {
       style,
     } = this.state;
     if (loggedIn && inOrOut === 'recipes') {
-      let filteredFavorites;
-
-      if (favorites.length > 0) {
-        filteredFavorites = favorites.filter((favorite) => favorite.what_it_is === 'recipe');
-
+      const filteredFavorites = favorites.filter((favorite) => favorite.what_it_is === 'recipe');
+      if (filteredFavorites.length > 0) {
         const filtered = [];
 
         const recipeIds = userRecipes.map((recipe) => recipe.id);
@@ -248,21 +245,23 @@ class App extends Component {
 
         filtered.map((array) => array.map((recipe) => favRecipes.push(recipe)));
 
-        for (let i = 0; i < 3; i++) {
-          const chosen = favRecipes[Math.floor(Math.random() * favRecipes.length)];
+        if (userRecipes.length < 6) {
+          for (let i = 0; i < 3; i++) {
+            const chosen = favRecipes[Math.floor(Math.random() * favRecipes.length)];
 
-          wheelOptions.push(chosen);
+            wheelOptions.push(chosen);
+          }
+
+          for (let i = 0; i < 6; i++) {
+            const chosen = recipes[Math.floor(Math.random() * recipes.length)];
+
+            wheelOptions.push(chosen);
+          }
         }
-
-        for (let i = 0; i < 6; i++) {
-          const chosen = userRecipes[Math.floor(Math.random() * userRecipes.length)];
-
-          wheelOptions.push(chosen);
-        }
-      } else if (userRecipes.length < 6) {
+      }
+      if (userRecipes.length < 6) {
         for (let i = 0; i < 9; i++) {
           const chosen = recipes[Math.floor(Math.random() * recipes.length)];
-
           wheelOptions.push(chosen);
         }
       } else {
