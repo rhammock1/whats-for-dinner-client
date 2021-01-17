@@ -48,7 +48,7 @@ class RestaurantDetailView extends React.Component {
 
           <div className="details-container">
 
-            {(restaurant.phone_number !== '' && restaurant.restaurant_address !== '')
+            {/* {(restaurant.phone_number !== '' && restaurant.restaurant_address !== '')
               ? (
                 <>
                   {' '}
@@ -62,8 +62,32 @@ class RestaurantDetailView extends React.Component {
                   </p>
                 </>
               )
-              : null}
+              : null} */}
             {fields.map((field) => {
+              if (!restaurant[field]) {
+                return null;
+              }
+              if (field === 'phone_number') {
+                return (
+                  <p>
+                    Phone Number:
+                    {' '}
+                    {restaurant[field]}
+                  </p>
+                );
+              }
+              if (field === 'restaurant_address') {
+                return (
+                  <p>
+                    Street Address:
+                    {' '}
+                    {restaurant[field]}
+                  </p>
+                );
+              }
+              return null;
+            })}
+            {/* {fields.map((field) => {
               if (!restaurant[field]) {
                 return null;
               }
@@ -78,7 +102,7 @@ class RestaurantDetailView extends React.Component {
                   </p>
                 </>
               );
-            })}
+            })} */}
           </div>
           <button type="button" onClick={this.handleBack} className="back-button">Back</button>
         </div>

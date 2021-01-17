@@ -22,6 +22,7 @@ import LoginPage from '../../routes/LoginPage';
 import TokenService from '../../services/token-service';
 import apiService from '../../services/api-service';
 import Popup from '../Popup/Popup';
+import NotFoundPage from '../../routes/404Page';
 
 class App extends Component {
   state = {
@@ -548,13 +549,13 @@ class App extends Component {
 
                 <li><Link className="nav-link" to="/">Home</Link></li>
 
-                <li><Link className="nav-link" to={`/${userId}/favorites`}>Favorites</Link></li>
+                <li><Link className="nav-link" to={`/users/${userId}/favorites`}>Favorites</Link></li>
 
-                <li><Link className="nav-link" to={`/${userId}/restaurants`}>My Restaurants</Link></li>
+                <li><Link className="nav-link" to={`/users/${userId}/restaurants`}>My Restaurants</Link></li>
 
-                <li><Link className="nav-link" to={`/${userId}/recipes`}>My Recipes</Link></li>
+                <li><Link className="nav-link" to={`/users/${userId}/recipes`}>My Recipes</Link></li>
 
-                <li><Link className="nav-link" to={`/${userId}/newThing`}>Add New</Link></li>
+                <li><Link className="nav-link" to={`/users/${userId}/newThing`}>Add New</Link></li>
 
               </ul>
 
@@ -569,15 +570,17 @@ class App extends Component {
 
             <Route exact path="/" component={this.renderMainView} />
 
-            <Route path="/recipes/:recipeId" render={(props) => (<RecipeDetailView {...props} recipe={recipe} />)} />
+            <Route exact path="/recipes/:recipeId" render={(props) => (<RecipeDetailView {...props} recipe={recipe} />)} />
 
-            <Route path="/restaurants/:restaurantId" render={(props) => (<RestaurantDetailView {...props} />)} />
+            <Route exact path="/restaurants/:restaurantId" render={(props) => (<RestaurantDetailView {...props} />)} />
 
             <PublicOnlyRoute path="/register" component={RegistrationPage} />
 
             <PublicOnlyRoute path="/login" component={LoginPage} />
 
-            <PrivateRoute path="/:userId" component={UserPage} />
+            <PrivateRoute path="/users/:userId" component={UserPage} />
+
+            <Route component={NotFoundPage} />
 
           </Switch>
 
