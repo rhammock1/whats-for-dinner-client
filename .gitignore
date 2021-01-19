@@ -11,7 +11,10 @@
 
 # production
 /build
-
+.firebase/
+.github/
+.vscode/
+.eslintrc.js
 # misc
 .DS_Store
 .env
