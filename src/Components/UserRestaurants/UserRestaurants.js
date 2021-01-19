@@ -283,7 +283,7 @@ render() {
           ))])
           : <p>loading...</p>}
 
-        <button type="button" className="add"><Link to={`/${userId}/newThing`}>Add new restaurant </Link></button>
+        <button type="button" className="add"><Link to={`/users/${userId}/newThing`}>Add new restaurant </Link></button>
       </div>
     </section>
 

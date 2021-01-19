@@ -135,7 +135,7 @@ class NewThing extends React.Component {
   handleSuccessClick = (thing) => {
     this.setState({ added: false });
     const { userId } = this.props.match.params;
-    this.props.history.push(`/${userId}/${thing}s`);
+    this.props.history.push(`/users/${userId}/${thing}s`);
   }
 
   render() {
